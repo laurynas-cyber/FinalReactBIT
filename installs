@@ -1,0 +1,22 @@
+BACK:
+
+npm init -y
+express
+body-parser
+mysql
+cors
+
+
+
+FRONT
+
+react
+sass
+boostrap
+toastify
+react icons
+axios
+popper.js
+spinner
+react dom router
+local storage match-sorter

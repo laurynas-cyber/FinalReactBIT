@@ -1,0 +1,8 @@
+.container - max width 1300
+.container-fluid - full size
+.container-lg nuo kada breakpointas
+col-auto - bus minimum dydis su tekstu
+offset-3 - patraukia i desine
+gy-5 - patraukia tarp eiluciu tarpa
+struktura container - row - col - row - col ...
+inputui form-control, form-label - inputas gaus full size  

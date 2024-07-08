@@ -1,12 +1,15 @@
-// .Navigation {
-//   border-radius: 5px;
+.Navigation {
+  border-radius: 5px;
+  border: solid 2px $emerald;
+  border-top: none;
+}
 
-//   .UserContainer {
-//     min-width: 200px;
-//   }
+.Pages {
+  border-right: 2px solid $emerald;
+  padding-right: 5px;
+}
 
-//   .logoImg {
-//     width: 10%;
-//   }
-// }
-
+.UserTags {
+  border-left: 2px solid $emerald;
+  padding-left: 5px;
+}

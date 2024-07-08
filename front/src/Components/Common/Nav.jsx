@@ -1,12 +1,13 @@
-import React from "react";
 import logo from "../../assets/images/logo.png";
 import { FaUser } from "react-icons/fa";
+import NavIcon from "./NavIcon";
 
 function Nav() {
   return (
     <nav className="navbar bg-body-tertiary pt-1">
-      <div className="container Navigation">
-        <div className="col d-flex  gap-3">
+      <div className="container-md Navigation">
+        <NavIcon />
+        <div className="col d-flex gap-3">
           <a className="Pages" href="">
             Page one
           </a>

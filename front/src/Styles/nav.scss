@@ -13,3 +13,65 @@
   border-left: 2px solid $emerald;
   padding-left: 5px;
 }
+
+.NavIconCont {
+  width: 40px;
+  height: 40px;
+  border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+
+  cursor: pointer;
+  .sticks {
+    width: 90%;
+    height: 3px;
+    background-color: $emerald;
+    position: relative;
+    top: 0;
+    transition: all ease-in 0.3s;
+  }
+}
+
+.stickMoveUp {
+  top: -20px;
+}
+
+.stickMoveDown {
+  top: 20px;
+}
+
+.stickCrossOne {
+  transform: rotate(45deg);
+  top: 5px;
+}
+
+.stickCrossTwo {
+  transform: rotate(-45deg);
+  top: -3px;
+}
+
+// .NavIconCont:hover .stickMoveUp {
+//   top: -20px;
+// }
+
+// .NavIconCont:hover .stickMoveDown {
+//   top: 20px;
+// }
+
+// .NavIconCont:hover .NavIconCont {
+//   justify-content: center;
+// }
+
+// .NavIconCont:hover .stickCrossOne {
+//   transform: rotate(45deg);
+//   top: 5px;
+// }
+
+// .NavIconCont:hover .stickCrossTwo {
+//   transform: rotate(-45deg);
+//   top: -3px;
+//   justify-self: center;
+// }

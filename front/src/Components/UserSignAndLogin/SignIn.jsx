@@ -1,9 +1,12 @@
 function SignIn() {
   return (
     <div className="container">
-      <div className="row  border border-danger">
-        <div className="col d-flex justify-content-center">
-          <h2>Become a member of you are team</h2>
+      <div className="row SignInTextContainer">
+        <div className="col d-flex justify-content-center align-items-center SignInText">
+          <h2>Become a member of our are team</h2>
+          <p>
+            Sign in, create your the fund, post it, get donations and help someone arround the world
+          </p>
         </div>
       </div>
       <form>

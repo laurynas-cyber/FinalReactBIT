@@ -1,0 +1,23 @@
+.SignInText {
+  flex-direction: column;
+
+  padding: 20px 0;
+}
+h2 {
+  background-color: $mint;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+}
+p {
+  text-align: center;
+  font-size: 20px;
+  border-radius: 4px;
+  border: solid 2px $mint;
+  height: 50%;
+  width: 100%;
+  padding: 20px 0;
+  margin: 0;
+}

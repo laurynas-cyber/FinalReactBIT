@@ -2,20 +2,20 @@ import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
 
 function NavRoutes() {
-  const { isClicked } = useContext(NavContext);
+  const { isClicked, isFullSize } = useContext(NavContext);
 
   console.log(isClicked);
 
   return (
     <div
-      className="col NavRoutesHidden"
+      className="col d-flex p-2 gap-3 NavRoutesHidden"
       style={{
         top: isClicked ? "100px" : "0px",
-        // display: isClicked ? "flex" : "none", Animation var
+        left: isFullSize ? null : "20px",
       }}
     >
-      <a className="Pages" href={`/pageOne`}>
-        Page one
+      <a className="Pages" href={`/`}>
+        Home
       </a>
       <a className="Pages" href={`/pageTwo`}>
         Page Two

@@ -2,17 +2,18 @@ import logo from "../../../assets/images/logo.png";
 import { FaUser } from "react-icons/fa";
 import NavIcon from "./NavIcon";
 import NavRoutes from "./NavRoutes";
-import NavResponsive from "../../Context/NavContext";
+import { useContext } from "react";
+import { NavContext } from "../../Context/NavContext";
 
 function Nav() {
+  const { isFullSize } = useContext(NavContext);
   return (
     <>
-      <nav className="navbar bg-body-tertiary pt-1">
+      {isFullSize ? null : <NavRoutes />}
+
+      <nav className="navbar bg-body-tertiary pt-2 position-sticky">
         <div className="container-md Navigation ">
-          <NavResponsive>
-            <NavIcon />
-            <NavRoutes />
-          </NavResponsive>
+          {isFullSize ? <NavRoutes /> : <NavIcon />}
           <div className="col d-flex justify-content-center">
             <a className="navbar-brand " href="#">
               <img src={logo} alt="recoveryLogo" width="150" height="auto" />
@@ -31,7 +32,7 @@ function Nav() {
         </div>
       </nav>
     </>
-  );
+  )
 }
 
 export default Nav;

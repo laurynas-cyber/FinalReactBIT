@@ -6,37 +6,31 @@ import Page2 from "./Components/Page2";
 import Page3 from "./Components/Page3";
 import SignIn from "./Components/UserSignAndLogin/SignIn.jsx";
 import LogIn from "./Components/UserSignAndLogin/LogIn.jsx";
+import ErrorPage from "./Components/Common/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // children: [
-    //   {
-    //     path: "/pageTwo",
-    //     element: <Page2 />,
-    //   },
-    // ],
-  },
-  {
-    path: "/pageOne",
-    element: <Page1 />,
-  },
-  {
-    path: "/pageTwo",
-    element: <Page2 />,
-  },
-  {
-    path: "/pageThree",
-    element: <Page3 />,
-  },
-  {
-    path: "/SignIn",
-    element: <SignIn />,
-  },
-  {
-    path: "/LogIn",
-    element: <LogIn />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/pageTwo",
+        element: <Page2 />,
+      },
+      {
+        path: "/pageThree",
+        element: <Page3 />,
+      },
+      {
+        path: "/SignIn",
+        element: <SignIn />,
+      },
+      {
+        path: "/LogIn",
+        element: <LogIn />,
+      },
+    ],
   },
 ]);
 

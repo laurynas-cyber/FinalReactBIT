@@ -1,40 +1,39 @@
 import logo from "../../assets/images/logo.png";
 import { FaUser } from "react-icons/fa";
 import NavIcon from "./NavIcon";
+import NavRoutes from "./NavRoutes";
+import NavResponsive from "../Context/NavContext";
 
 function Nav() {
   return (
-    <nav className="navbar bg-body-tertiary pt-1">
-      <div className="container-md Navigation">
-        <NavIcon />
-        <div className="col d-flex gap-3">
-          <a className="Pages" href="">
-            Page one
-          </a>
-          <a className="Pages" href="">
-            Page Two
-          </a>
-          <a className="Pages" href="">
-            Page Three
-          </a>
-        </div>
-        <div className="col d-flex justify-content-center">
-          <a className="navbar-brand " href="#">
-            <img src={logo} alt="recoveryLogo" width="150" height="auto" />
-          </a>
-        </div>
+    <>
+      {/* <NavResponsive>
+        <NavRoutes />
+      </NavResponsive> */}
+      <nav className="navbar bg-body-tertiary pt-1 position-sticky lol">
+        <div className="container-md Navigation ">
+          <NavResponsive>
+            <NavIcon />
+            <NavRoutes />
+          </NavResponsive>
+          <div className="col d-flex justify-content-center">
+            <a className="navbar-brand " href="#">
+              <img src={logo} alt="recoveryLogo" width="150" height="auto" />
+            </a>
+          </div>
 
-        <div className="col d-flex justify-content-end align-items-center gap-3">
-          <a className="UserTags" href="">
-            Sign in
-          </a>
-          <a className="UserTags" href="">
-            Log in
-          </a>
-          <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
+          <div className="col d-flex justify-content-end align-items-center gap-3">
+            <a className="UserTags" href="">
+              Sign in
+            </a>
+            <a className="UserTags" href="">
+              Log in
+            </a>
+            <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 

@@ -14,24 +14,28 @@
   padding-left: 5px;
 }
 
-.NavIconCont {
-  width: 40px;
-  height: 40px;
-  border: solid 1px red;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  overflow: hidden;
+//NavIcon
+.NavIconHide {
+  display: none;
+  .NavIconCont {
+    width: 40px;
+    height: 40px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    display: none;
 
-  cursor: pointer;
-  .sticks {
-    width: 90%;
-    height: 3px;
-    background-color: $emerald;
-    position: relative;
-    top: 0;
-    transition: all ease-in 0.3s;
+    cursor: pointer;
+    .sticks {
+      width: 90%;
+      height: 3px;
+      border-radius: 4px;
+      background-color: $emerald;
+      position: relative;
+      top: 0;
+      transition: all ease-in 0.3s;
+    }
   }
 }
 
@@ -53,25 +57,30 @@
   top: -3px;
 }
 
-// .NavIconCont:hover .stickMoveUp {
-//   top: -20px;
-// }
+// NavResponsivePosition
 
-// .NavIconCont:hover .stickMoveDown {
-//   top: 20px;
-// }
+@media only screen and (max-width: 769px) {
+  .NavIconHide {
+    display: block;
+    .NavIconCont {
+      display: flex;
+    }
+  }
 
-// .NavIconCont:hover .NavIconCont {
-//   justify-content: center;
-// }
+  .Pages {
+    border-bottom: 2px solid $emerald;
+    border-right: none;
+  }
 
-// .NavIconCont:hover .stickCrossOne {
-//   transform: rotate(45deg);
-//   top: 5px;
-// }
-
-// .NavIconCont:hover .stickCrossTwo {
-//   transform: rotate(-45deg);
-//   top: -3px;
-//   justify-self: center;
-// }
+  .NavRoutesHidden {
+    position: absolute;
+    top: 0;
+    min-height: 100px;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    transition: all ease-in 0.3s;
+    border: 2px solid $mint;
+    border-radius: 4px;
+  }
+}

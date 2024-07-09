@@ -1,6 +1,6 @@
 import "./Styles/main.scss";
 import React from "react";
-import Nav from "./Components/Common/Navbar/Nav";
+import Nav from "./Components/Common/Nav";
 
 function App() {
   return <Nav />;

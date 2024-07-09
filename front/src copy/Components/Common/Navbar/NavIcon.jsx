@@ -1,10 +1,8 @@
 import { useContext } from "react";
-import { NavContext } from "../Context/NavContext";
+import { NavContext } from "../../Context/NavContext";
 
 function NavIcon() {
   const { isClicked, handleNavIcon } = useContext(NavContext);
-
-
 
   return (
     <div className="col NavIconHide">

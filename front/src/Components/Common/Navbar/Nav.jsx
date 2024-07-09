@@ -1,16 +1,13 @@
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
 import { FaUser } from "react-icons/fa";
 import NavIcon from "./NavIcon";
 import NavRoutes from "./NavRoutes";
-import NavResponsive from "../Context/NavContext";
+import NavResponsive from "../../Context/NavContext";
 
 function Nav() {
   return (
     <>
-      {/* <NavResponsive>
-        <NavRoutes />
-      </NavResponsive> */}
-      <nav className="navbar bg-body-tertiary pt-1 position-sticky lol">
+      <nav className="navbar bg-body-tertiary pt-1">
         <div className="container-md Navigation ">
           <NavResponsive>
             <NavIcon />
@@ -23,10 +20,10 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
-            <a className="UserTags" href="">
+            <a className="UserTags" href={`/SignIn`}>
               Sign in
             </a>
-            <a className="UserTags" href="">
+            <a className="UserTags" href={`/LogIn`}>
               Log in
             </a>
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />

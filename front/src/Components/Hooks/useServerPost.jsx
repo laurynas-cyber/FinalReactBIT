@@ -20,7 +20,7 @@ const useServerPost = (url) => {
       })
       .catch((error) => {
         console.log(error);
-        ErrorMSg("Server is not responding");
+        ErrorMSg(error);
         // SuccessMsg();
         // InfoMsg();
         setResponse({

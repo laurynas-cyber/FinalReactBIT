@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import useServerPost from "../Hooks/useServerPost";
+import useRegister from "../Validations/useRegister";
+import Inputs from "./Forms/Inputs";
 
 function SignIn() {
   const defaultValues = {
@@ -11,12 +13,16 @@ function SignIn() {
 
   const [form, setForm] = useState(defaultValues);
   const { doAction, response } = useServerPost("register");
+  const { errors, validate, setServerErrors } = useRegister();
 
   function handleForm(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
   function handleSubmit() {
+    if (!validate(form)) {
+      return;
+    }
     doAction({
       name: form.name,
       email: form.email,
@@ -50,72 +56,51 @@ function SignIn() {
         </div>
         <form>
           <div className="container p-0 SignInFormContainer">
-            <div className="form-floating">
-              <input
-                onChange={handleForm}
-                type="text"
-                id="name"
-                className="form-control"
-                placeholder="whatever"
-                name="name"
-                autoComplete="name"
-                value={form.name}
-              ></input>
-              <label htmlFor="name" className="form-label">
-                Your name
-              </label>
-            </div>
-            <div className="form-floating">
-              <input
-                onChange={handleForm}
-                type="email"
-                id="email"
-                className="form-control"
-                placeholder="whatever"
-                name="email"
-                autoComplete="email"
-                value={form.email}
-              ></input>
-              <label htmlFor="email" className="form-label">
-                Enter email
-              </label>
-            </div>
-            <div className="form-floating">
-              <input
-                onChange={handleForm}
-                id="psw"
-                className="form-control"
-                placeholder="whatever"
-                name="psw"
-                autoComplete="psw"
-                type="password"
-                value={form.psw}
-              ></input>
-              <label htmlFor="psw" className="form-label">
-                Password
-              </label>
-            </div>
-            <div className="form-floating">
-              <input
-                onChange={handleForm}
-                type="password"
-                id="psw2"
-                className="form-control"
-                placeholder="whatever"
-                name="psw2"
-                autoComplete="psw2"
-                value={form.psw2}
-              ></input>
-              <label htmlFor="psw2" className="form-label">
-                Repeat your password
-              </label>
-            </div>
+            <Inputs
+              errors={errors}
+              onChange={handleForm}
+              value={form.name}
+              type="text"
+              name="name"
+              placeholder="Your name"
+              autoComplete="username"
+            />
+            <Inputs
+              errors={errors}
+              onChange={handleForm}
+              value={form.email}
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter email"
+              autoComplete="email"
+            />
+            <Inputs
+              errors={errors}
+              onChange={handleForm}
+              value={form.psw}
+              type="password"
+              name="psw"
+              id="psw"
+              placeholder="Password"
+              autoComplete="psw"
+            />
+            <Inputs
+              errors={errors}
+              onChange={handleForm}
+              value={form.psw2}
+              type="password"
+              name="psw2"
+              id="psw2"
+              placeholder="Repeat your password"
+              autoComplete="psw"
+            />
 
             <button
               type="button"
               onClick={handleSubmit}
               value="Registruotis"
-              class="btn btn-primary"
+              className="btn btn-primary"
             >
               Submit
             </button>

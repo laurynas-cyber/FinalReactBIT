@@ -1,0 +1,7 @@
+Pastilinti
+
+Inputus pagerinti /label/ input shadow
+
+zinutems prideti teksto
+
+responsive

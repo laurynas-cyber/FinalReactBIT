@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Page1 from "./Components/Page1";
 import Page2 from "./Components/Page2";
 import Page3 from "./Components/Page3";
 import SignIn from "./Components/UserSignAndLogin/SignIn.jsx";
@@ -36,7 +35,6 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // react router
 
   <RouterProvider router={router} />
 );

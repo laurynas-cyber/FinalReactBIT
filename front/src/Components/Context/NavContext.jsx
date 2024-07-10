@@ -21,7 +21,6 @@ export default function NavResponsive({ children }) {
 
   function handleNavIcon() {
     setisClicked(!isClicked);
-    console.log(isClicked);
   }
   return (
     <NavContext.Provider value={{ isClicked, handleNavIcon, isFullSize }}>

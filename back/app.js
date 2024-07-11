@@ -17,6 +17,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/register", (req, res) => {
+  const { email } = req.body;
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    res
+      .status(422)
+      .json({
+        message: "Siunčiamoje formoje yra klaidų",
+        errors: {
+          email: "El pašto formatas neteisingas",
+        },
+      })
+      .end();
+  }
   res.status(422).json({
     message: "Viskas blogai",
   });

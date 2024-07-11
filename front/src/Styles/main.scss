@@ -3,6 +3,7 @@
 @import "./nav.scss";
 @import "./sign-in.scss";
 @import "./toasts.scss";
+@import "error-page.scss";
 
 * {
   font-family: "Nunito", sans-serif;
@@ -18,4 +19,13 @@ a {
 
 a:hover {
   color: $orange;
+}
+
+h2 {
+  background-color: $mint;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
 }

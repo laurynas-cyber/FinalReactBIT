@@ -9,12 +9,10 @@ function Messages({ children }) {
     if (!error.response) {
       toast.error("Server is not responding", {
         position: "bottom-right",
-
       });
     } else {
-      toast.error("Server Error " + error.response.status, {
+      toast.error("Wrong email " + error.response.status, {
         position: "bottom-right",
-
       });
     }
   });

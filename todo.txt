@@ -5,3 +5,11 @@ Inputus pagerinti /label/ input shadow
 zinutems prideti teksto
 
 responsive
+
+pataisyti zinutes is app i angl kalba, palieku kol suprasciau kaip veikia
+
+pakeisti a anchor i Link router
+
+padaryti validaciją kol rašom i inputa
+
+Su messeges susitvarkyti nevyksta fronto validacija

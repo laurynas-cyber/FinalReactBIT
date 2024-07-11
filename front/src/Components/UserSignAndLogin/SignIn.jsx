@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useServerPost from "../Hooks/useServerPost";
 import useRegister from "../Validations/useRegister";
 import Inputs from "./Forms/Inputs";
+import * as l from "../../Constants/urls";
 
 function SignIn() {
   const defaultValues = {
@@ -12,8 +13,9 @@ function SignIn() {
   };
 
   const [form, setForm] = useState(defaultValues);
-  const { doAction, response } = useServerPost("register");
+  const { doAction, response } = useServerPost(l.SERVER_REGISTER);
   const { errors, validate, setServerErrors } = useRegister();
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   function handleForm(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -23,6 +25,7 @@ function SignIn() {
     if (!validate(form)) {
       return;
     }
+    setButtonDisabled(true);
     doAction({
       name: form.name,
       email: form.email,
@@ -36,7 +39,13 @@ function SignIn() {
         return;
       }
 
+      setButtonDisabled(false);
       if (response.type === "success") {
+        window.location.hash = l.REDIRECT_AFTER_REGISTER;
+      } else {
+        if (response.data?.response?.data?.errors) {
+          setServerErrors(response.data.response.data.errors);
+        }
       }
     },
     [response]
@@ -97,6 +106,7 @@ function SignIn() {
             />
 
             <button
+              disabled={buttonDisabled}
               type="button"
               onClick={handleSubmit}
               value="Registruotis"

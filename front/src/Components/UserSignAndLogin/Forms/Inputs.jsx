@@ -21,7 +21,7 @@ function Inputs({
       ></input>
       <label
         htmlFor="name"
-        className={errors[name] ? "form-label show" : "form-label"}
+        className={`form-label ${errors[name] ? "show" : ""}`}
       >
         {errors[name] ? errors[name] : placeholder}
       </label>

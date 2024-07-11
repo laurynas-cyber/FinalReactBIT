@@ -1,0 +1,11 @@
+.logIngHeight {
+  max-height: 80vh;
+  min-height: 70vh;
+  .logInformCenter {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

@@ -3,6 +3,7 @@ import logo from "../../assets/images/logo.png";
 function ErrorPage() {
   return (
     <div className="container-fluid ErropageContainer">
+      
       <div className="row ErrorPageCenter">
         <div className="erropageContaier ">
           <h2>Unexpected Application Error!</h2>

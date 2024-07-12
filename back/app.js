@@ -7,7 +7,16 @@ const mysql = require("mysql");
 // const fs = require('node:fs');
 const md5 = require("md5");
 const app = express();
-const port = 3001;
+const port = 3006;
+
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "recovery",
+});
+
+connection.connect();
 
 app.use(cors());
 
@@ -17,24 +26,57 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/register", (req, res) => {
-  const { email } = req.body;
+  const { name, email, password } = req.body;
 
   if (!/\S+@\S+\.\S+/.test(email)) {
     res
       .status(422)
       .json({
         message: "Siunčiamoje formoje yra klaidų",
-        errors: {
+        errorsBag: {
           email: "El pašto formatas neteisingas",
         },
       })
       .end();
+    return;
   }
-  res.status(422).json({
-    message: "Viskas blogai",
+
+  const sql = `SELECT email FROM users WHERE email = ? `;
+
+  connection.query(sql, [email], (err, rows) => {
+    if (err) throw err;
+    if (rows.length) {
+      res
+        .status(422)
+        .json({
+          message: "Siunčiamoje formoje yra klaidų",
+          errorsBag: {
+            email: "Toks el paštas jau yra",
+          },
+        })
+        .end();
+    } else {
+      const sql = `
+            INSERT INTO users (name, email, password)
+            VALUES ( ?, ?, ? )
+            `;
+      connection.query(sql, [name, email, md5(password)], (err) => {
+        if (err) throw err;
+        res
+          .status(201)
+          .json({
+            message: {
+              type: "success",
+              title: "Sveiki!",
+              text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
+            },
+          })
+          .end();
+      });
+    }
   });
 });
 
 app.listen(port, (_) => {
-  console.log(` Server app listening on port ${port}`);
+  console.log(`Recovery app listening on port ${port}`);
 });

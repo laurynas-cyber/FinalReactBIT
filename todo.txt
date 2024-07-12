@@ -13,3 +13,5 @@ pakeisti a anchor i Link router
 padaryti validaciją kol rašom i inputa
 
 Su messeges susitvarkyti nevyksta fronto validacija
+
+info padaryti kai blogas email is serverside

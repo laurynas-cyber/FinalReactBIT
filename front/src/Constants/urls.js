@@ -1,12 +1,12 @@
-export const SERVER_URL = "http://localhost:3001/";
-export const SIDE_URL = "http://localhost:3000/";
+export const SERVER_URL = "http://localhost:3006/";
+export const SIDE_URL = "http://localhost:3005/";
 
 //Site URLs
 
-export const SITE_LOGIN = "#prisijungti";
-export const SITE_REGISTER = "#registruotis";
+export const SITE_LOGIN = "/LogIn";
+export const SITE_REGISTER = "#SignIn";
 export const SITE_HOME = "#";
-export const REDIRECT_AFTER_REGISTER = "#prisijungti";
+export const REDIRECT_AFTER_REGISTER = "/LogIn";
 
 //Admin URLs
 

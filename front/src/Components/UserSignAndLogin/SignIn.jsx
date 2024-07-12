@@ -13,7 +13,7 @@ function SignIn() {
   };
 
   const [form, setForm] = useState(defaultValues);
-  const { doAction, response } = useServerPost(l.SERVER_REGISTER);
+  const { doAction, serverResponse } = useServerPost(l.SERVER_REGISTER);
   const { errors, validate, setServerErrors } = useRegister();
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -29,26 +29,28 @@ function SignIn() {
     doAction({
       name: form.name,
       email: form.email,
-      psw: form.psw,
+      password: form.psw,
     });
   }
 
   useEffect(
     (_) => {
-      if (null === response) {
+      if (null === serverResponse) {
         return;
       }
 
       setButtonDisabled(false);
-      if (response.type === "success") {
-        window.location.hash = l.REDIRECT_AFTER_REGISTER;
+      if (serverResponse.type === "success") {
+        setTimeout(() => {
+          window.location = l.REDIRECT_AFTER_REGISTER;
+        }, "4000");
       } else {
-        if (response.data?.response?.data?.errors) {
-          setServerErrors(response.data.response.data.errors);
+        if (serverResponse.serverData?.response?.data?.errorsBag) {
+          setServerErrors(serverResponse.serverData.response.data.errorsBag);
         }
       }
     },
-    [response]
+    [serverResponse]
   );
 
   return (

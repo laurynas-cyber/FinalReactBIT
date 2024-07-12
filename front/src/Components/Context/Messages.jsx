@@ -17,11 +17,11 @@ function Messages({ children }) {
     }
   });
 
-  const SuccessMsg = (msg) => {
-    toast.success(`${msg}`, {
+  const SuccessMsg = useCallback((res) => {
+    toast.success(`${res.data.message.text}`, {
       position: "bottom-right",
     });
-  };
+  });
 
   const InfoMsg = (msg) => {
     toast.info(`${msg}`, {

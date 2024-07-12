@@ -1,9 +1,14 @@
 import React from "react";
 import Inputs from "./Forms/Inputs";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
     <div className="container p-0 logIngHeight">
+      <div className="col d-flex justify-content-center align-items-center SignInText">
+        <p>Log in or Sign in if you are still not our member</p>
+      </div>
+
       <form className="logInformCenter">
         <div className="container p-0 SignInFormContainer">
           <Inputs
@@ -34,6 +39,14 @@ function Login() {
           >
             Log in
           </button>
+          <Link
+            to="/SignIn"
+            type="button"
+            value="Registruotis"
+            className="btn SignInBtn"
+          >
+            Sign in
+          </Link>
         </div>
       </form>
     </div>

@@ -6,6 +6,9 @@ import Page3 from "./Components/Page3";
 import SignIn from "./Components/UserSignAndLogin/SignIn.jsx";
 import LogIn from "./Components/UserSignAndLogin/LogIn.jsx";
 import ErrorPage from "./Components/Common/ErrorPage.jsx";
+import AdminLayout from "./Components/Admin/AdminLayout.jsx";
+// import UsersList from "./Components/Admin/UserList.jsx";
+import UsersList from "./Components/Admin/UsersList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,8 +32,28 @@ const router = createBrowserRouter([
         path: "LogIn",
         element: <LogIn />,
       },
+      {
+        path: "dashbord",
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "userlist",
+            element: <SignIn />,
+          },
+        ],
+      },
     ],
   },
+  // {
+  //   path: "dashbord",
+  //   element: <AdminLayout />,
+  //   children: [
+  //     {
+  //       path: "userlist",
+  //       element: <UsersList />,
+  //     },
+  //   ],
+  // },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

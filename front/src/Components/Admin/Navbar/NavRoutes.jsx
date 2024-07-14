@@ -18,9 +18,9 @@ function NavRoutes() {
       <Link className="Pages" to={`/dashbord`}>
         Home
       </Link>
-      <a className="Pages" href="http://localhost:3005/dashbord/userlist">
+      <Link className="Pages" to="userlist">
         UserList
-      </a>
+      </Link>
       <Link className="Pages" to={`pageThree`}>
         Page Three
       </Link>

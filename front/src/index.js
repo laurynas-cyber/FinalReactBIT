@@ -9,6 +9,8 @@ import ErrorPage from "./Components/Common/ErrorPage.jsx";
 import AdminLayout from "./Components/Admin/AdminLayout.jsx";
 // import UsersList from "./Components/Admin/UserList.jsx";
 import UsersList from "./Components/Admin/UsersList.jsx";
+import Home from "./Components/Home.jsx";
+import Dashbord from "./Components/Admin/Dashbord.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Home /> },
       {
         path: "pageTwo",
         element: <Page2 />,
@@ -32,28 +35,20 @@ const router = createBrowserRouter([
         path: "LogIn",
         element: <LogIn />,
       },
+
+    ],
+  },
+  {
+    path: "/dashbord",
+    element: <AdminLayout />,
+    children: [
+      { index: true, element: <Dashbord /> },
       {
-        path: "dashbord",
-        element: <AdminLayout />,
-        children: [
-          {
-            path: "userlist",
-            element: <SignIn />,
-          },
-        ],
+        path: "userlist",
+        element: <UsersList />,
       },
     ],
   },
-  // {
-  //   path: "dashbord",
-  //   element: <AdminLayout />,
-  //   children: [
-  //     {
-  //       path: "userlist",
-  //       element: <UsersList />,
-  //     },
-  //   ],
-  // },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

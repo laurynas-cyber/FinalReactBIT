@@ -5,6 +5,7 @@ import "./index.css"; //react router
 import Root from "./routes/root"; //react router
 import ErrorPage from "./error-page"; //react router
 import Contact from "./routes/contact"; //react router
+import Home from "./routes/Home";
 
 // https://reactrouter.com/en/main/start/tutorial
 
@@ -13,8 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Home /> },
       {
         path: "contacts/:contactId",
         element: <Contact />,

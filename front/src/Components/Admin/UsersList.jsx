@@ -55,9 +55,16 @@ function UsersList() {
                   <div className="col tableReference userEmail">{u.email}</div>
                   <div className="col tableReference userRole">{u.role}</div>
                   <div className="col tableReference Actions">
-                    <div className="TableButtons border border-danger">
-                      <button type="btn button">Edit</button>
-                      <button type="btn button">Delete</button>
+                    <div className="TableButtons">
+                      <button type="button" className="btn SecondActionBtn">
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary mainActionBtn"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>

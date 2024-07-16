@@ -1,6 +1,8 @@
 @import "bootstrap/scss/bootstrap";
 @import "./global/colors.scss";
 @import "./global/toasts.scss";
+@import "./global/buttons.scss";
+@import "./global/modal.scss";
 
 @import "./components/error-page.scss";
 @import "./components/nav.scss";
@@ -17,10 +19,6 @@ a {
   text-decoration: none;
   color: black;
   transition: all ease-in 0.3s;
-}
-
-a:hover {
-  color: $orange;
 }
 
 h2 {

@@ -12,10 +12,8 @@ pakeisti a anchor i Link router
 
 padaryti validaciją kol rašom i inputa
 
-Su messeges susitvarkyti nevyksta fronto validacija
-
 info padaryti kai blogas email is serverside
 
-buttons perkelti i atskira scss
+Modalai
 
-Admino ir vartotojo kontekstas
+suziureti routerio url vardus, pakeisti htmle, ir pervadinti i angl kalba

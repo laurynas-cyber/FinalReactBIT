@@ -22,18 +22,15 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
-            <Link className="UserTags" to={`/SignIn`}>
-              Sign in
-            </Link>
             <Link className="UserTags" to={`/LogIn`}>
-              Log in
+              Log out
             </Link>
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
           </div>
         </div>
       </nav>
     </>
-  )
+  );
 }
 
 export default Nav;

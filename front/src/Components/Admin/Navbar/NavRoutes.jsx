@@ -15,7 +15,7 @@ function NavRoutes() {
         left: isFullSize ? null : "20px",
       }}
     >
-      <Link className="Pages" to={`/dashbord`}>
+      <Link className="Pages" to={`/`}>
         Home
       </Link>
       <Link className="Pages" to="userlist">

@@ -1,11 +1,12 @@
 @import "bootstrap/scss/bootstrap";
-@import "./colors.scss";
-@import "./nav.scss";
-@import "./sign-in.scss";
-@import "./log-in.scss";
-@import "./toasts.scss";
-@import "error-page.scss";
+@import "./global/colors.scss";
+@import "./global/toasts.scss";
 
+@import "./components/error-page.scss";
+@import "./components/nav.scss";
+@import "./components//sign-in.scss";
+@import "./components/log-in.scss";
+@import "./components/user-list.scss";
 * {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;

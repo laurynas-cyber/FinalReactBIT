@@ -1,0 +1,24 @@
+.userTable {
+  margin: 20px 0;
+
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  .tableNames {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .tableReference {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .divideRow {
+    background-color: $blue;
+    height: 1px;
+    width: 100%;
+    border-radius: 4px;
+  }
+}

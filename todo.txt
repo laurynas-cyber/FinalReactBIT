@@ -15,3 +15,7 @@ padaryti validaciją kol rašom i inputa
 Su messeges susitvarkyti nevyksta fronto validacija
 
 info padaryti kai blogas email is serverside
+
+buttons perkelti i atskira scss
+
+Admino ir vartotojo kontekstas

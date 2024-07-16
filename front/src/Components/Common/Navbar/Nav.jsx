@@ -22,6 +22,9 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
+            <Link className="UserTags" to={`/dashbord`}>
+              ADMIN
+            </Link>
             <Link className="UserTags" to={`/SignIn`}>
               Sign in
             </Link>
@@ -33,7 +36,7 @@ function Nav() {
         </div>
       </nav>
     </>
-  )
+  );
 }
 
 export default Nav;

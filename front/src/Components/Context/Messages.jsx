@@ -18,6 +18,9 @@ function Messages({ children }) {
   });
 
   const SuccessMsg = useCallback((res) => {
+    if (!res.data.message) {
+      return;
+    }
     toast.success(`${res.data.message.text}`, {
       position: "bottom-right",
     });

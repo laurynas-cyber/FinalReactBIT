@@ -2,13 +2,14 @@
 @import "./global/colors.scss";
 @import "./global/toasts.scss";
 @import "./global/buttons.scss";
-@import "./global/modal.scss";
 
 @import "./components/error-page.scss";
 @import "./components/nav.scss";
 @import "./components//sign-in.scss";
 @import "./components/log-in.scss";
 @import "./components/user-list.scss";
+@import "./components/delete-modal.scss";
+
 * {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;

@@ -14,6 +14,7 @@ padaryti validaciją kol rašom i inputa
 
 info padaryti kai blogas email is serverside
 
-Modalai
+Admino ir App kontekstai. gal galima padaryti globalius kontekstus ?
 
 suziureti routerio url vardus, pakeisti htmle, ir pervadinti i angl kalba
+

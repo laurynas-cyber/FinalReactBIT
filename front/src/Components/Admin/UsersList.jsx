@@ -49,8 +49,8 @@ function UsersList() {
             </div>
             <div className="divideRow"></div>
             {users.map((u) => (
-              <>
-                <div key={u.id} className="tableNames">
+              <div key={u.id}>
+                <div className="tableNames">
                   <div className="col tableReference userName">{u.name}</div>
                   <div className="col tableReference userEmail">{u.email}</div>
                   <div className="col tableReference userRole">{u.role}</div>
@@ -69,7 +69,7 @@ function UsersList() {
                   </div>
                 </div>
                 <div className="divideRow"></div>
-              </>
+              </div>
             ))}
           </div>
         )}

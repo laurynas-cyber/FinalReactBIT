@@ -1,17 +1,24 @@
+import "react-toastify/dist/ReactToastify.css";
 import "../../Styles/main.scss";
 import Nav from "./Navbar/Nav";
 import NavResponsive from "../Context/NavContext";
-import Dashbord from "./Dashbord";
 import { Outlet } from "react-router-dom";
 import Messages from "../Context/Messages";
+import Modals from "../Context/Modals";
+import DeleteModal from "../Common/DeleteModal";
+import { ToastContainer } from "react-toastify";
 
 function AdminLayout() {
   return (
     <Messages>
-      <NavResponsive>
-        <Nav />
-        <Outlet />
-      </NavResponsive>
+      <Modals>
+        <NavResponsive>
+          <Nav />
+          <DeleteModal />
+          <Outlet />
+          <ToastContainer />
+        </NavResponsive>
+      </Modals>
     </Messages>
   );
 }

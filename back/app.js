@@ -38,6 +38,45 @@ app.get("/admin/users", (_, res) => {
   });
 });
 
+app.delete("/admin/delete/user/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+
+    const sql = `
+        DELETE 
+        FROM users 
+        WHERE id = ? AND role != 'admin'
+        `;
+
+    connection.query(sql, [id], (err, result) => {
+      if (err) throw err;
+      const deleted = result.affectedRows;
+      if (!deleted) {
+        res
+          .status(422)
+          .json({
+            message: {
+              type: "info",
+              title: "Vartotojai",
+              text: `Vartotojas yra administratorius ir negali būti ištrintas arba vartotojas neegzistuoja`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          message: {
+            type: "success",
+            title: "Vartotojai",
+            text: `Vartotojas sėkmingai ištrintas`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
 

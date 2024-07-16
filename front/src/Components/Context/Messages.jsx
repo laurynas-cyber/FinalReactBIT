@@ -17,7 +17,7 @@ function Messages({ children }) {
         });
       }
     },
-    [toast.error]
+    []
   );
 
   const SuccessMsg = useCallback(
@@ -29,7 +29,7 @@ function Messages({ children }) {
         position: "bottom-right",
       });
     },
-    [toast.success]
+    []
   );
 
   const InfoMsg = (msg) => {

@@ -19,14 +19,22 @@ function DeleteModal() {
     <div className="delete-modal-container">
       <div className="modal">
         <span className="cancel">
-          <GiCancel />
+          <GiCancel onClick={(_) => setDeleteModal(null)} />
         </span>
-        <p>Are you sure you want to delete?</p>
+        <p>Are you sure you want to delete {deleteModal.data.name}?</p>
         <div className="buttons d-flex gap-2">
-          <button type="button" className="btn mainActionBtn">
+          <button
+            onClick={submitDelete}
+            type="button"
+            className="btn mainActionBtn"
+          >
             Yes
           </button>
-          <button type="button" className="btn SecondActionBtn">
+          <button
+            onClick={(_) => setDeleteModal(null)}
+            type="button"
+            className="btn SecondActionBtn"
+          >
             Cancel
           </button>
         </div>

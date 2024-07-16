@@ -1,30 +1,53 @@
 import useServerGet from "../Hooks/useServerGet";
 import * as l from "../../Constants/urls";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import useServerDelete from "../Hooks/useServerDelete";
+import { ModalContext } from "../Context/Modals";
 
 function UsersList() {
-  const { doAction, serverResponse } = useServerGet(l.SERVER_GET_USERS);
-
+  const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
+    l.SERVER_GET_USERS
+  );
+  const { doAction: doDelete, serverResponse: serverDeleteResponse } =
+    useServerDelete(l.SERVER_DELETE_USER);
+  const { setDeleteModal } = useContext(ModalContext);
   const [users, setUsers] = useState(null);
 
+  const hideUser = (user) => {
+    setUsers((u) =>
+      u.map((u) => (u.id === user.id ? { ...u, hidden: true } : u))
+    );
+  };
+
   useEffect(
     (_) => {
-      doAction();
+      doGet();
     },
-    [doAction]
+    [doGet]
   );
 
   useEffect(
     (_) => {
-      if (null === serverResponse) {
+      if (null === serverGetResponse) {
         return;
       }
-      console.log(serverResponse);
-      setUsers(serverResponse.serverData.users ?? null);
+
+      setUsers(serverGetResponse.serverData.users ?? null);
     },
-    [serverResponse]
+    [serverGetResponse]
   );
-  console.log(users);
+
+  useEffect(
+    (_) => {
+      if (null === serverDeleteResponse) {
+        return;
+      }
+
+      console.log(serverDeleteResponse);
+      // setUsers(serverDeleteResponse.serverData.users ?? null)
+    },
+    [serverDeleteResponse]
+  );
 
   return (
     <>
@@ -62,6 +85,13 @@ function UsersList() {
                       <button
                         type="button"
                         className="btn btn-primary mainActionBtn"
+                        onClick={(_) =>
+                          setDeleteModal({
+                            data: u,
+                            doDelete,
+                            hideData: hideUser,
+                          })
+                        }
                       >
                         Delete
                       </button>
@@ -73,6 +103,8 @@ function UsersList() {
             ))}
           </div>
         )}
+
+        {/* <div>Viso vartototojų: {users.filter((u) => !u.hidden).length}</div> */}
       </div>
     </>
   );

@@ -3,7 +3,6 @@ import useServerPost from "../Hooks/useServerPost";
 import useRegister from "../Validations/useRegister";
 import Inputs from "./Forms/Inputs";
 import * as l from "../../Constants/urls";
-import { redirect } from "react-router-dom";
 
 function SignIn() {
   const defaultValues = {
@@ -51,7 +50,7 @@ function SignIn() {
         }
       }
     },
-    [serverResponse]
+    [serverResponse, setServerErrors]
   );
 
   return (

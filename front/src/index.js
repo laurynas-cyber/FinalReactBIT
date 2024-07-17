@@ -12,6 +12,9 @@ import UsersList from "./Components/Admin/UsersList.jsx";
 import Home from "./Components/Home.jsx";
 import Dashbord from "./Components/Admin/Dashbord.jsx";
 import UserEdit from "./Components/Admin/UserEdit.jsx";
+import NavResponsive from "./Components/Context/NavContext.jsx";
+import Modals from "./Components/Context/Modals.jsx";
+import Messages from "./Components/Context/Messages.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +59,14 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Messages>
+    <Modals>
+      <NavResponsive>
+        <RouterProvider router={router} />
+      </NavResponsive>
+    </Modals>
+  </Messages>
+);
 
 // https://docs.google.com/document/d/1_jCo5rDt0_GRURYuSJtG7scMvTsov_YLj9KW6bDWJVM/edit?usp=sharing

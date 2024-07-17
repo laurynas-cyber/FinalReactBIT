@@ -4,7 +4,7 @@ import { useEffect, useState, useContext, useCallback } from "react";
 import useServerDelete from "../Hooks/useServerDelete";
 import { ModalContext } from "../Context/Modals";
 import { Link } from "react-router-dom";
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import HashLoader from "react-spinners/HashLoader";
 
 function UsersList() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -71,8 +71,12 @@ function UsersList() {
       <div className="container p-0">
         <h2>UsersList</h2>
         {users === null && (
-          <div className="row Spinner d-flex justify-content-center">
-            <ClimbingBoxLoader color="#358cc8" size={30} />
+          <div className="row Spinner">
+            <div className="col loadingDataContainer">
+              <h4>Loading list...</h4>
+
+              <HashLoader color="#358cc8" size={100} />
+            </div>
           </div>
         )}
         {users !== null && (

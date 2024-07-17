@@ -9,9 +9,9 @@ const useServerGet = (url) => {
   const { ErrorMSg, SuccessMsg } = useContext(MessagesContext);
 
   const doAction = useCallback(
-    (_) => {
+    (dataString = "") => {
       axios
-        .get(`${SERVER_URL}${url}`)
+        .get(`${SERVER_URL}${url}${dataString}`)
         .then((res) => {
           SuccessMsg(res);
           setResponse({

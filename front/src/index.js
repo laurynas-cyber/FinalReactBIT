@@ -11,6 +11,7 @@ import AdminLayout from "./Components/Admin/AdminLayout.jsx";
 import UsersList from "./Components/Admin/UsersList.jsx";
 import Home from "./Components/Home.jsx";
 import Dashbord from "./Components/Admin/Dashbord.jsx";
+import UserEdit from "./Components/Admin/UserEdit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,6 @@ const router = createBrowserRouter([
         path: "LogIn",
         element: <LogIn />,
       },
-
     ],
   },
   {
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "userlist",
         element: <UsersList />,
+      },
+      {
+        path: "userlist/:id",
+        element: <UserEdit />,
       },
     ],
   },

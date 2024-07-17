@@ -1,8 +1,9 @@
 import useServerGet from "../Hooks/useServerGet";
 import * as l from "../../Constants/urls";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import useServerDelete from "../Hooks/useServerDelete";
 import { ModalContext } from "../Context/Modals";
+import { Link } from "react-router-dom";
 
 function UsersList() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -18,6 +19,19 @@ function UsersList() {
       u.map((u) => (u.id === user.id ? { ...u, hidden: true } : u))
     );
   };
+
+  const showUser = useCallback((_) => {
+    setUsers((u) =>
+      u.map((u) => {
+        delete u.hidden;
+        return u;
+      })
+    );
+  }, []);
+
+  const removeHidden = useCallback((_) => {
+    setUsers((u) => u.filter((u) => !u.hidden));
+  }, []);
 
   useEffect(
     (_) => {
@@ -42,11 +56,13 @@ function UsersList() {
       if (null === serverDeleteResponse) {
         return;
       }
-
-      console.log(serverDeleteResponse);
-      // setUsers(serverDeleteResponse.serverData.users ?? null)
+      if (serverDeleteResponse.type === "error") {
+        showUser();
+      } else {
+        removeHidden();
+      }
     },
-    [serverDeleteResponse]
+    [serverDeleteResponse, showUser, removeHidden]
   );
 
   return (
@@ -71,36 +87,43 @@ function UsersList() {
               </div>
             </div>
             <div className="divideRow"></div>
-            {users.map((u) => (
-              <div key={u.id}>
-                <div className="tableNames">
-                  <div className="col tableReference userName">{u.name}</div>
-                  <div className="col tableReference userEmail">{u.email}</div>
-                  <div className="col tableReference userRole">{u.role}</div>
-                  <div className="col tableReference Actions">
-                    <div className="TableButtons">
-                      <button type="button" className="btn SecondActionBtn">
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary mainActionBtn"
-                        onClick={(_) =>
-                          setDeleteModal({
-                            data: u,
-                            doDelete,
-                            hideData: hideUser,
-                          })
-                        }
-                      >
-                        Delete
-                      </button>
+            {users.map((u) =>
+              u.hidden ? null : (
+                <div key={u.id}>
+                  <div className="tableNames">
+                    <div className="col tableReference userName">{u.name}</div>
+                    <div className="col tableReference userEmail">
+                      {u.email}
+                    </div>
+                    <div className="col tableReference userRole">{u.role}</div>
+                    <div className="col tableReference Actions">
+                      <div className="TableButtons">
+                        <Link
+                          to={`/dashbord/userlist/${u.id}`}
+                          className="btn SecondActionBtn"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          type="button"
+                          className="btn btn-primary mainActionBtn"
+                          onClick={(_) =>
+                            setDeleteModal({
+                              data: u,
+                              doDelete,
+                              hideData: hideUser,
+                            })
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
+                  <div className="divideRow"></div>
                 </div>
-                <div className="divideRow"></div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         )}
 

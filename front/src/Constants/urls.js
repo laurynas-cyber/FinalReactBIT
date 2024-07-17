@@ -12,6 +12,7 @@ export const REDIRECT_AFTER_REGISTER = "/LogIn";
 
 export const SITE_DASHBORD = "#dashbord";
 export const USERS_LIST = "#users";
+export const USER_EDIT = "/admin/user-edit";
 
 //Server URLs
 

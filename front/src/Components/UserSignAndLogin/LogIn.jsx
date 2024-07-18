@@ -9,8 +9,8 @@ function Login() {
         <p>Log in or Sign in if you are still not our member</p>
       </div>
 
-      <form className="logInformCenter">
-        <div className="container p-0 SignInFormContainer">
+      <form className="formCenter">
+        <div className="container p-0 formContainer">
           <Inputs
             type="text"
             name="name"
@@ -35,7 +35,7 @@ function Login() {
           <button
             type="button"
             value="Registruotis"
-            className="btn btn-primary"
+            className="btn mainActionBtn"
           >
             Log in
           </button>
@@ -43,7 +43,7 @@ function Login() {
             to="/SignIn"
             type="button"
             value="Registruotis"
-            className="btn SignInBtn"
+            className="btn SecondActionBtn"
           >
             Sign in
           </Link>

@@ -4,6 +4,7 @@ import Nav from "./Navbar/Nav";
 import { Outlet } from "react-router-dom";
 import DeleteModal from "../Common/DeleteModal";
 import { ToastContainer } from "react-toastify";
+import { LoaderContainer } from "../Common/LoaderContainer";
 
 function AdminLayout() {
   return (
@@ -12,6 +13,7 @@ function AdminLayout() {
       <DeleteModal />
       <Outlet />
       <ToastContainer />
+      <LoaderContainer />
     </>
   );
 }

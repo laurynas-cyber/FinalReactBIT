@@ -15,25 +15,6 @@
   }
 }
 
-.SignInFormContainer {
-  width: 50%;
-  gap: 20px;
-  display: flex;
-  flex-direction: column;
-
-  button,
-  a {
-    width: 50%;
-    align-self: center;
-    background-color: $blue;
-    transition: all ease-in 0.3s;
-    border: none;
-    &:hover {
-      background-color: $orange;
-    }
-  }
-}
-
 .show {
   color: $orange;
 }

@@ -18,7 +18,7 @@ function UserEdit() {
     l.SERVER_UPDATE_USER
   );
   const [user, setUser] = useState(null);
-  const [userName, setUserName] = useState(null);
+  const [userName, setUserName] = useState("...");
 
   useEffect(
     (_) => {
@@ -32,8 +32,9 @@ function UserEdit() {
       if (null === serverGetResponse) {
         return;
       }
+
       setUser(serverGetResponse.serverData.user ?? null);
-      // setUserName(user.name ? user.name : null);
+      setUserName(serverGetResponse.serverData.user.name);
     },
     [serverGetResponse]
   );
@@ -66,9 +67,7 @@ function UserEdit() {
       <div className="container p-0">
         <div className="col d-flex justify-content-center align-items-center SignInText">
           <p>
-            User{" "}
-            <strong className="EditName">{userName ? userName : "..."} </strong>{" "}
-            edit field
+            User <strong className="EditName">{userName} </strong> edit field
           </p>
         </div>
         {null === user && (
@@ -81,8 +80,8 @@ function UserEdit() {
           </div>
         )}
         {null !== user && (
-          <form className="logInformCenter">
-            <div className="container p-0 SignInFormContainer">
+          <form className="formCenter">
+            <div className="container formContainer">
               <Input
                 onChange={handleForm}
                 value={user.name}
@@ -117,7 +116,7 @@ function UserEdit() {
               >
                 Save
               </button>
-              <Link className="" to={`/dashbord/userlist/`}>
+              <Link className="btn SecondActionBtn" to={`/dashbord/userlist/`}>
                 Back to list
               </Link>
             </div>

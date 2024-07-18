@@ -15,6 +15,7 @@ import UserEdit from "./Components/Admin/UserEdit.jsx";
 import NavResponsive from "./Components/Context/NavContext.jsx";
 import Modals from "./Components/Context/Modals.jsx";
 import Messages from "./Components/Context/Messages.jsx";
+import Loader from "./Components/Context/Loader.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,11 +62,13 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Messages>
-    <Modals>
-      <NavResponsive>
-        <RouterProvider router={router} />
-      </NavResponsive>
-    </Modals>
+    <Loader>
+      <Modals>
+        <NavResponsive>
+          <RouterProvider router={router} />
+        </NavResponsive>
+      </Modals>
+    </Loader>
   </Messages>
 );
 

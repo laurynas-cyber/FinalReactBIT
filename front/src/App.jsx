@@ -5,6 +5,7 @@ import Nav from "./Components/Common/Navbar/Nav";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import DeleteModal from "./Components/Common/DeleteModal";
+import { LoaderContainer } from "./Components/Common/LoaderContainer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <DeleteModal />
       <Outlet />
       <ToastContainer />
+      <LoaderContainer />
     </>
   );
 }

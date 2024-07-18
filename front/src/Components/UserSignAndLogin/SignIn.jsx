@@ -65,8 +65,8 @@ function SignIn() {
             </p>
           </div>
         </div>
-        <form>
-          <div className="container p-0 SignInFormContainer">
+        <form className="formCenter">
+          <div className="container p-0 formContainer">
             <Inputs
               errors={errors}
               onChange={handleForm}
@@ -112,7 +112,7 @@ function SignIn() {
               type="button"
               onClick={handleSubmit}
               value="Registruotis"
-              className="btn btn-primary"
+              className="btn mainActionBtn"
             >
               Submit
             </button>

@@ -5,7 +5,7 @@ export const SIDE_URL = "http://localhost:3005/";
 
 export const SITE_LOGIN = "/LogIn";
 export const SITE_REGISTER = "#SignIn";
-export const SITE_HOME = "#";
+export const SITE_HOME = "/";
 export const REDIRECT_AFTER_REGISTER = "/LogIn";
 
 //Admin URLs
@@ -21,3 +21,5 @@ export const SERVER_GET_USERS = "admin/users";
 export const SERVER_DELETE_USER = "admin/delete/user";
 export const SERVER_EDIT_USER = "admin/edit/user";
 export const SERVER_UPDATE_USER = "admin/update/user";
+
+export const SERVER_LOGIN = 'login';

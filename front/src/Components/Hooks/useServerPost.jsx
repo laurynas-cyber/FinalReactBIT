@@ -2,21 +2,23 @@ import axios from "axios";
 import { SERVER_URL } from "../../Constants/urls";
 import { useContext, useState } from "react";
 import { MessagesContext } from "../Context/Messages";
+import { LoaderContext } from "../Context/Loader";
 
 const useServerPost = (url) => {
   const [response, setResponse] = useState(null);
 
+  const { ErrorMSg, SuccessMsg } = useContext(MessagesContext);
 
-  const { ErrorMSg, SuccessMsg, InfoMsg } = useContext(MessagesContext);
+  const { setShow } = useContext(LoaderContext);
 
   const doAction = (data) => {
     axios
-      .post(`${SERVER_URL}${url}`, data)
+      .post(`${SERVER_URL}${url}`, data, { withCredentials: true })
       .then((res) => {
         SuccessMsg(res);
         setResponse({
           type: "success",
-          data: res.data,
+          serverData: res.data,
         });
       })
       .catch((error) => {
@@ -26,6 +28,9 @@ const useServerPost = (url) => {
           type: "error",
           serverData: error,
         });
+      })
+      .finally((_) => {
+        setShow(false);
       });
   };
 

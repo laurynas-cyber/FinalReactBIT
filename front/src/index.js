@@ -16,6 +16,7 @@ import NavResponsive from "./Components/Context/NavContext.jsx";
 import Modals from "./Components/Context/Modals.jsx";
 import Messages from "./Components/Context/Messages.jsx";
 import Loader from "./Components/Context/Loader.jsx";
+import Auth from "./Components/Context/Auth.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,15 +62,17 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Messages>
-    <Loader>
-      <Modals>
-        <NavResponsive>
-          <RouterProvider router={router} />
-        </NavResponsive>
-      </Modals>
-    </Loader>
-  </Messages>
+  <Auth>
+    <Messages>
+      <Loader>
+        <Modals>
+          <NavResponsive>
+            <RouterProvider router={router} />
+          </NavResponsive>
+        </Modals>
+      </Loader>
+    </Messages>
+  </Auth>
 );
 
 // https://docs.google.com/document/d/1_jCo5rDt0_GRURYuSJtG7scMvTsov_YLj9KW6bDWJVM/edit?usp=sharing

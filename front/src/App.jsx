@@ -10,6 +10,7 @@ import { LoaderContainer } from "./Components/Common/LoaderContainer";
 function App() {
   return (
     <>
+    
       <Nav />
       <DeleteModal />
       <Outlet />

@@ -10,7 +10,7 @@ import { AuthContext } from "../Context/Auth";
 function Login() {
   const { setShow } = useContext(LoaderContext);
 
-  const { addUser } = useContext(AuthContext);
+  const { addUser, removeUser } = useContext(AuthContext);
   const defaultValues = { email: "", password: "" };
 
   const [form, setForm] = useState(defaultValues);
@@ -25,6 +25,8 @@ function Login() {
       if (serverResponse.type === "success") {
         addUser(serverResponse.serverData.user);
         window.location = l.SITE_HOME;
+      } else {
+        removeUser();
       }
     },
     [serverResponse, addUser]

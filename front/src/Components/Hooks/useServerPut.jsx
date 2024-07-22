@@ -1,8 +1,10 @@
 import axios from "axios";
-import { SERVER_URL } from "../../Constants/urls";
+import * as l from "../../Constants/urls";
 import { useContext, useState } from "react";
 import { MessagesContext } from "../Context/Messages";
 import { LoaderContext } from "../Context/Loader";
+import { AuthContext } from "../Context/Auth";
+import { useNavigate } from "react-router-dom";
 
 const useServerPut = (url) => {
   const [response, setResponse] = useState(null);
@@ -11,9 +13,12 @@ const useServerPut = (url) => {
 
   const { setShow } = useContext(LoaderContext);
 
+  const { removeUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
   const doAction = (data) => {
     axios
-      .put(`${SERVER_URL}${url}/${data.id}`, data, { withCredentials: true })
+      .put(`${l.SERVER_URL}${url}/${data.id}`, data, { withCredentials: true })
       .then((res) => {
         SuccessMsg(res);
         setResponse({
@@ -24,6 +29,15 @@ const useServerPut = (url) => {
       .catch((error) => {
         console.log(error);
         ErrorMSg(error);
+        if (
+          error.response &&
+          401 === error.response.status &&
+          "not-logged-in" === error.response.data.reason
+        ) {
+          removeUser();
+          navigate(l.SITE_LOGIN);
+          return;
+        }
         setResponse({
           type: "error",
           serverData: error,

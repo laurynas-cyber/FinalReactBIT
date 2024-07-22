@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useServerPost from "../Hooks/useServerPost";
 import useRegister from "../Validations/useRegister";
 import Inputs from "./Forms/Inputs";
 import * as l from "../../Constants/urls";
+import { useNavigate } from "react-router-dom";
+import { LoaderContext } from "../Context/Loader";
 
 function SignIn() {
+  const navigate = useNavigate();
+
   const defaultValues = {
     name: "",
     email: "",
@@ -12,6 +16,7 @@ function SignIn() {
     psw2: "",
   };
 
+  const { setShow } = useContext(LoaderContext);
   const [form, setForm] = useState(defaultValues);
   const { doAction, serverResponse } = useServerPost(l.SERVER_REGISTER);
   const { errors, validate, setServerErrors } = useRegister();
@@ -22,6 +27,7 @@ function SignIn() {
   }
 
   function handleSubmit() {
+    setShow(true);
     if (!validate(form)) {
       return;
     }
@@ -41,9 +47,7 @@ function SignIn() {
 
       setButtonDisabled(false);
       if (serverResponse.type === "success") {
-        setTimeout(() => {
-          window.location = l.REDIRECT_AFTER_REGISTER;
-        }, "4000");
+        navigate("/");
       } else {
         if (serverResponse.serverData?.response?.data?.errorsBag) {
           setServerErrors(serverResponse.serverData.response.data.errorsBag);

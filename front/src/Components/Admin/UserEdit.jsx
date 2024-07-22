@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import * as l from "../../Constants/urls";
 import roles from "../../Constants/roles";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import useServerPut from "../Hooks/useServerPut";
 import HashLoader from "react-spinners/HashLoader";
 
 function UserEdit() {
+  const navigate = useNavigate();
   const params = useParams();
 
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -45,9 +46,7 @@ function UserEdit() {
         return;
       }
       if ("success" === serverPutResponse.type) {
-        setTimeout((_) => {
-          window.location = "http://localhost:3005/dashbord/userlist"; //padaryti per rederictinima
-        }, 4000);
+        navigate("/dashbord/userlist");
       }
     },
     [serverPutResponse]

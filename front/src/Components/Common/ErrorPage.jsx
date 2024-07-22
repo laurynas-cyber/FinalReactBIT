@@ -1,9 +1,11 @@
 import logo from "../../assets/images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 function ErrorPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="container-fluid ErropageContainer">
-      
       <div className="row ErrorPageCenter">
         <div className="erropageContaier ">
           <h2>Unexpected Application Error!</h2>
@@ -13,7 +15,9 @@ function ErrorPage() {
           </div>
           <div className="displayErrorMSg">
             <img src={logo} alt="" />
-            <a href="/">Go back home</a>
+            <a href="#" onClick={() => navigate(-1)}>
+              Go back
+            </a>
           </div>
         </div>
       </div>

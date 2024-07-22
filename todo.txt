@@ -2,8 +2,6 @@ Pastilinti
 
 Inputus pagerinti /label/ input shadow
 
-zinutems prideti teksto
-
 responsive
 
 pataisyti zinutes is app i angl kalba, palieku kol suprasciau kaip veikia
@@ -14,7 +12,8 @@ padaryti validaciją kol rašom i inputa
 
 info padaryti kai blogas email is serverside
 
-Admino ir App kontekstai. gal galima padaryti globalius kontekstus ?
-
 suziureti routerio url vardus, pakeisti htmle, ir pervadinti i angl kalba
 
+peradresavimas po registracijos ir edito padaryti i pperrenderinima
+
+navigacija i navlink?

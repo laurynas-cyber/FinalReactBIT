@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mysql = require("mysql");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 // const fs = require('node:fs');
 const md5 = require("md5");
 const app = express();
@@ -18,11 +18,12 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-
-app.use(cors({
-  origin: 'http://localhost:3005',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3005",
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 // app.use(express.static('public'));
@@ -249,55 +250,57 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+  setTimeout((_) => {
+    const { name, email, password } = req.body;
 
-  if (!/\S+@\S+\.\S+/.test(email)) {
-    res
-      .status(422)
-      .json({
-        message: "Siunčiamoje formoje yra klaidų",
-        errorsBag: {
-          email: "El pašto formatas neteisingas",
-        },
-      })
-      .end();
-    return;
-  }
-
-  const sql = `SELECT email FROM users WHERE email = ? `;
-
-  connection.query(sql, [email], (err, rows) => {
-    if (err) throw err;
-    if (rows.length) {
+    if (!/\S+@\S+\.\S+/.test(email)) {
       res
         .status(422)
         .json({
           message: "Siunčiamoje formoje yra klaidų",
           errorsBag: {
-            email: "Toks el paštas jau yra",
+            email: "El pašto formatas neteisingas",
           },
         })
         .end();
-    } else {
-      const sql = `
-            INSERT INTO users (name, email, password)
-            VALUES ( ?, ?, ? )
-            `;
-      connection.query(sql, [name, email, md5(password)], (err) => {
-        if (err) throw err;
+      return;
+    }
+
+    const sql = `SELECT email FROM users WHERE email = ? `;
+
+    connection.query(sql, [email], (err, rows) => {
+      if (err) throw err;
+      if (rows.length) {
         res
-          .status(201)
+          .status(422)
           .json({
-            message: {
-              type: "success",
-              title: "Sveiki!",
-              text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
+            message: "Siunčiamoje formoje yra klaidų",
+            errorsBag: {
+              email: "Toks el paštas jau yra",
             },
           })
           .end();
-      });
-    }
-  });
+      } else {
+        const sql = `
+            INSERT INTO users (name, email, password)
+            VALUES ( ?, ?, ? )
+            `;
+        connection.query(sql, [name, email, md5(password)], (err) => {
+          if (err) throw err;
+          res
+            .status(201)
+            .json({
+              message: {
+                type: "success",
+                title: "Sveiki!",
+                text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
+              },
+            })
+            .end();
+        });
+      }
+    });
+  }, 1500);
 });
 
 app.listen(port, (_) => {

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { RoutesNav } from "../../../Constants/navigation";
 
 function NavRoutes() {
   const { isClicked, isFullSize } = useContext(NavContext);
@@ -15,15 +16,11 @@ function NavRoutes() {
         left: isFullSize ? null : "20px",
       }}
     >
-      <Link className="Pages" to={`/`}>
-        Home
-      </Link>
-      <Link className="Pages" to="pageTwo">
-        Page Two
-      </Link>
-      <Link className="Pages" to={`pageThree`}>
-        Page Three
-      </Link>
+      {RoutesNav.map((link) => (
+        <NavLink className={link.active} key={link.tag} to={link.to}>
+          {link.tag}
+        </NavLink>
+      ))}
     </div>
   );
 }

@@ -7,6 +7,8 @@ import { NavContext } from "../../Context/NavContext";
 import { NavLink } from "react-router-dom";
 import { LoginNav } from "../../../Constants/navigation";
 import { AuthContext } from "../../Context/Auth";
+import Logout from "../Logout";
+import Gate from "../Gate";
 
 console.log(LoginNav);
 
@@ -28,27 +30,26 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
-            {user ? (
-              <>
-                <NavLink
-                  className={({ isActive }) => {
-                    return isActive ? "UserTags ActiveTag" : "UserTags";
-                  }}
-                  to="dashbord"
-                >
-                  {user.role + " profile " + user.name}
-                </NavLink>
-                <button className="link">
-                  <span className="label">Log out, {user.name}</span>
-                </button>
-              </>
-            ) : (
-              LoginNav.map((link) => (
+            <Gate status="role" role={["admin"]}>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive ? "UserTags ActiveTag" : "UserTags";
+                }}
+                to="dashbord"
+              >
+                {user?.role + " " + user?.name}
+              </NavLink>
+            </Gate>
+            <Gate status="logged">
+              <Logout />
+            </Gate>
+            <Gate status="not-logged">
+              {LoginNav.map((link) => (
                 <NavLink className={link.active} key={link.tag} to={link.to}>
                   {link.tag}
                 </NavLink>
-              ))
-            )}
+              ))}
+            </Gate>
 
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
           </div>

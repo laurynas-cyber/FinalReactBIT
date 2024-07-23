@@ -274,6 +274,46 @@ app.put("/admin/update/user/:id", (req, res) => {
   }, 1500);
 });
 
+app.post("/logout", (req, res) => {
+  setTimeout((_) => {
+    const session = req.cookies["recovery-session"];
+
+    const sql = `
+              UPDATE users
+              SET session = NULL
+              WHERE session = ?
+          `;
+
+    connection.query(sql, [session], (err, result) => {
+      if (err) throw err;
+      const logged = result.affectedRows;
+      if (!logged) {
+        res
+          .status(401)
+          .json({
+            message: {
+              type: "error",
+              title: "Atsijungimas nepavyko",
+              text: `Neteisingi prisijungimo duomenys`,
+            },
+          })
+          .end();
+        return;
+      }
+      res.clearCookie("recovery-session");
+      res
+        .json({
+          message: {
+            type: "success",
+            title: `Atsijungta`,
+            text: `Jūs sėkmingai atsijungėte`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.post("/login", (req, res) => {
   setTimeout((_) => {
     const { email, password } = req.body;

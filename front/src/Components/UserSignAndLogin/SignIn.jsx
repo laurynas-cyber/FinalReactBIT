@@ -5,6 +5,8 @@ import Inputs from "./Forms/Inputs";
 import * as l from "../../Constants/urls";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../Context/Loader";
+import Gate from "../Common/Gate";
+import Redirect from "../Common/Redirect";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -54,75 +56,80 @@ function SignIn() {
         }
       }
     },
-    [serverResponse, setServerErrors]
+    [serverResponse, setServerErrors, navigate]
   );
 
   return (
     <>
-      <div className="container">
-        <div className="row SignInTextContainer">
-          <div className="col d-flex justify-content-center align-items-center SignInText">
-            <h2>Become a member of our are team</h2>
-            <p>
-              Sign in, create your fund, post it, get donations and help someone
-              arround the world
-            </p>
+      <Gate status="not-logged">
+        <div className="container">
+          <div className="row SignInTextContainer">
+            <div className="col d-flex justify-content-center align-items-center SignInText">
+              <h2>Become a member of our are team</h2>
+              <p>
+                Sign in, create your fund, post it, get donations and help
+                someone arround the world
+              </p>
+            </div>
           </div>
-        </div>
-        <form className="formCenter">
-          <div className="container p-0 formContainer">
-            <Inputs
-              errors={errors}
-              onChange={handleForm}
-              value={form.name}
-              type="text"
-              name="name"
-              placeholder="Your name"
-              autoComplete="username"
-            />
-            <Inputs
-              errors={errors}
-              onChange={handleForm}
-              value={form.email}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter email"
-              autoComplete="email"
-            />
-            <Inputs
-              errors={errors}
-              onChange={handleForm}
-              value={form.psw}
-              type="password"
-              name="psw"
-              id="psw"
-              placeholder="Password"
-              autoComplete="psw"
-            />
-            <Inputs
-              errors={errors}
-              onChange={handleForm}
-              value={form.psw2}
-              type="password"
-              name="psw2"
-              id="psw2"
-              placeholder="Repeat your password"
-              autoComplete="psw"
-            />
+          <form className="formCenter">
+            <div className="container p-0 formContainer">
+              <Inputs
+                errors={errors}
+                onChange={handleForm}
+                value={form.name}
+                type="text"
+                name="name"
+                placeholder="Your name"
+                autoComplete="username"
+              />
+              <Inputs
+                errors={errors}
+                onChange={handleForm}
+                value={form.email}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter email"
+                autoComplete="email"
+              />
+              <Inputs
+                errors={errors}
+                onChange={handleForm}
+                value={form.psw}
+                type="password"
+                name="psw"
+                id="psw"
+                placeholder="Password"
+                autoComplete="psw"
+              />
+              <Inputs
+                errors={errors}
+                onChange={handleForm}
+                value={form.psw2}
+                type="password"
+                name="psw2"
+                id="psw2"
+                placeholder="Repeat your password"
+                autoComplete="psw"
+              />
 
-            <button
-              disabled={buttonDisabled}
-              type="button"
-              onClick={handleSubmit}
-              value="Registruotis"
-              className="btn mainActionBtn"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
+              <button
+                disabled={buttonDisabled}
+                type="button"
+                onClick={handleSubmit}
+                value="Registruotis"
+                className="btn mainActionBtn"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </Gate>
+      <Gate status="logged">
+        <Redirect to="SITE_HOME" />
+      </Gate>
     </>
   );
 }

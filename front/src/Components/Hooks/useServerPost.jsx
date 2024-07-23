@@ -17,7 +17,7 @@ const useServerPost = (url) => {
 
   const navigate = useNavigate();
 
-  const doAction = (data) => {
+  const doAction = (data = {}) => {
     axios
       .post(`${l.SERVER_URL}${url}`, data, { withCredentials: true })
       .then((res) => {

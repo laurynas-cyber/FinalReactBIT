@@ -1,12 +1,5 @@
 const LoginNav = [
   {
-    tag: "Admin",
-    to: "dashbord",
-    active: ({ isActive }) => {
-      return isActive ? "UserTags ActiveTag" : "UserTags";
-    },
-  },
-  {
     tag: "Sign In",
     to: "SignIn",
     active: ({ isActive }) => {

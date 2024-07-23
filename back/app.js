@@ -30,26 +30,36 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const maintenance = (req, res, next) => {
+  res
+    .status(503)
+    .json({
+      message: {
+        type: "error",
+        title: "Techniniai darbai",
+        text: `Atsiprašome, bet šiuo metu vykdomi techniniai darbai`,
+      },
+    })
+    .end();
+};
+
 const checkSession = (req, _, next) => {
   const session = req.cookies["recovery-session"];
-
   if (!session) {
     return next();
   }
   const sql = `
-      SELECT id, name, email, role 
-      FROM users
-      WHERE session = ?
-  `;
+        SELECT id, name, email, role 
+        FROM users
+        WHERE session = ?
+    `;
   connection.query(sql, [session], (err, rows) => {
     if (err) throw err;
-
-    console.log(session, rows);
-
     if (!rows.length) {
       return next();
     }
     req.user = rows[0];
+    console.log(req.user);
     next();
   });
 };
@@ -86,10 +96,15 @@ const checkUserIsAuthorized = (req, res, roles) => {
   return true;
 };
 
+// app.use(maintenance);
+
 app.use(checkSession);
 
-app.get("/admin/users", (_, res) => {
+app.get("/admin/users", (req, res) => {
   setTimeout((_) => {
+    if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
+      return;
+    }
     const sql = `
         SELECT *
         FROM users`;
@@ -107,9 +122,6 @@ app.get("/admin/users", (_, res) => {
 
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["admin"])) {
-      return;
-    }
     const { id } = req.params;
 
     const sql = `
@@ -149,6 +161,10 @@ app.delete("/admin/delete/user/:id", (req, res) => {
 
 app.get("/admin/edit/user/:id", (req, res) => {
   setTimeout((_) => {
+    if (!checkUserIsAuthorized(req, res, ["admin"])) {
+      return;
+    }
+
     const { id } = req.params;
     const sql = `
         SELECT id, name, email, role
@@ -264,10 +280,10 @@ app.post("/login", (req, res) => {
     const session = md5(uuidv4());
 
     const sql = `
-          UPDATE users
-          SET session = ?
-          WHERE email = ? AND password = ?
-      `;
+            UPDATE users
+            SET session = ?
+            WHERE email = ? AND password = ?
+        `;
 
     connection.query(sql, [session, email, md5(password)], (err, result) => {
       if (err) throw err;
@@ -286,16 +302,16 @@ app.post("/login", (req, res) => {
         return;
       }
       const sql = `
-          SELECT id, name, email, role
-          FROM users
-          WHERE email = ? AND password = ?
-      `;
+            SELECT id, name, email, role
+            FROM users
+            WHERE email = ? AND password = ?
+        `;
       connection.query(sql, [email, md5(password)], (err, rows) => {
         if (err) throw err;
         res.cookie("recovery-session", session, {
           maxAge: 1000 * 60 * 60 * 24,
           httpOnly: true,
-        }); //http only fronte nebus prieinamas cookis su js
+        });
         res
           .json({
             message: {
@@ -313,59 +329,57 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  setTimeout((_) => {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    if (!/\S+@\S+\.\S+/.test(email)) {
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    res
+      .status(422)
+      .json({
+        message: "Siunčiamoje formoje yra klaidų",
+        errorsBag: {
+          email: "El pašto formatas neteisingas",
+        },
+      })
+      .end();
+    return;
+  }
+
+  const sql = `SELECT email FROM users WHERE email = ? `;
+
+  connection.query(sql, [email], (err, rows) => {
+    if (err) throw err;
+    if (rows.length) {
       res
         .status(422)
         .json({
           message: "Siunčiamoje formoje yra klaidų",
           errorsBag: {
-            email: "El pašto formatas neteisingas",
+            email: "Toks el paštas jau yra",
           },
         })
         .end();
-      return;
-    }
-
-    const sql = `SELECT email FROM users WHERE email = ? `;
-
-    connection.query(sql, [email], (err, rows) => {
-      if (err) throw err;
-      if (rows.length) {
-        res
-          .status(422)
-          .json({
-            message: "Siunčiamoje formoje yra klaidų",
-            errorsBag: {
-              email: "Toks el paštas jau yra",
-            },
-          })
-          .end();
-      } else {
-        const sql = `
+    } else {
+      const sql = `
             INSERT INTO users (name, email, password)
             VALUES ( ?, ?, ? )
             `;
-        connection.query(sql, [name, email, md5(password)], (err) => {
-          if (err) throw err;
-          res
-            .status(201)
-            .json({
-              message: {
-                type: "success",
-                title: "Sveiki!",
-                text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
-              },
-            })
-            .end();
-        });
-      }
-    });
-  }, 1500);
+      connection.query(sql, [name, email, md5(password)], (err) => {
+        if (err) throw err;
+        res
+          .status(201)
+          .json({
+            message: {
+              type: "success",
+              title: "Sveiki!",
+              text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
+            },
+          })
+          .end();
+      });
+    }
+  });
 });
 
 app.listen(port, (_) => {
-  console.log(`Recovery app listening on port ${port}`);
+  console.log(`recoverys app listening on port ${port}`);
 });

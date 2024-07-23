@@ -13,6 +13,7 @@ console.log(LoginNav);
 function Nav() {
   const { user } = useContext(AuthContext);
   const { isFullSize } = useContext(NavContext);
+  console.log(user);
   return (
     <>
       {isFullSize ? null : <NavRoutes />}
@@ -29,17 +30,17 @@ function Nav() {
           <div className="col d-flex justify-content-end align-items-center gap-3">
             {user ? (
               <>
-                <button className="link">
-                  <span className="label">Atsijungti, {user.name}</span>
-                </button>
                 <NavLink
                   className={({ isActive }) => {
                     return isActive ? "UserTags ActiveTag" : "UserTags";
                   }}
                   to="dashbord"
                 >
-                  Admin
+                  {user.role + " profile " + user.name}
                 </NavLink>
+                <button className="link">
+                  <span className="label">Log out, {user.name}</span>
+                </button>
               </>
             ) : (
               LoginNav.map((link) => (

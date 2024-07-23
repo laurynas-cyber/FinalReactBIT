@@ -30,8 +30,8 @@ function Messages({ children }) {
     });
   }, []);
 
-  const InfoMsg = (msg) => {
-    toast.info(`${msg}`, {
+  const InfoMsg = (error) => {
+    toast.info(error.response.data.message.text, {
       position: "bottom-right",
     });
   };

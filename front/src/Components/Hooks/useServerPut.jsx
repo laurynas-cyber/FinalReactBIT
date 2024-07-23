@@ -35,7 +35,9 @@ const useServerPut = (url) => {
           "not-logged-in" === error.response.data.reason
         ) {
           removeUser();
-          navigate(l.SITE_LOGIN);
+          setTimeout((_) => {
+            navigate(l.SITE_LOGIN);
+          }, 3000);
           return;
         }
         setResponse({

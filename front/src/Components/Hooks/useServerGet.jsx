@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const useServerGet = (url) => {
   const [response, setResponse] = useState(null);
 
-  const { ErrorMSg, SuccessMsg } = useContext(MessagesContext);
+  const { ErrorMSg, SuccessMsg, InfoMsg } = useContext(MessagesContext);
 
   const { setShow } = useContext(LoaderContext);
 
@@ -29,15 +29,22 @@ const useServerGet = (url) => {
           });
         })
         .catch((error) => {
-          ErrorMSg(error);
+          console.log(error);
+
           if (
             error.response &&
             401 === error.response.status &&
             "not-logged-in" === error.response.data.reason
           ) {
             removeUser();
-            navigate(l.SITE_LOGIN);
+            InfoMsg(error);
+            setTimeout((_) => {
+              navigate(l.SITE_LOGIN);
+            }, 3000);
+
             return;
+          } else {
+            ErrorMSg(error);
           }
           setResponse({
             type: "error",

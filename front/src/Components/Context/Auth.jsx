@@ -13,10 +13,10 @@ function Auth({ children }) {
     localStorage.setItem("recUser", JSON.stringify(user));
   }, []);
 
-  const removeUser = useCallback(_ => {
+  const removeUser = useCallback((_) => {
     setUser(null);
-    localStorage.removeItem('bookUser');
-}, []);
+    localStorage.removeItem("recUser");
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, addUser, removeUser }}>

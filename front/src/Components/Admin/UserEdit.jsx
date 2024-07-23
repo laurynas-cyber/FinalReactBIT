@@ -35,7 +35,7 @@ function UserEdit() {
       }
 
       setUser(serverGetResponse.serverData.user ?? null);
-      setUserName(serverGetResponse.serverData.user.name);
+      setUserName(serverGetResponse.serverData.user?.name ?? null);
     },
     [serverGetResponse]
   );
@@ -49,7 +49,7 @@ function UserEdit() {
         navigate("/dashbord/userlist");
       }
     },
-    [serverPutResponse]
+    [serverPutResponse, navigate]
   );
 
   const handleForm = (e) => {
@@ -66,13 +66,15 @@ function UserEdit() {
       <div className="container p-0">
         <div className="col d-flex justify-content-center align-items-center SignInText">
           <p>
-            User <strong className="EditName">{userName} </strong> edit field
+            User{" "}
+            <strong className="EditName">{userName ? userName : "..."} </strong>{" "}
+            edit field
           </p>
         </div>
         {null === user && (
           <div className="row Spinner">
             <div className="col loadingDataContainer">
-              <h4>Loading user...</h4>
+              <h4>Loading user data...</h4>
 
               <HashLoader color="#358cc8" size={100} />
             </div>

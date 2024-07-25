@@ -13,10 +13,13 @@
 @import "./components/user-edit.scss";
 @import "./components/loader.scss";
 
+@import "./slider//slider.scss";
+
 * {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
+  box-sizing: border-box;
 }
 
 a {

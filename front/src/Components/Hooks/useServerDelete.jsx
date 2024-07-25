@@ -41,6 +41,14 @@ const useServerDelete = (url) => {
           }, 3000);
           return;
         }
+        if (
+          error.response &&
+          401 === error.response.status &&
+          "not-authorized" === error.response.data.reason
+        ) {
+          navigate(-1);
+          return;
+        }
         setResponse({
           type: "error",
           serverData: error,

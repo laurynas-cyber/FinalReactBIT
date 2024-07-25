@@ -29,10 +29,10 @@ function SignIn() {
   }
 
   function handleSubmit() {
-    setShow(true);
     if (!validate(form)) {
       return;
     }
+    setShow(true);
     setButtonDisabled(true);
     doAction({
       name: form.name,

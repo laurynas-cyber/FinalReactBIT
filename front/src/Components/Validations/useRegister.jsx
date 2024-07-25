@@ -31,7 +31,7 @@ function useRegister() {
       errorsBag.psw2 = "Passwords do not match";
     }
 
-    return true; // laikinai
+    // return true; // laikinai
 
     if (Object.keys(errorsBag).length === 0) {
       console.log(Object.keys(errorsBag));

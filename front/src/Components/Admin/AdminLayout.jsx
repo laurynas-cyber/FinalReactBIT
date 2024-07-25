@@ -11,16 +11,16 @@ import Redirect from "../Common/Redirect";
 function AdminLayout() {
   return (
     <>
-      <Gate status="role" role={["admin"]}>
-        <Nav />
-        <DeleteModal />
-        <Outlet />
-        <ToastContainer />
-        <LoaderContainer />
-      </Gate>
-      <Gate status="not-logged">
+      {/* <Gate status="role" role={["admin"]}> */}
+      <Nav />
+      <DeleteModal />
+      <Outlet />
+      <ToastContainer />
+      <LoaderContainer />
+      {/* </Gate> */}
+      {/* <Gate status="not-logged">
         <Redirect to="SITE_HOME" />
-      </Gate>
+      </Gate> */}
     </>
   );
 }

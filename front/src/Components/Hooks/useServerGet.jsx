@@ -30,7 +30,7 @@ const useServerGet = (url) => {
         })
         .catch((error) => {
           console.log(error);
-
+          ErrorMSg(error);
           if (
             error.response &&
             401 === error.response.status &&
@@ -43,8 +43,14 @@ const useServerGet = (url) => {
             }, 3000);
 
             return;
-          } else {
-            ErrorMSg(error);
+          }
+          if (
+            error.response &&
+            401 === error.response.status &&
+            "not-authorized" === error.response.data.reason
+          ) {
+            navigate(-1);
+            return;
           }
           setResponse({
             type: "error",

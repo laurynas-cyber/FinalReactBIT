@@ -7,7 +7,6 @@ import SignIn from "./Components/UserSignAndLogin/SignIn.jsx";
 import LogIn from "./Components/UserSignAndLogin/LogIn.jsx";
 import ErrorPage from "./Components/Common/ErrorPage.jsx";
 import AdminLayout from "./Components/Admin/AdminLayout.jsx";
-// import UsersList from "./Components/Admin/UserList.jsx";
 import UsersList from "./Components/Admin/UsersList.jsx";
 import Home from "./Components/Home.jsx";
 import Dashbord from "./Components/Admin/Dashbord.jsx";
@@ -17,6 +16,10 @@ import Modals from "./Components/Context/Modals.jsx";
 import Messages from "./Components/Context/Messages.jsx";
 import Loader from "./Components/Context/Loader.jsx";
 import Auth from "./Components/Context/Auth.jsx";
+import RouteGate from "./Components/Common/RouteGate.jsx";
+import UserLayout from "./Components/Users/UserLayout.jsx";
+import HelloUser from "./Components/Users/HelloUser.jsx";
+import ProfileEdit from "./Components/Users/ProfileEdit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,18 +46,53 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/dashbord",
-    element: <AdminLayout />,
+    element: [
+      <RouteGate key={1} role={["admin"]}>
+        <AdminLayout />
+      </RouteGate>,
+    ],
+
     children: [
-      { index: true, element: <Dashbord /> },
+      {
+        index: true,
+        element: [
+          <RouteGate key={2} role={["admin"]}>
+            <Dashbord />
+          </RouteGate>,
+        ],
+      },
       {
         path: "userlist",
-        element: <UsersList />,
+        element: [
+          <RouteGate key={3} role={["admin"]}>
+            <UsersList />
+          </RouteGate>,
+        ],
       },
       {
         path: "userlist/:id",
-        element: <UserEdit />,
+        element: [
+          <RouteGate key={4} role={["admin"]}>
+            <UserEdit />
+          </RouteGate>,
+        ],
+      },
+    ],
+  },
+  {
+    path: "/user/:username",
+    element: <UserLayout />,
+    children: [
+      {
+        index: true,
+        element: [<HelloUser key={1} />],
+      },
+      {
+        path: "edit/:id",
+        element: [<ProfileEdit />],
       },
     ],
   },

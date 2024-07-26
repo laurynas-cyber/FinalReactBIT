@@ -1,12 +1,13 @@
 import "react-toastify/dist/ReactToastify.css";
 import "../../Styles/main.scss";
-import Nav from "./Navbar/Nav";
 import { Outlet } from "react-router-dom";
+import Nav from "./Navbar/Nav";
 import DeleteModal from "../Common/DeleteModal";
 import { ToastContainer } from "react-toastify";
 import { LoaderContainer } from "../Common/LoaderContainer";
 
-function AdminLayout() {
+
+function UserLayout() {
   return (
     <>
       <Nav />
@@ -18,4 +19,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default UserLayout;

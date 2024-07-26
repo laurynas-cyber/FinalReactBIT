@@ -12,6 +12,7 @@ export default function RouteGate({ children, role = [] }) {
       if (user && role.includes(user.role)) {
         setChild(children);
       } else {
+        console.log("Rout Gate redirect");
         navigate(-1);
       }
     },

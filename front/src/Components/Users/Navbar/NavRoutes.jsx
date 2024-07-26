@@ -33,7 +33,7 @@ function NavRoutes() {
         className={({ isActive }) => {
           return isActive ? "Pages ActiveTag" : "Pages";
         }}
-        to={`edit/${user.id}`}
+        to={`edit`}
       >
         Edit Profile
       </NavLink>

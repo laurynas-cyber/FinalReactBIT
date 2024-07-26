@@ -20,6 +20,7 @@ import RouteGate from "./Components/Common/RouteGate.jsx";
 import UserLayout from "./Components/Users/UserLayout.jsx";
 import HelloUser from "./Components/Users/HelloUser.jsx";
 import ProfileEdit from "./Components/Users/ProfileEdit.jsx";
+import UserPosts from "./Components/Users/UserPosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/user/:username",
+    path: "/user/:id",
     element: <UserLayout />,
     children: [
       {
@@ -91,8 +92,12 @@ const router = createBrowserRouter([
         element: [<HelloUser key={1} />],
       },
       {
-        path: "edit/:id",
-        element: [<ProfileEdit />],
+        path: "edit",
+        element: [<ProfileEdit key={2} />],
+      },
+      {
+        path: "posts",
+        element: [<UserPosts key={3} />],
       },
     ],
   },

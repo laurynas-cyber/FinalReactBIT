@@ -41,7 +41,7 @@ function Nav() {
               </NavLink>
             </Gate>
             <Gate status="role" role={["user"]}>
-              <NavLink className="UserTags" to={`user/${user?.name}`}>
+              <NavLink className="UserTags" to={`user/${user?.id}`}>
                 {user?.role + " " + user?.name}
               </NavLink>
             </Gate>

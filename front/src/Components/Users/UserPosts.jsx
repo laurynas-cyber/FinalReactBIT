@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import Inputs from "../UserSignAndLogin/Forms/Inputs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Auth";
 import Range from "../UserSignAndLogin/Forms/Range";
 import Upload from "../UserSignAndLogin/Forms/Upload";
 import Textarea from "../UserSignAndLogin/Forms/Textarea";
 
 const UserPosts = () => {
+
+  const [range, setRange] = useState(1);
+
+  const handleRange = (e) => {
+    setRange(+e.target.value);
+  };
+
+
   const values = {
     title: "",
     description: "",
@@ -19,6 +27,7 @@ const UserPosts = () => {
   const handleForm = (e) => {
     setPost((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
+
 
   return (
     <div className="container p-0">
@@ -41,7 +50,26 @@ const UserPosts = () => {
             name="description"
             value={post.description}
           />
-          <Range onChange={handleForm} name="range" value={post.range} />
+          <div className="rangeInfo">
+            <label htmlFor="customRange2" className="form-label">
+              Select amount you want to collect
+            </label>
+            <span>{post.range}000</span>
+          </div>
+
+          <input
+            type="range"
+            value={post.range}
+            name="range"
+            className="form-range"
+            min={1}
+            max={10}
+            onChange={handleForm}
+            id="customRange2"
+          />
+
+          {/* <Range onChange={handleRange} value={range} /> */}
+
           <Upload />
           <button className="btn mainActionBtn" type="button">
             Create post

@@ -1,17 +1,17 @@
-function Range(onChange, value, name, placeholder = null, autoComplete = null) {
+function Range(onChange, value) {
   return (
     <>
-      <label for="customRange2" className="form-label">
+      <label htmlFor="customRange2" className="form-label">
         Select the amount you want to collect
       </label>
       <input
-        type="range"
-        value="1"
-        name={name}
         onChange={onChange}
+        type="range"
+        value={value}
+        name="range"
         className="form-range"
-        min="0"
-        max="5"
+        min={1}
+        max={10}
         id="customRange2"
       />
     </>

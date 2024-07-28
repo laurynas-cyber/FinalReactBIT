@@ -9,6 +9,8 @@ const PendingPosts = () => {
     l.SERVER_PENDING_POSTS
   );
 
+  const [image, setImage] = useState(null);
+
   const [pendingPosts, setPendingPosts] = useState(null);
 
   useEffect(
@@ -25,6 +27,8 @@ const PendingPosts = () => {
       }
 
       setPendingPosts(serverGetResponse.serverData.posts ?? null);
+      console.log(serverGetResponse.serverData.posts[2].image);
+      setImage(serverGetResponse.serverData.posts[2].image);
     },
     [serverGetResponse]
   );
@@ -46,7 +50,9 @@ const PendingPosts = () => {
       )}
 
       {null !== pendingPosts &&
-        pendingPosts.map((post) => <PostsCard post={post} />)}
+        pendingPosts.map((post) => (
+          <PostsCard key={post.id} post={post} src={image} />
+        ))}
     </div>
   );
 };

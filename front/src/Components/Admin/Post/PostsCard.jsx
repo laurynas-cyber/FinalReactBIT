@@ -1,6 +1,6 @@
 import imgUA from "../../../assets/slider/ukraine.jpg";
 
-const PostsCard = ({ post }) => {
+const PostsCard = ({ post, src = { imgUA } }) => {
   return (
     <div
       className="container p-0 postContainer"
@@ -22,7 +22,7 @@ const PostsCard = ({ post }) => {
       </div>
       <div className="postPictureCont">
         <h5>Picture</h5>
-        <img src={imgUA} alt="img" className="postImage"></img>
+        <img src={src} alt="img" className="postImage"></img>
       </div>
       <div className="PostAuthorCont">
         <h5>Fund Author</h5>

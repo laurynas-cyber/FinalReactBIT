@@ -3,6 +3,7 @@
 @import "./global/toasts.scss";
 @import "./global/buttons.scss";
 @import "./global/form.scss";
+@import "./global/range.scss";
 
 @import "./components/error-page.scss";
 @import "./components/nav.scss";
@@ -14,6 +15,7 @@
 @import "./components/loader.scss";
 @import "./components/pending-posts.scss";
 @import "./slider//slider.scss";
+@import "./components/upload-image.scss";
 
 * {
   font-family: "Nunito", sans-serif;

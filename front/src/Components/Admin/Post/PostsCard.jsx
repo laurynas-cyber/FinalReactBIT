@@ -1,9 +1,11 @@
-
 import imgUA from "../../../assets/slider/ukraine.jpg";
 
-const PostsCard = ({post}) => {
+const PostsCard = ({ post }) => {
   return (
-    <div className="container p-0 postContainer">
+    <div
+      className="container p-0 postContainer"
+      style={{ filter: post.confirmed ? null : "opacity(0.5)" }}
+    >
       <div className="postTitle">
         <h5>Title</h5>
         <div className="titlePosts">
@@ -28,7 +30,12 @@ const PostsCard = ({post}) => {
       </div>
       <div className="PostButtons">
         <div className="d-flex gap-2">
-          <button className="btn mainActionBtn">Confirm</button>
+          <button
+            disabled={post.confirmed ? null : true}
+            className="btn mainActionBtn"
+          >
+            Confirm
+          </button>
           <button className="btn SecondActionBtn">Decline</button>
         </div>
       </div>

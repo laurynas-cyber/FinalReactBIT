@@ -1,4 +1,4 @@
-function Range() {
+function Range(onChange, value, name, placeholder = null, autoComplete = null) {
   return (
     <>
       <label for="customRange2" className="form-label">
@@ -6,6 +6,9 @@ function Range() {
       </label>
       <input
         type="range"
+        value="1"
+        name={name}
+        onChange={onChange}
         className="form-range"
         min="0"
         max="5"

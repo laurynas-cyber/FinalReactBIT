@@ -10,9 +10,18 @@ export default function Textarea({
 }) {
   return (
     <>
-      <div class="input-group">
-        <span class="input-group-text">Description</span>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+      <div className="input-group">
+        <span className="input-group-text">Description</span>
+        <textarea
+          className="form-control"
+          aria-label="With textarea"
+          onChange={onChange}
+          value={value}
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+        ></textarea>
       </div>
     </>
   );

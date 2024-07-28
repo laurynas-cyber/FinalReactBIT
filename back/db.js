@@ -65,7 +65,8 @@ const createPostTable = (_) => {
       description TEXT,
       userID SMALLINT UNSIGNED,
       amount MEDIUMINT UNSIGNED,
-      picture VARCHAR(100)
+      picture VARCHAR(100),
+      confirmed BOOLEAN
   )`;
 
   connection.query(sql, function (err) {
@@ -86,11 +87,11 @@ const dropPostsTable = (_) => {
 const seedPostsTable = (_) => {
   const sql = `
         INSERT INTO posts
-        (title, description,userID,amount, picture)
+        (title, description,userID,amount, picture, confirmed)
         VALUES
-        ('Bebrai upinis', 'Lietuvoje bebrai nuo senos','99', '1000', 'fa-gem'),
-        ('Barsukas urvinis', 'Filmas skirtas žiūrėjimui','99', '1000', 'fa-paper-plane'),
-        ('Briedis miškinis', 'Muzika skirta klausymuisi','99', '2000', 'fa-rocket')
+        ('Bebrai upinis', 'Lietuvoje bebrai nuo senos','99', '1000', 'fa-gem', 0),
+        ('Barsukas urvinis', 'Filmas skirtas žiūrėjimui','2', '1000', 'fa-paper-plane', 1),
+        ('Briedis miškinis', 'Muzika skirta klausymuisi','99', '2000', 'fa-rocket', 0)
     `;
   connection.query(sql, function (err) {
     if (err) throw err;

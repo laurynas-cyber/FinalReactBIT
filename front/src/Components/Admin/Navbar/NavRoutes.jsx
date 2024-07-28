@@ -30,9 +30,9 @@ function NavRoutes() {
         className={({ isActive }) => {
           return isActive ? "Pages ActiveTag" : "Pages";
         }}
-        to={`pageThree`}
+        to="pendingposts"
       >
-        Page Three
+        Pending Posts
       </NavLink>
     </div>
   );

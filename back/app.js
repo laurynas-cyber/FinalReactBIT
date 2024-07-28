@@ -120,6 +120,26 @@ app.get("/admin/users", (req, res) => {
   }, 1500);
 });
 
+app.get("/admin/pending/posts", (req, res) => {
+  setTimeout((_) => {
+    if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
+      return;
+    }
+    const sql = `
+        SELECT *
+        FROM posts`;
+
+    connection.query(sql, (err, rows) => {
+      if (err) throw err;
+      res
+        .json({
+          posts: rows,
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;

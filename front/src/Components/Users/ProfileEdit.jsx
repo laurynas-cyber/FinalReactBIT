@@ -10,6 +10,7 @@ import { LoaderContext } from "../Context/Loader";
 function ProfileEdit() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
+  console.log(user);
 
   const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
     l.SERVER_UPDATE_USER
@@ -24,6 +25,7 @@ function ProfileEdit() {
       }
       console.log(serverPutResponse);
       if ("success" === serverPutResponse.type) {
+        console.log(GetuserInfo);
         setUser(GetuserInfo);
         navigate(`/user/${user.id}`);
       }

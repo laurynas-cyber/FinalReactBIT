@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
 import { NavLink, Link } from "react-router-dom";
-import { AuthContext } from "../../Context/Auth";
+
 
 function NavRoutes() {
   const { isClicked, isFullSize } = useContext(NavContext);
 
-  const { user } = useContext(AuthContext);
+
 
   console.log(isClicked);
 

@@ -57,9 +57,53 @@ const seedUsersTable = (_) => {
   });
 };
 
+const createPostTable = (_) => {
+  const sql = `
+      CREATE TABLE IF NOT EXISTS posts (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(100),
+      description TEXT,
+      userID SMALLINT UNSIGNED,
+      amount MEDIUMINT UNSIGNED,
+      picture VARCHAR(100)
+  )`;
+
+  connection.query(sql, function (err) {
+    if (err) throw err;
+    console.log("Post table created");
+  });
+};
+
+const dropPostsTable = (_) => {
+  const sql = "DROP TABLE IF EXISTS posts";
+
+  connection.query(sql, function (err) {
+    if (err) throw err;
+    console.log("posts table dropped");
+  });
+};
+
+const seedPostsTable = (_) => {
+  const sql = `
+        INSERT INTO posts
+        (title, description,userID,amount, picture)
+        VALUES
+        ('Bebrai upinis', 'Lietuvoje bebrai nuo senos','99', '1000', 'fa-gem'),
+        ('Barsukas urvinis', 'Filmas skirtas žiūrėjimui','99', '1000', 'fa-paper-plane'),
+        ('Briedis miškinis', 'Muzika skirta klausymuisi','99', '2000', 'fa-rocket')
+    `;
+  connection.query(sql, function (err) {
+    if (err) throw err;
+    console.log("posts table seeded");
+  });
+};
+
 dropUsersTable(); //istrinam tik developinamo metu nes jeigu bus klaidu nereikes taisyti kiekviena karta duomenu baizeje
+dropPostsTable();
 createUsersTable();
+createPostTable();
 seedUsersTable();
+seedPostsTable();
 
 connection.end(function (err) {
   //atsijungiam databaze

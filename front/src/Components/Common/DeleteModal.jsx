@@ -4,9 +4,9 @@ import { GiCancel } from "react-icons/gi";
 
 function DeleteModal() {
   const { deleteModal, setDeleteModal } = useContext(ModalContext);
-
   const submitDelete = () => {
     deleteModal.doDelete(deleteModal.data);
+    console.log(deleteModal.data);
     setDeleteModal(null);
     deleteModal.hideData(deleteModal.data);
   };
@@ -21,7 +21,7 @@ function DeleteModal() {
         <span className="cancel">
           <GiCancel onClick={(_) => setDeleteModal(null)} />
         </span>
-        <p>Are you sure you want to delete {deleteModal.data.name}?</p>
+        <p>Are you sure you want to delete {deleteModal.name}?</p>
         <div className="buttons d-flex gap-2">
           <button
             onClick={submitDelete}

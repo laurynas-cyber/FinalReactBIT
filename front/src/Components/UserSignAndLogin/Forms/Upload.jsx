@@ -1,8 +1,7 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { MdCancel } from "react-icons/md";
 
-function Upload() {
-  const [image, setImage] = useState(null);
+function Upload({ post, setPost }) {
   const imageInput = useRef();
 
   const imageReader = (img) => {
@@ -15,22 +14,23 @@ function Upload() {
     });
   };
 
+  // console.log(image);
+
   const handleImage = (e) => {
     imageReader(e.target.files[0])
       .then((res) => {
-        setImage(res);
+        setPost((p) => ({ ...p, image: res }));
       })
 
       .catch((_) => {
-        setImage(null);
+        setPost((p) => ({ ...p, image: null }));
       });
   };
 
-  console.log(image);
-
   const ClearImage = (_) => {
     imageInput.current.value = null;
-    setImage(null);
+
+    setPost((p) => ({ ...p, image: null }));
   };
 
   return (
@@ -43,14 +43,15 @@ function Upload() {
           ref={imageInput}
           onChange={handleImage}
           type="file"
+          name="image"
           className="form-control"
           id="inputGroupFile01"
         />
       </div>
       <div className="up-img">
-        {image ? (
+        {post.image ? (
           <>
-            <img src={image} alt="uploaded"></img>
+            <img src={post.image} alt="uploaded"></img>
             <span className="cb-svg remove" onClick={ClearImage}>
               <MdCancel />
             </span>

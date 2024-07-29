@@ -1,10 +1,13 @@
-import imgUA from "../../../assets/slider/ukraine.jpg";
+import { useContext } from "react";
+import { ModalContext } from "../../Context/Modals";
 
-const PostsCard = ({ post, src = { imgUA } }) => {
+const PostsCard = ({ post, hidePost, doDelete }) => {
+  const { setDeleteModal } = useContext(ModalContext);
+
   return (
     <div
       className="container p-0 postContainer"
-      style={{ filter: post.confirmed ? null : "opacity(0.5)" }}
+      style={{ filter: post.confirmed ? "opacity(0.5)" : null }}
     >
       <div className="postTitle">
         <h5>Title</h5>
@@ -18,25 +21,39 @@ const PostsCard = ({ post, src = { imgUA } }) => {
       </div>
       <div className="fundAmout">
         <h5>Fund Amount</h5>
-        <div className="amount">{post.amount}</div>
+        <div className="amount">{post.amount}$</div>
       </div>
       <div className="postPictureCont">
         <h5>Picture</h5>
-        <img src={src} alt="img" className="postImage"></img>
+        <img src={post.image} alt="img" className="postImage"></img>
       </div>
       <div className="PostAuthorCont">
         <h5>Fund Author</h5>
-        <div className="author">{post.userID}</div>
+        <div className="author">
+          <span>{post.name} </span> <span>{post.email}</span>
+        </div>
       </div>
       <div className="PostButtons">
         <div className="d-flex gap-2">
           <button
-            disabled={post.confirmed ? null : true}
+            disabled={post.confirmed ? true : null}
             className="btn mainActionBtn"
           >
             Confirm
           </button>
-          <button className="btn SecondActionBtn">Decline</button>
+          <button
+            onClick={(_) =>
+              setDeleteModal({
+                data: post,
+                name: post.title,
+                doDelete,
+                hideData: hidePost,
+              })
+            }
+            className="btn SecondActionBtn"
+          >
+            Decline
+          </button>
         </div>
       </div>
     </div>

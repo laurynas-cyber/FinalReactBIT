@@ -119,6 +119,7 @@ function UsersList() {
                           onClick={(_) =>
                             setDeleteModal({
                               data: u,
+                              name: u.name,
                               doDelete,
                               hideData: hideUser,
                             })

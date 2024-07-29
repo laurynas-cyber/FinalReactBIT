@@ -22,8 +22,7 @@
 }
 
 .amount,
-.titlePosts,
-.author {
+.titlePosts {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,4 +37,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.author {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 80%;
 }

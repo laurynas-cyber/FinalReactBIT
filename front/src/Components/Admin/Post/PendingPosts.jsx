@@ -1,17 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useServerGet from "../../Hooks/useServerGet";
 import * as l from "../../../Constants/urls";
 import HashLoader from "react-spinners/HashLoader";
 import PostsCard from "./PostsCard";
+import useServerDelete from "../../Hooks/useServerDelete";
+import useServerPut from "../../Hooks/useServerPut";
 
 const PendingPosts = () => {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
     l.SERVER_PENDING_POSTS
   );
 
-  const [image, setImage] = useState(null);
+  const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
+    l.SERVER_UPDATE_POST
+  );
+
+  const { doAction: doDelete, serverResponse: serverDeleteResponse } =
+    useServerDelete(l.SERVER_DELETE_POST);
 
   const [pendingPosts, setPendingPosts] = useState(null);
+
+  const hidePost = (post) => {
+    setPendingPosts((p) =>
+      p.map((p) => (p.id === post.id ? { ...p, hidden: true } : p))
+    );
+  };
+
+  const showPost = useCallback((_) => {
+    setPendingPosts((p) =>
+      p.map((p) => {
+        delete p.hidden;
+        return p;
+      })
+    );
+  }, []);
+
+  const removeHidden = useCallback((_) => {
+    setPendingPosts((p) => p.filter((p) => !p.hidden));
+  }, []);
 
   useEffect(
     (_) => {
@@ -27,10 +53,22 @@ const PendingPosts = () => {
       }
 
       setPendingPosts(serverGetResponse.serverData.posts ?? null);
-      console.log(serverGetResponse.serverData.posts[2].image);
-      setImage(serverGetResponse.serverData.posts[2].image);
     },
     [serverGetResponse]
+  );
+
+  useEffect(
+    (_) => {
+      if (null === serverDeleteResponse) {
+        return;
+      }
+      if (serverDeleteResponse.type === "error") {
+        showPost();
+      } else {
+        removeHidden();
+      }
+    },
+    [serverDeleteResponse, showPost, removeHidden]
   );
 
   return (
@@ -50,9 +88,16 @@ const PendingPosts = () => {
       )}
 
       {null !== pendingPosts &&
-        pendingPosts.map((post) => (
-          <PostsCard key={post.id} post={post} src={image} />
-        ))}
+        pendingPosts.map((post, index) =>
+          post.hidden || post.confirmed ? null : (
+            <PostsCard
+              key={index}
+              post={post}
+              hidePost={hidePost}
+              doDelete={doDelete}
+            />
+          )
+        )}
     </div>
   );
 };

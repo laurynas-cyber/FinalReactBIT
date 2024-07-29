@@ -26,5 +26,9 @@ export const SERVER_EDIT_USER = "admin/edit/user";
 export const SERVER_UPDATE_USER = "admin/update/user";
 export const SERVER_PENDING_POSTS = "admin/pending/posts";
 
+export const SERVER_POST = "post";
+export const SERVER_DELETE_POST = "admin/delete/post"
+export const SERVER_UPDATE_POST = "admin/update/post"
+
 export const SERVER_LOGIN = 'login';
 export const SERVER_LOGOUT = 'logout';

@@ -125,9 +125,16 @@ app.get("/admin/pending/posts", (req, res) => {
     if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
       return;
     }
+    // const sql = `
+    //     SELECT *
+    //     FROM posts`;
+
     const sql = `
-        SELECT *
-        FROM posts`;
+       SELECT p.id, p.userID, p.title, p.description, p.amount, p.image, p.confirmed, p.is_top, u.name, u.email
+        FROM posts AS p
+        INNER JOIN users AS u
+        ON p.userID = u.id
+    `;
 
     connection.query(sql, (err, rows) => {
       if (err) throw err;
@@ -140,10 +147,49 @@ app.get("/admin/pending/posts", (req, res) => {
   }, 1500);
 });
 
+app.delete("/admin/delete/post/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+    console.log(id);
+    const sql = `
+        DELETE 
+        FROM posts 
+        WHERE id = ?
+        `;
+
+    connection.query(sql, [id], (err, result) => {
+      if (err) throw err;
+      const deleted = result.affectedRows;
+      if (!deleted) {
+        res
+          .status(422)
+          .json({
+            message: {
+              type: "info",
+              title: "Post",
+              text: `Vartotojas yra administratorius ir negali būti ištrintas arba vartotojas neegzistuoja`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          message: {
+            type: "success",
+            title: "Post",
+            text: `Post has been deleted`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
-
+    console.log(id);
     const sql = `
         DELETE 
         FROM users 
@@ -439,6 +485,34 @@ app.post("/register", (req, res) => {
         });
       }
     });
+  }, 1500);
+});
+
+app.post("/post", (req, res) => {
+  setTimeout((_) => {
+    const { title, description, amount, image, userID } = req.body;
+
+    const sql = `
+            INSERT INTO posts (title, description, amount, image, userID)
+            VALUES ( ?, ?, ?, ?, ? )
+            `;
+    connection.query(
+      sql,
+      [title, description, amount, image, userID],
+      (err) => {
+        if (err) throw err;
+        res
+          .status(201)
+          .json({
+            message: {
+              type: "success",
+              title: "Successful post",
+              text: `Your post is created, waiting for confirmation`,
+            },
+          })
+          .end();
+      }
+    );
   }, 1500);
 });
 

@@ -109,13 +109,13 @@ function UsersList() {
                       <div className="TableButtons">
                         <Link
                           to={`/dashbord/userlist/${u.id}`}
-                          className="btn SecondActionBtn"
+                          className="btn mainActionBtn"
                         >
                           Edit
                         </Link>
                         <button
                           type="button"
-                          className="btn btn-primary mainActionBtn"
+                          className="btn btn-primary SecondActionBtn mainActionBtn"
                           onClick={(_) =>
                             setDeleteModal({
                               data: u,

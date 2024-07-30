@@ -4,7 +4,7 @@ import NavIcon from "./NavIcon";
 import NavRoutes from "./NavRoutes";
 import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { LoginNav } from "../../../Constants/navigation";
 import { AuthContext } from "../../Context/Auth";
 import Logout from "../Logout";
@@ -31,7 +31,9 @@ function Nav() {
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
             <Gate status="role" role={["admin"]}>
-              <NavLink to="dashbord">{user?.role + " " + user?.name}</NavLink>
+              <NavLink className="UserTags" to="dashbord">
+                {user?.role + " " + user?.name}
+              </NavLink>
             </Gate>
             <Gate status="role" role={["user"]}>
               <NavLink className="UserTags" to={`user/${user?.id}`}>

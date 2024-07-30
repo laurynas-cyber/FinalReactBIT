@@ -21,6 +21,8 @@ const PendingPosts = () => {
 
   const [pendingPosts, setPendingPosts] = useState(null);
 
+  console.log(pendingPosts);
+
   const { setShow } = useContext(LoaderContext);
 
   const hidePost = (post) => {
@@ -124,6 +126,7 @@ const PendingPosts = () => {
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
+              mainBtnName= {"Confirm"}
             />
           )
         )}

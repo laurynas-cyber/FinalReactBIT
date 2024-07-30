@@ -1,7 +1,15 @@
 import { useContext } from "react";
 import { ModalContext } from "../../Context/Modals";
+import * as l from "../../../Constants/urls";
+import { Link } from "react-router-dom";
 
-const PostsCard = ({ post, hidePost, doDelete, onClick }) => {
+const PostsCard = ({
+  post,
+  hidePost,
+  doDelete,
+  onClick,
+  mainBtnName = "Edit",
+}) => {
   const { setDeleteModal } = useContext(ModalContext);
 
   return (
@@ -25,7 +33,11 @@ const PostsCard = ({ post, hidePost, doDelete, onClick }) => {
       </div>
       <div className="postPictureCont">
         <h5>Picture</h5>
-        <img src={post.image} alt="img" className="postImage"></img>
+        <img
+          src={l.SERVER_IMAGES_URL + post.image}
+          alt="img"
+          className="postImage"
+        ></img>
       </div>
       <div className="PostAuthorCont">
         <h5>Fund Author</h5>
@@ -35,13 +47,20 @@ const PostsCard = ({ post, hidePost, doDelete, onClick }) => {
       </div>
       <div className="PostButtons">
         <div className="d-flex gap-2">
-          <button
-            onClick={(_) => onClick(post)}
-            // disabled={post.confirmed ? true : null}
-            className="btn mainActionBtn"
-          >
-            Confirm
-          </button>
+          {mainBtnName !== "Edit" ? (
+            <button
+              onClick={(_) => onClick(post)}
+              // disabled={post.confirmed ? true : null}
+              className="btn mainActionBtn"
+            >
+              {mainBtnName}
+            </button>
+          ) : (
+            <Link to={`/dashbord`} className="btn mainActionBtn">
+              {mainBtnName}
+            </Link>
+          )}
+
           <button
             onClick={(_) =>
               setDeleteModal({

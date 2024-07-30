@@ -67,7 +67,7 @@ const PendingPosts = () => {
       setPendingPosts(
         serverGetResponse.serverData.posts.filter((p) => !!p.confirmed) ?? null
       );
-  
+      
     },
     [serverGetResponse]
   );
@@ -127,6 +127,7 @@ const PendingPosts = () => {
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
+             
             />
           )
         )}

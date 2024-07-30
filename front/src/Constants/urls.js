@@ -1,6 +1,6 @@
 export const SERVER_URL = "http://localhost:3006/";
 export const SIDE_URL = "http://localhost:3005/";
-
+export const SERVER_IMAGES_URL = "http://localhost:3006/img/";
 //Site URLs
 
 export const SITE_LOGIN = "/LogIn";
@@ -16,7 +16,6 @@ export const USER_EDIT = "/admin/user-edit";
 
 //User URLS
 
-
 //Server URLs
 
 export const SERVER_REGISTER = "register";
@@ -27,8 +26,9 @@ export const SERVER_UPDATE_USER = "admin/update/user";
 export const SERVER_PENDING_POSTS = "admin/pending/posts";
 
 export const SERVER_POST = "post";
-export const SERVER_DELETE_POST = "admin/delete/post"
-export const SERVER_UPDATE_POST = "admin/update/post"
+export const SERVER_DELETE_POST = "admin/delete/post";
+export const SERVER_UPDATE_POST = "admin/update/post";
+export const SERVER_HOME_POSTS = "home/posts";
 
-export const SERVER_LOGIN = 'login';
-export const SERVER_LOGOUT = 'logout';
+export const SERVER_LOGIN = "login";
+export const SERVER_LOGOUT = "logout";

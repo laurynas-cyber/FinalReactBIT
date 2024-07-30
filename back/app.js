@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mysql = require("mysql");
 const { v4: uuidv4 } = require("uuid");
-// const fs = require('node:fs');
+const fs = require("node:fs");
 const md5 = require("md5");
 const app = express();
 const port = 3006;
@@ -26,9 +26,67 @@ app.use(
 );
 
 app.use(cookieParser());
-// app.use(express.static('public'));
+app.use(express.static("public"));
+app.use(express.json({ limit: "10mb" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const writeImage = (imageBase64) => {
+  if (!imageBase64) {
+    return null;
+  }
+  let type;
+  let image;
+  if (imageBase64.indexOf("data:image/png;base64,") === 0) {
+    type = "png";
+    image = Buffer.from(
+      imageBase64.replace(/^data:image\/png;base64,/, ""),
+      "base64"
+    );
+  } else if (imageBase64.indexOf("data:image/jpeg;base64,") === 0) {
+    type = "jpg";
+    image = Buffer.from(
+      imageBase64.replace(/^data:image\/jpeg;base64,/, ""),
+      "base64"
+    );
+  } else {
+    res.status(500).send("Bad image format");
+    return;
+  }
+  const filename = md5(uuidv4()) + "." + type;
+  fs.writeFileSync("public/img/" + filename, image);
+  return filename;
+};
+
+const deleteImage = (postId) => {
+  let sql = "SELECT photo FROM posts WHERE id = ?";
+  connection.query(sql, [postId], (err, results) => {
+    if (err) {
+      res.status;
+    } else {
+      if (results[0].photo) {
+        fs.unlinkSync("public/img/" + results[0].photo);
+      }
+    }
+  });
+};
+
+const preDeleteImage = (postId) => {
+  let sql = "SELECT photo FROM posts WHERE id = ?";
+  connection.query(sql, [postId], (err, results) => {
+    if (err) {
+      return null;
+    } else {
+      if (results[0].photo) {
+        return results[0].photo;
+      }
+    }
+  });
+};
+
+const doDeleteImage = (filename) => {
+  fs.unlinkSync("public/img/" + filename);
+};
 
 const maintenance = (req, res, next) => {
   res
@@ -126,12 +184,30 @@ app.get("/admin/pending/posts", (req, res) => {
       return;
     }
 
-
     const sql = `
        SELECT p.id, p.userID, p.title, p.description, p.amount, p.image, p.confirmed, p.is_top, u.name, u.email
         FROM posts AS p
         INNER JOIN users AS u
         ON p.userID = u.id
+    `;
+
+    connection.query(sql, (err, rows) => {
+      if (err) throw err;
+      res
+        .json({
+          posts: rows,
+        })
+        .end();
+    });
+  }, 1500);
+});
+
+app.get("/home/posts", (req, res) => {
+  setTimeout((_) => {
+    const sql = `
+      SELECT *
+      FROM posts
+      WHERE confirmed = true
     `;
 
     connection.query(sql, (err, rows) => {
@@ -533,14 +609,14 @@ app.post("/register", (req, res) => {
 app.post("/post", (req, res) => {
   setTimeout((_) => {
     const { title, description, amount, image, userID } = req.body;
-
+    const filename = writeImage(image);
     const sql = `
             INSERT INTO posts (title, description, amount, image, userID)
             VALUES ( ?, ?, ?, ?, ? )
             `;
     connection.query(
       sql,
-      [title, description, amount, image, userID],
+      [title, description, amount, filename, userID],
       (err) => {
         if (err) throw err;
         res

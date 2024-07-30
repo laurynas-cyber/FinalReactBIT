@@ -10,14 +10,93 @@
   overflow: hidden;
 }
 
-.img-slider-img {
-  object-fit: cover;
+.slideContainer {
   width: 100%;
   height: 100%;
   display: block;
   flex-shrink: 0;
   flex-grow: 0;
   transition: translate 300ms ease-in-out;
+  position: relative;
+}
+
+.slideContainer > * {
+  position: absolute;
+}
+
+.img-slider-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: brightness(0.7);
+}
+
+.sliderPostText {
+  padding: 10px;
+  gap: 5px;
+  left: 60px;
+  top: 50px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  max-width: 20rem;
+  .sliderPostTitle {
+    color: $orange;
+  }
+  .sliderPostDescript {
+    color: $white;
+    filter: brightness(0.9);
+  }
+}
+
+.SliderDonationContainer {
+  padding: 10px;
+  right: 60px;
+  top: 50px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  max-height: 10rem;
+  max-width: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .donationLeft {
+    color: $white;
+    filter: brightness(0.9);
+    font-size: 15px;
+  }
+  .Donated {
+    color: $white;
+    font-size: 15px;
+    filter: brightness(0.9);
+    width: auto;
+    text-align: right;
+    position: relative;
+    left: 0;
+  }
+  .DonationRequired {
+    color: $orange;
+    width: auto;
+  }
+  .dontaionInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    .donationBarContainer {
+      height: 10px;
+      min-width: 100px;
+      width: 100%;
+      background-color: $gray;
+      display: flex;
+
+      .donatedBar {
+        background-color: $blue;
+        width: 80%;
+      }
+    }
+  }
 }
 
 .img-slider-btn {

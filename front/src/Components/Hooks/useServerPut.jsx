@@ -17,6 +17,7 @@ const useServerPut = (url) => {
 
   const navigate = useNavigate();
   const doAction = (data) => {
+
     axios
       .put(`${l.SERVER_URL}${url}/${data.id}`, data, { withCredentials: true })
       .then((res) => {

@@ -34,6 +34,14 @@ function NavRoutes() {
       >
         Pending Posts
       </NavLink>
+      <NavLink
+        className={({ isActive }) => {
+          return isActive ? "Pages ActiveTag" : "Pages";
+        }}
+        to="activeposts"
+      >
+        Active Posts
+      </NavLink>
     </div>
   );
 }

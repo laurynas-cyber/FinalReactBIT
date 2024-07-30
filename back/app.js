@@ -125,9 +125,7 @@ app.get("/admin/pending/posts", (req, res) => {
     if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
       return;
     }
-    // const sql = `
-    //     SELECT *
-    //     FROM posts`;
+
 
     const sql = `
        SELECT p.id, p.userID, p.title, p.description, p.amount, p.image, p.confirmed, p.is_top, u.name, u.email
@@ -183,6 +181,50 @@ app.delete("/admin/delete/post/:id", (req, res) => {
         })
         .end();
     });
+  }, 1500);
+});
+
+app.put("/admin/update/post/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+    const { title, description, amount, image, confirmed, is_top } = req.body;
+
+    const sql = `
+            UPDATE posts
+            SET title = ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
+            WHERE id = ?
+            `;
+
+    connection.query(
+      sql,
+      [title, description, amount, image, confirmed, is_top, id],
+      (err, result) => {
+        if (err) throw err;
+        const updated = result.affectedRows;
+        if (!updated) {
+          res
+            .status(404)
+            .json({
+              message: {
+                type: "info",
+                title: "Post",
+                text: `Post was not found`,
+              },
+            })
+            .end();
+          return;
+        }
+        res
+          .json({
+            message: {
+              type: "success",
+              title: "Post",
+              text: `Post updated successfully`,
+            },
+          })
+          .end();
+      }
+    );
   }, 1500);
 });
 

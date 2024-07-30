@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { ModalContext } from "../../Context/Modals";
 
-const PostsCard = ({ post, hidePost, doDelete }) => {
+const PostsCard = ({ post, hidePost, doDelete, onClick }) => {
   const { setDeleteModal } = useContext(ModalContext);
 
   return (
     <div
       className="container p-0 postContainer"
-      style={{ filter: post.confirmed ? "opacity(0.5)" : null }}
+      // style={{ filter: post.confirmed ? "opacity(0.5)" : null }}
     >
       <div className="postTitle">
         <h5>Title</h5>
@@ -36,7 +36,8 @@ const PostsCard = ({ post, hidePost, doDelete }) => {
       <div className="PostButtons">
         <div className="d-flex gap-2">
           <button
-            disabled={post.confirmed ? true : null}
+            onClick={(_) => onClick(post)}
+            // disabled={post.confirmed ? true : null}
             className="btn mainActionBtn"
           >
             Confirm

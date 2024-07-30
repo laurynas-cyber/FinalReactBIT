@@ -58,7 +58,7 @@ const UserPosts = () => {
         navigate(`/user/${params.id}`);
       }
     },
-    [serverResponse, navigate]
+    [serverResponse, navigate, params]
   );
 
   return (

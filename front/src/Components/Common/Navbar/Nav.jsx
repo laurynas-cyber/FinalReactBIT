@@ -31,14 +31,7 @@ function Nav() {
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
             <Gate status="role" role={["admin"]}>
-              <NavLink
-                className={({ isActive }) => {
-                  return isActive ? "UserTags ActiveTag" : "UserTags";
-                }}
-                to="dashbord"
-              >
-                {user?.role + " " + user?.name}
-              </NavLink>
+              <NavLink to="dashbord">{user?.role + " " + user?.name}</NavLink>
             </Gate>
             <Gate status="role" role={["user"]}>
               <NavLink className="UserTags" to={`user/${user?.id}`}>

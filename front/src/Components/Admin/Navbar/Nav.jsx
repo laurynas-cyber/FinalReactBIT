@@ -5,9 +5,12 @@ import NavRoutes from "./NavRoutes";
 import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
 import Logout from "../../Common/Logout";
+import { AuthContext } from "../../Context/Auth";
+import { Link } from "react-router-dom";
 
 function Nav() {
   const { isFullSize } = useContext(NavContext);
+  const { user } = useContext(AuthContext);
   return (
     <>
       {isFullSize ? null : <NavRoutes />}
@@ -22,6 +25,7 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
+            <Link className="UserTags">{user?.role + " " + user?.name}</Link>
             <Logout />
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
           </div>

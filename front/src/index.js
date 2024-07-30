@@ -22,6 +22,7 @@ import HelloUser from "./Components/Users/HelloUser.jsx";
 import ProfileEdit from "./Components/Users/ProfileEdit.jsx";
 import UserPosts from "./Components/Users/UserPosts.jsx";
 import PendingPosts from "./Components/Admin/Post/PendingPosts.jsx";
+import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
         element: [
           <RouteGate key={5} role={["admin"]}>
             <PendingPosts />
+          </RouteGate>,
+        ],
+      },
+      {
+        path: "activeposts",
+        element: [
+          <RouteGate key={6} role={["admin"]}>
+            <ActivePosts />
           </RouteGate>,
         ],
       },

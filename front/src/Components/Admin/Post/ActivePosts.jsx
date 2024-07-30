@@ -64,7 +64,10 @@ const PendingPosts = () => {
         return;
       }
 
-      setPendingPosts(serverGetResponse.serverData.posts ?? null);
+      setPendingPosts(
+        serverGetResponse.serverData.posts.filter((p) => !!p.confirmed) ?? null
+      );
+  
     },
     [serverGetResponse]
   );
@@ -117,7 +120,7 @@ const PendingPosts = () => {
 
       {null !== pendingPosts &&
         pendingPosts.map((post, index) =>
-          post.hidden || post.confirmed ? null : (
+          post.hidden || !post.confirmed ? null : (
             <PostsCard
               key={index}
               post={post}

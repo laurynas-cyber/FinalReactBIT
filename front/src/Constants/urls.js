@@ -15,7 +15,7 @@ export const USERS_LIST = "#users";
 export const USER_EDIT = "/admin/user-edit";
 
 //User URLS
-
+export const SERVER_USER_PENDING_POSTS = "user/createdposts"
 //Server URLs
 
 export const SERVER_REGISTER = "register";

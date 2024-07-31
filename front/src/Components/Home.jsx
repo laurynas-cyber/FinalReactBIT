@@ -87,21 +87,31 @@ function Home() {
         </div>
       )}
       {activePost?.length > 0 && (
-        <div className="SliderCont">
-          <ImageSlider
-            postData={activePost}
-            onClick={handleDonate}
-            donateShow={donateShow}
-            setDonateInput={setDonateInput}
-            DonateInput={DonateInput}
-          />
-        </div>
+        <>
+          <div className="col d-flex justify-content-center align-items-center SignInText">
+            <h2>Posts waiting for donations</h2>
+          </div>
+          <div className="SliderCont">
+            <ImageSlider
+              postData={activePost}
+              onClick={handleDonate}
+              donateShow={donateShow}
+              setDonateInput={setDonateInput}
+              DonateInput={DonateInput}
+            />
+          </div>
+        </>
       )}
 
       {donatedPost !== null && (
-        <div className="SliderCont">
-          <ImageSlider postData={donatedPost} />
-        </div>
+        <>
+          <div className="col d-flex justify-content-center align-items-center SignInText">
+            <p>Donated Posts</p>
+          </div>
+          <div className="SliderCont">
+            <ImageSlider postData={donatedPost} />
+          </div>
+        </>
       )}
     </div>
   );

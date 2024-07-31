@@ -202,6 +202,31 @@ app.get("/admin/pending/posts", (req, res) => {
   }, 1500);
 });
 
+app.get("/user/createdposts/:id", (req, res) => {
+  setTimeout((_) => {
+    if (!checkUserIsAuthorized(req, res, ["user"])) {
+      return;
+    }
+    const { id } = req.params;
+
+
+    const sql = `
+    SELECT *
+    FROM posts AS p
+    WHERE p.userID = ?
+`;
+
+    connection.query(sql, [id], (err, rows) => {
+      if (err) throw err;
+      res
+        .json({
+          posts: rows,
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.get("/home/posts", (req, res) => {
   setTimeout((_) => {
     const sql = `

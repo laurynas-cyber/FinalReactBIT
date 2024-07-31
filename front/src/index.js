@@ -23,6 +23,7 @@ import ProfileEdit from "./Components/Users/ProfileEdit.jsx";
 import UserPosts from "./Components/Users/UserPosts.jsx";
 import PendingPosts from "./Components/Admin/Post/PendingPosts.jsx";
 import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
+import CreatedPosts from "./Components/Users/CreatedPosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -108,15 +109,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: [<HelloUser key={1} />],
+        element: [<HelloUser key={11} />],
       },
       {
         path: "edit",
-        element: [<ProfileEdit key={2} />],
+        element: [<ProfileEdit key={22} />],
       },
       {
         path: "posts",
-        element: [<UserPosts key={3} />],
+        element: [<UserPosts key={23} />],
+      },
+      {
+        path: "createdposts",
+        element: [<CreatedPosts key={24} />],
       },
     ],
   },

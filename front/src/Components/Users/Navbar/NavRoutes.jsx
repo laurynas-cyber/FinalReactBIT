@@ -27,6 +27,14 @@ function NavRoutes() {
         }}
         to="posts"
       >
+        Create Posts
+      </NavLink>
+      <NavLink
+        className={({ isActive }) => {
+          return isActive ? "Pages ActiveTag" : "Pages";
+        }}
+        to="createdposts"
+      >
         Your Posts
       </NavLink>
       <NavLink

@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 export default function Textarea({
   label = null,
   onChange,
@@ -8,11 +10,15 @@ export default function Textarea({
   autoComplete = null,
   errors = {},
 }) {
+  const characters = useRef(190);
   return (
     <>
       <div className="input-group">
-        <span className="input-group-text">Description</span>
+        <span className="input-group-text">
+          Max Characters: {characters.current - value.length}
+        </span>
         <textarea
+          maxLength={characters.current}
           className="form-control"
           aria-label="With textarea"
           onChange={onChange}

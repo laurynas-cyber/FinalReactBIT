@@ -209,7 +209,6 @@ app.get("/user/createdposts/:id", (req, res) => {
     }
     const { id } = req.params;
 
-
     const sql = `
     SELECT *
     FROM posts AS p
@@ -249,38 +248,46 @@ app.get("/home/posts", (req, res) => {
 app.delete("/admin/delete/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
-    console.log(id);
-    const sql = `
-        DELETE 
-        FROM posts 
-        WHERE id = ?
-        `;
-
-    connection.query(sql, [id], (err, result) => {
-      if (err) throw err;
-      const deleted = result.affectedRows;
-      if (!deleted) {
-        res
-          .status(422)
-          .json({
-            message: {
-              type: "info",
-              title: "Post",
-              text: `Vartotojas yra administratorius ir negali būti ištrintas arba vartotojas neegzistuoja`,
-            },
-          })
-          .end();
-        return;
+    let filename = null;
+    let sql = "SELECT image FROM posts WHERE id = ?";
+    connection.query(sql, [id], (err, results) => {
+      if (results[0].image) {
+        filename = results[0].image;
+        const sql = `
+                  DELETE
+                  FROM posts
+                  WHERE id = ?
+                  `;
+        connection.query(sql, [id], (err, result) => {
+          if (err) throw err;
+          const deleted = result.affectedRows;
+          if (!deleted) {
+            res
+              .status(422)
+              .json({
+                message: {
+                  type: "info",
+                  title: "Post",
+                  text: `Post cannot be deleted`,
+                },
+              })
+              .end();
+            return;
+          }
+          if (filename) {
+            fs.unlinkSync("public/img/" + filename);
+          }
+          res
+            .json({
+              message: {
+                type: "success",
+                title: "Post",
+                text: `Post has been deleted`,
+              },
+            })
+            .end();
+        });
       }
-      res
-        .json({
-          message: {
-            type: "success",
-            title: "Post",
-            text: `Post has been deleted`,
-          },
-        })
-        .end();
     });
   }, 1500);
 });

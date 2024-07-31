@@ -65,6 +65,7 @@ export const ImageSlider = ({
         onMouseEnter={stopSlider}
         onMouseLeave={startSlider}
         aria-label="Image Slider"
+        className="ImageSliderSection"
         style={{ width: "100%", height: "100%", position: "relative" }}
       >
         <div className="ImageContainer">

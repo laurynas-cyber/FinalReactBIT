@@ -106,7 +106,7 @@ const PendingPosts = () => {
   return (
     <div className="container p-0 SigninText">
       <div className="col d-flex justify-content-center align-items-center SignInText">
-        <p>Posts waiting for your confirmation</p>
+        <h2>Active Posts</h2>
       </div>
 
       {null === pendingPosts && (

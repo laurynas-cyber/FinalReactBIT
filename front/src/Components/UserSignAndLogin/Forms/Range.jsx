@@ -5,7 +5,7 @@ function Range({ onChange, value }) {
         <label htmlFor="customRange2" className="form-label">
           Select amount you want to collect
         </label>
-        <span>{value}000</span>
+        <span>{value}000eur</span>
       </div>
 
       <input

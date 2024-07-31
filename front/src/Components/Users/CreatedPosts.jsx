@@ -10,6 +10,7 @@ import { LoaderContext } from "../Context/Loader";
 import { useParams } from "react-router-dom";
 
 const CreatedPosts = () => {
+
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
     l.SERVER_USER_PENDING_POSTS
   );
@@ -65,7 +66,7 @@ const CreatedPosts = () => {
       }
 
       setPendingPosts(serverGetResponse.serverData.posts ?? null);
-      console.log(serverGetResponse.serverData.posts);
+
     },
     [serverGetResponse]
   );
@@ -102,7 +103,7 @@ const CreatedPosts = () => {
   return (
     <div className="container p-0 SigninText">
       <div className="col d-flex justify-content-center align-items-center SignInText">
-        <p>Posts waiting for your confirmation</p>
+        <h2>Your created Posts</h2>
       </div>
 
       {null === pendingPosts && (
@@ -117,14 +118,13 @@ const CreatedPosts = () => {
 
       {null !== pendingPosts &&
         pendingPosts.map((post, index) =>
-          post.hidden || post.confirmed ? null : (
+          post.hidden ? null : (
             <Postscard
               key={index}
               post={post}
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
-              mainBtnName={"Confirm"}
             />
           )
         )}

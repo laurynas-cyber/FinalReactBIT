@@ -15,7 +15,7 @@ const PostsCard = ({
   return (
     <div
       className="container p-0 postContainer"
-      // style={{ filter: post.confirmed ? "opacity(0.5)" : null }}
+      // style={{ filter: post.confirmed ? null : "opacity(0.5)" }}
     >
       <div className="postTitle">
         <h5>Title</h5>
@@ -30,6 +30,17 @@ const PostsCard = ({
       <div className="fundAmout">
         <h5>Fund Amount</h5>
         <div className="amount">{post.amount}$</div>
+        {!!post.confirmed && (
+          <>
+            <h5>Donated</h5>
+            <div
+              className="amount"
+              style={{ color: post.donated >= post.amount ? "#f08702" : null }}
+            >
+              {post.donated}$
+            </div>
+          </>
+        )}
       </div>
       <div className="postPictureCont">
         <h5>Picture</h5>
@@ -40,9 +51,20 @@ const PostsCard = ({
         ></img>
       </div>
       <div className="PostAuthorCont">
-        <h5>Fund Author</h5>
+        <h5>{post.name ? "Fund Author" : "Active Post"}</h5>
         <div className="author">
-          <span>{post.name} </span> <span>{post.email}</span>
+          {post.name ? (
+            <>
+              <span>{post.name} </span> <span>{post.email}</span>
+            </>
+          ) : !!post.confirmed ? (
+            <span className="userConfirmed">
+              {" "}
+              <strong> Confirmed </strong>{" "}
+            </span>
+          ) : (
+            <span>Not Confirmed </span>
+          )}
         </div>
       </div>
       <div className="PostButtons">
@@ -62,14 +84,15 @@ const PostsCard = ({
           )}
 
           <button
-            onClick={(_) =>
+            onClick={(_) => {
+       
               setDeleteModal({
                 data: post,
                 name: post.title,
                 doDelete,
                 hideData: hidePost,
-              })
-            }
+              });
+            }}
             className="btn SecondActionBtn"
           >
             Decline

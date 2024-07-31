@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import { LoaderContext } from "./Context/Loader";
 import useServerPut from "./Hooks/useServerPut";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -19,17 +20,18 @@ function Home() {
   const { setShow } = useContext(LoaderContext);
   const [donateShow, setDonateShow] = useState(null);
   const [DonateInput, setDonateInput] = useState("");
+  const navigate = useNavigate();
 
   const handleDonate = (e, post) => {
+    navigate("/");
     if (!!donateShow && donateShow === parseInt(e.target.id)) {
       let copyPost = post;
       if (copyPost.amount - DonateInput <= 0) {
         copyPost.donated = copyPost.amount;
-        console.log(copyPost.donated, "bigger");
+
         setShow(true);
         return doPut(copyPost);
       } else {
-        console.log(copyPost.donated, "smaller");
         copyPost.donated = DonateInput;
         setShow(true);
         return doPut(copyPost);
@@ -103,7 +105,7 @@ function Home() {
         </>
       )}
 
-      {donatedPost !== null && (
+      {donatedPost !== null && donatedPost.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">
             <p>Donated Posts</p>

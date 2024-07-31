@@ -3,11 +3,18 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
 import * as l from "../../Constants/urls";
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
-export const ImageSlider = ({ postData, onClick, donateShow }) => {
+export const ImageSlider = ({
+  postData,
+  onClick = null,
+  donateShow = null,
+  DonateInput = null,
+  setDonateInput = null,
+}) => {
   const [imageIndex, setImageIndex] = useState(0);
 
-  console.log(postData);
   const intervalRef = useRef(null);
 
   useCallback((_) => {}, []);
@@ -61,7 +68,7 @@ export const ImageSlider = ({ postData, onClick, donateShow }) => {
         style={{ width: "100%", height: "100%", position: "relative" }}
       >
         <div className="ImageContainer">
-          {postData.map((p) => (
+          {postData.map((p, index) => (
             <div
               className="slideContainer"
               key={p.id}
@@ -78,7 +85,9 @@ export const ImageSlider = ({ postData, onClick, donateShow }) => {
               </div>
               <div className="SliderDonationContainer">
                 <div className="donationLeft">
-                  Left {p.amount - p.donated}eur to complete
+                  {p.amount <= p.donated
+                    ? null
+                    : `Left ${p.amount - p.donated}eur to complete`}
                 </div>
                 <div className="dontaionInfo">
                   <span className="Donated"> Donated {p.donated}eur</span>
@@ -88,24 +97,58 @@ export const ImageSlider = ({ postData, onClick, donateShow }) => {
                   >
                     <div
                       className="donatedBar"
-                      style={{ width: `${DonatedBar(p.amount, p.donated)}%` }}
+                      style={{
+                        width: `${DonatedBar(p.amount, p.donated)}%`,
+                        backgroundColor:
+                          p.amount <= p.donated ? "#f08702" : "#3498db",
+                      }}
                     ></div>
                   </div>
                   <span className="DonationRequired">
                     <strong>Required {p.amount}eur </strong>
                   </span>
                 </div>
-                <button onClick={onClick} className="btn mainActionBtn">
-                  Donate
-                </button>
-                <input
-                  className="DonateInput"
-                  type="text"
-                  style={{
-                    maxHeight: donateShow + "px",
-                    // display: donateShow ? "flex" : "none",
-                  }}
-                />
+                {p.amount <= p.donated ? null : (
+                  <>
+                    <div className="ButtonContainerDonate">
+                      {donateShow === p.id ? (
+                        <FaLongArrowAltRight className="DonateArrows" />
+                      ) : null}
+
+                      <button
+                        onClick={(e) => onClick(e, p)}
+                        id={p.id}
+                        className="btn mainActionBtn"
+                        style={{
+                          backgroundColor:
+                            donateShow === p.id ? "#f08702" : "#3498db",
+                        }}
+                      >
+                        Donate
+                      </button>
+
+                      {donateShow === p.id ? (
+                        <FaLongArrowAltLeft className="DonateArrows" />
+                      ) : null}
+                    </div>
+                    <div
+                      className="InputContainer"
+                      style={{
+                        maxHeight: donateShow === p.id ? "100px" : null,
+                      }}
+                    >
+                      <input
+                        className="DonateInput"
+                        type="text"
+                        value={DonateInput}
+                        onChange={(e) => setDonateInput(e.target.value)}
+                        style={{
+                          maxHeight: donateShow === p.id ? "100px" : null,
+                        }}
+                      />
+                    </div>{" "}
+                  </>
+                )}
               </div>
             </div>
           ))}
@@ -130,7 +173,7 @@ export const ImageSlider = ({ postData, onClick, donateShow }) => {
         <div className="IndexSlideBubbles">
           {postData.map((p, index) => (
             <button
-              key={p.title}
+              key={p.description}
               className="img-slide-dot-btn"
               onClick={() => setImageIndex(index)}
               aria-label={`View Image ${index}`}

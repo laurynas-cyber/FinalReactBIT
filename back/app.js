@@ -263,17 +263,18 @@ app.delete("/admin/delete/post/:id", (req, res) => {
 app.put("/admin/update/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
-    const { title, description, amount, image, confirmed, is_top } = req.body;
-
+    const { title, donated, description, amount, image, confirmed, is_top } =
+      req.body;
+    console.log(req.body);
     const sql = `
             UPDATE posts
-            SET title = ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
+            SET title = ?, donated = donated + ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
             WHERE id = ?
             `;
 
     connection.query(
       sql,
-      [title, description, amount, image, confirmed, is_top, id],
+      [title, donated, description, amount, image, confirmed, is_top, id],
       (err, result) => {
         if (err) throw err;
         const updated = result.affectedRows;

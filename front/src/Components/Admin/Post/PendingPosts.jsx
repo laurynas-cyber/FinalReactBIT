@@ -89,7 +89,7 @@ const PendingPosts = () => {
         return;
       }
       if (serverPutResponse.type === "error") {
-        // sitas neveikia, bet gal veiks del nuotrauku
+   
         showPost();
         console.log(" error");
       } else {

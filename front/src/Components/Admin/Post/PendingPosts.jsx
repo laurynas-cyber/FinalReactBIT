@@ -21,7 +21,6 @@ const PendingPosts = () => {
 
   const [pendingPosts, setPendingPosts] = useState(null);
 
-  console.log(pendingPosts);
 
   const { setShow } = useContext(LoaderContext);
 
@@ -49,7 +48,6 @@ const PendingPosts = () => {
     setShow(true);
     hidePost(post);
     post.confirmed = true;
-    console.log(post);
     doPut(post);
   };
 

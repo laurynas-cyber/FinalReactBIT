@@ -1,16 +1,9 @@
-import img1 from "../assets/slider/nature.jpg";
-import img2 from "../assets/slider/Palestine.jpg";
-import img3 from "../assets/slider/PalestineKids.jpg";
-import img4 from "../assets/slider/StrayDogs.jpg";
-import img5 from "../assets/slider/ukraine.jpg";
-
 import { ImageSlider } from "./Home/ImageSlider";
-import { ImageSlider2 } from "./Home/ImageSlider2";
 import useServerGet from "./Hooks/useServerGet";
 import * as l from "../Constants/urls";
-import { useEffect, useState } from "react";
-
-const Images = [{ url: img1, alt: "Image1" }];
+import { useContext, useEffect, useState } from "react";
+import HashLoader from "react-spinners/HashLoader";
+import { LoaderContext } from "./Context/Loader";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -18,6 +11,12 @@ function Home() {
   );
 
   const [activePost, setActivePost] = useState(null);
+  const { setShow } = useContext(LoaderContext);
+  const [donateShow, setDonateShow] = useState(0);
+
+  const handleDonate = (_) => {
+    setDonateShow(100);
+  };
 
   useEffect(
     (_) => {
@@ -38,10 +37,24 @@ function Home() {
   );
   return (
     <div className="container p-0">
-      <div className="SliderCont">
-        <ImageSlider postData={activePost} images={Images} />
-        {/* <ImageSlider2 images={Images} /> */}
-      </div>
+      {activePost === null && (
+        <div className="row Spinner">
+          <div className="col loadingDataContainer">
+            <h4>Loading Slider</h4>
+
+            <HashLoader color="#358cc8" size={150} />
+          </div>
+        </div>
+      )}
+      {activePost !== null && (
+        <div className="SliderCont">
+          <ImageSlider
+            postData={activePost}
+            onClick={handleDonate}
+            donateShow={donateShow}
+          />
+        </div>
+      )}
     </div>
   );
 }

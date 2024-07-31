@@ -21,6 +21,8 @@ const PendingPosts = () => {
 
   const [pendingPosts, setPendingPosts] = useState(null);
 
+  console.log(pendingPosts);
+
   const { setShow } = useContext(LoaderContext);
 
   const hidePost = (post) => {
@@ -67,7 +69,6 @@ const PendingPosts = () => {
       setPendingPosts(
         serverGetResponse.serverData.posts.filter((p) => !!p.confirmed) ?? null
       );
-      
     },
     [serverGetResponse]
   );
@@ -127,7 +128,6 @@ const PendingPosts = () => {
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
-             
             />
           )
         )}

@@ -67,7 +67,8 @@ const createPostTable = (_) => {
       amount MEDIUMINT UNSIGNED,
       image VARCHAR(65000) NULL,
       confirmed BOOLEAN DEFAULT FALSE,
-      is_top BOOLEAN DEFAULT FALSE
+      is_top BOOLEAN DEFAULT FALSE,
+      donated MEDIUMINT DEFAULT 0
   )`;
 
   connection.query(sql, function (err) {
@@ -91,8 +92,8 @@ const seedPostsTable = (_) => {
         (title, description,userID,amount, image, confirmed, is_top)
         VALUES
         ('Bebrai upinis', 'Lietuvoje bebrai nuo senos','99', '1000', null, 0, false),
-        ('Barsukas urvinis', 'Filmas skirtas žiūrėjimui','99', '1000', null, 1 ,false),
-        ('Briedis miškinis', 'Muzika skirta klausymuisi','1', '2000', null , 0, true)
+        ('Barsukas urvinis', 'Filmas skirtas žiūrėjimui','99', '1000', null, 0 ,false),
+        ('Briedis miškinis', 'Muzika skirta klausymuisi','1', '2000', null , 1, true)
     `;
   connection.query(sql, function (err) {
     if (err) throw err;

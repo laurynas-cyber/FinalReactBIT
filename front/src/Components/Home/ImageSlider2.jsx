@@ -72,10 +72,7 @@ export const ImageSlider2 = ({ images }) => {
             <div className="SliderDonationContainer">
               <div className="donationLeft">Left 5000 eur</div>
               <div className="dontaionInfo">
-                <span className="Donated">
-                  {" "}
-                  Donated <br>5000eur</br>
-                </span>
+                <span className="Donated"> Donate</span>
                 <div className="donationBarContainer">
                   <div className="donatedBar"></div>
                 </div>

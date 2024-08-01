@@ -59,13 +59,13 @@ const writeImage = (imageBase64) => {
 };
 
 const deleteImage = (postId) => {
-  let sql = "SELECT photo FROM posts WHERE id = ?";
+  let sql = "SELECT image FROM posts WHERE id = ?";
   connection.query(sql, [postId], (err, results) => {
     if (err) {
       res.status;
     } else {
-      if (results[0].photo) {
-        fs.unlinkSync("public/img/" + results[0].photo);
+      if (results[0].image) {
+        fs.unlinkSync("public/img/" + results[0].image);
       }
     }
   });
@@ -129,8 +129,8 @@ const checkUserIsAuthorized = (req, res, roles) => {
       .json({
         message: {
           type: "error",
-          title: "Neautorizuotas",
-          text: `Jūs turite būti prisijungęs`,
+          title: "Not authorized",
+          text: `You must be logged in`,
         },
         reason: "not-logged-in",
       })
@@ -143,8 +143,8 @@ const checkUserIsAuthorized = (req, res, roles) => {
       .json({
         message: {
           type: "error",
-          title: "Neautorizuotas",
-          text: `Jūs neturite teisių atlikti šią operaciją`,
+          title: "Not authorized",
+          text: `You do not have the right to perform the action `,
         },
         reason: "not-authorized",
       })
@@ -196,6 +196,41 @@ app.get("/admin/pending/posts", (req, res) => {
       res
         .json({
           posts: rows,
+        })
+        .end();
+    });
+  }, 1500);
+});
+
+app.get("/web/edit/post/:id", (req, res) => {
+  setTimeout((_) => {
+    if (!checkUserIsAuthorized(req, res, ["admin", "user"])) {
+      return;
+    }
+    const { id } = req.params;
+    const sql = `
+        SELECT *
+        FROM posts
+        WHERE id = ?
+        `;
+    connection.query(sql, [id], (err, rows) => {
+      if (err) throw err;
+      if (!rows.length) {
+        res
+          .status(404)
+          .json({
+            message: {
+              type: "info",
+              title: "Post",
+              text: `Post was not found`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          post: rows[0],
         })
         .end();
     });
@@ -292,12 +327,100 @@ app.delete("/admin/delete/post/:id", (req, res) => {
   }, 1500);
 });
 
+// app.put("/admin/update/post/:id", (req, res) => {
+//   setTimeout((_) => {
+//     const { id } = req.params;
+
+//     const { title, donated, description, amount, image, confirmed, is_top } =
+//       req.body;
+
+//     if (image) {
+//       image.length > 40 && deleteImage(id);
+//       const filename = image.length > 40 ? writeImage(image) : image;
+
+//       const sql = `
+//           UPDATE posts
+//             SET title = ?, donated = donated + ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
+//             WHERE id = ?
+//             `;
+
+//       connection.query(
+//         sql,
+//         [title, donated, description, amount, filename, confirmed, is_top],
+//         (err, result) => {
+//           if (err) throw err;
+//           const updated = result.affectedRows;
+//           if (!updated) {
+//             res
+//               .status(404)
+//               .json({
+//                 message: {
+//                   type: "info",
+//                   title: "Post",
+//                   text: `Post was not found`,
+//                 },
+//               })
+//               .end();
+//             return;
+//           }
+//           res
+//             .json({
+//               message: {
+//                 type: "success",
+//                 title: "Post",
+//                 text: `Post updated successfully`,
+//               },
+//             })
+//             .end();
+//         }
+//       );
+//     } else {
+//       deleteImage(id);
+//       const sql = `
+//       UPDATE posts
+//         SET title = ?, donated = donated + ?, description = ?, amount = ?, image = NULL, confirmed = ?, is_top = ?
+//         WHERE id = ?
+//         `;
+//       connection.query(
+//         sql,
+//         [title, donated, description, amount, confirmed, is_top],
+//         (err, result) => {
+//           if (err) throw err;
+//           const updated = result.affectedRows;
+//           if (!updated) {
+//             res
+//               .status(404)
+//               .json({
+//                 message: {
+//                   type: "info",
+//                   title: "Post",
+//                   text: `Post was not found`,
+//                 },
+//               })
+//               .end();
+//             return;
+//           }
+//           res
+//             .json({
+//               message: {
+//                 type: "success",
+//                 title: "Post",
+//                 text: `Post updated successfully`,
+//               },
+//             })
+//             .end();
+//         }
+//       );
+//     }
+//   }, 1500);
+// });
+
 app.put("/admin/update/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
     const { title, donated, description, amount, image, confirmed, is_top } =
       req.body;
-    console.log(req.body);
+
     const sql = `
             UPDATE posts
             SET title = ?, donated = donated + ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
@@ -356,8 +479,8 @@ app.delete("/admin/delete/user/:id", (req, res) => {
           .json({
             message: {
               type: "info",
-              title: "Vartotojai",
-              text: `Vartotojas yra administratorius ir negali būti ištrintas arba vartotojas neegzistuoja`,
+              title: "Users",
+              text: `User is admin and cannot be deleted`,
             },
           })
           .end();
@@ -367,8 +490,8 @@ app.delete("/admin/delete/user/:id", (req, res) => {
         .json({
           message: {
             type: "success",
-            title: "Vartotojai",
-            text: `Vartotojas sėkmingai ištrintas`,
+            title: "Users",
+            text: `User was deleted successfully`,
           },
         })
         .end();
@@ -396,8 +519,8 @@ app.get("/admin/edit/user/:id", (req, res) => {
           .json({
             message: {
               type: "info",
-              title: "Vartotojai",
-              text: `Vartotojas nerastas`,
+              title: "User",
+              text: `User was not found`,
             },
           })
           .end();
@@ -433,8 +556,8 @@ app.put("/admin/update/user/:id", (req, res) => {
             .json({
               message: {
                 type: "info",
-                title: "Vartotojai",
-                text: `Vartotojas nerastas`,
+                title: "User",
+                text: `User was not found`,
               },
             })
             .end();
@@ -444,8 +567,8 @@ app.put("/admin/update/user/:id", (req, res) => {
           .json({
             message: {
               type: "success",
-              title: "Vartotojai",
-              text: `Vartotojas sėkmingai atnaujintas`,
+              title: "User",
+              text: `User has been updated`,
             },
           })
           .end();
@@ -469,8 +592,8 @@ app.put("/admin/update/user/:id", (req, res) => {
               .json({
                 message: {
                   type: "info",
-                  title: "Vartotojai",
-                  text: `Vartotojas nerastas`,
+                  title: "User",
+                  text: `User was not found`,
                 },
               })
               .end();
@@ -480,8 +603,8 @@ app.put("/admin/update/user/:id", (req, res) => {
             .json({
               message: {
                 type: "success",
-                title: "Vartotojai",
-                text: `Vartotojas sėkmingai atnaujintas`,
+                title: "User",
+                text: `User has been updated`,
               },
             })
             .end();
@@ -510,8 +633,8 @@ app.post("/logout", (req, res) => {
           .json({
             message: {
               type: "error",
-              title: "Atsijungimas nepavyko",
-              text: `Neteisingi prisijungimo duomenys`,
+              title: "Logg out error",
+              text: `Login details invalid `,
             },
           })
           .end();
@@ -522,8 +645,8 @@ app.post("/logout", (req, res) => {
         .json({
           message: {
             type: "success",
-            title: `Atsijungta`,
-            text: `Jūs sėkmingai atsijungėte`,
+            title: `Logged out`,
+            text: `Operation was successfull`,
           },
         })
         .end();
@@ -551,8 +674,8 @@ app.post("/login", (req, res) => {
           .json({
             message: {
               type: "error",
-              title: "Prisijungimas nepavyko",
-              text: `Neteisingi prisijungimo duomenys`,
+              title: "Login fail",
+              text: `Invalid login data`,
             },
           })
           .end();
@@ -573,8 +696,8 @@ app.post("/login", (req, res) => {
           .json({
             message: {
               type: "success",
-              title: `Sveiki, ${rows?.[0]?.name}!`,
-              text: `Jūs sėkmingai prisijungėte`,
+              title: `Hello, ${rows?.[0]?.name}!`,
+              text: `Login was successfull`,
             },
             session,
             user: rows?.[0],
@@ -593,9 +716,9 @@ app.post("/register", (req, res) => {
       res
         .status(422)
         .json({
-          message: "Siunčiamoje formoje yra klaidų",
+          message: "There are errors in the form you are sending",
           errorsBag: {
-            email: "El pašto formatas neteisingas",
+            email: "Wrong email format",
           },
         })
         .end();
@@ -610,9 +733,9 @@ app.post("/register", (req, res) => {
         res
           .status(422)
           .json({
-            message: "Siunčiamoje formoje yra klaidų",
+            message: "There are errors in the form you are sending",
             errorsBag: {
-              email: "Toks el paštas jau yra",
+              email: "This email already exist",
             },
           })
           .end();
@@ -628,8 +751,8 @@ app.post("/register", (req, res) => {
             .json({
               message: {
                 type: "success",
-                title: "Sveiki!",
-                text: `Malonu, kad prie mūsų prisijungėte, ${name}`,
+                title: "Hello!",
+                text: `We are happy thay you joined, ${name}`,
               },
             })
             .end();

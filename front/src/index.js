@@ -24,6 +24,7 @@ import UserPosts from "./Components/Users/UserPosts.jsx";
 import PendingPosts from "./Components/Admin/Post/PendingPosts.jsx";
 import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
 import CreatedPosts from "./Components/Users/CreatedPosts.jsx";
+import PostEdit from "./Components/Admin/Post/PostEdit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
           </RouteGate>,
         ],
       },
+      {
+        path: "activeposts/:postId",
+        element: [<PostEdit key={7} />],
+      },
     ],
   },
   {
@@ -122,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: "createdposts",
         element: [<CreatedPosts key={24} />],
+      },
+      {
+        path: "createdposts/:postId",
+        element: [<PostEdit key={25} />],
       },
     ],
   },

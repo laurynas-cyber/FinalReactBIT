@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import { MdCancel } from "react-icons/md";
+import * as l from "../../../Constants/urls"
 
 function Upload({ post, setPost }) {
   const imageInput = useRef();
+
+  const imgPath = post.image?.length > 40 ? "" : l.SERVER_IMAGES_URL;
 
   const imageReader = (img) => {
     return new Promise((resolve, reject) => {
@@ -51,7 +54,7 @@ function Upload({ post, setPost }) {
       <div className="up-img">
         {post.image ? (
           <>
-            <img src={post.image} alt="uploaded"></img>
+            <img src={imgPath + post.image} alt="uploaded"></img>
             <span className="cb-svg remove" onClick={ClearImage}>
               <MdCancel />
             </span>

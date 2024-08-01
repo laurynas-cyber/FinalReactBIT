@@ -67,7 +67,7 @@ const PendingPosts = () => {
       }
 
       setPendingPosts(
-        serverGetResponse.serverData.posts.filter((p) => !!p.confirmed) ?? null
+        serverGetResponse?.serverData?.posts.filter((p) => !!p.confirmed) ?? null
       );
     },
     [serverGetResponse]

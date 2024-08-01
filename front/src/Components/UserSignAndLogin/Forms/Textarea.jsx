@@ -13,13 +13,14 @@ export default function Textarea({
   const characters = useRef(190);
   return (
     <>
-      <div className="input-group">
-        <span className="input-group-text">
-          Max Characters: {characters.current - value.length}
-        </span>
+      <div className="input-group descriptionForm">
+        <div className="input-group-text descriptLabel">
+          <span> Description </span>{" "}
+          <span> Max Characters: {characters.current - value.length}</span>
+        </div>
         <textarea
           maxLength={characters.current}
-          className="form-control"
+          className="form-control "
           aria-label="With textarea"
           onChange={onChange}
           value={value}

@@ -78,14 +78,13 @@ const PostsCard = ({
               {mainBtnName}
             </button>
           ) : (
-            <Link to={`/dashbord`} className="btn mainActionBtn">
+            <Link to={`${post.id}`} className="btn mainActionBtn">
               {mainBtnName}
             </Link>
           )}
 
           <button
             onClick={(_) => {
-       
               setDeleteModal({
                 data: post,
                 name: post.title,

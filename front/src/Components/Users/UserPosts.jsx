@@ -37,7 +37,6 @@ const UserPosts = () => {
     // }
     setShow(true);
     setButtonDisabled(true);
-    console.log(post);
     doAction({
       title: post.title,
       description: post.description,

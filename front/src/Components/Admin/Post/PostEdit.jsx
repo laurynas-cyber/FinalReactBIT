@@ -57,6 +57,7 @@ export default function PostEdit() {
   const submit = (_) => {
     //TODO: Validation
     setShow(true);
+    console.log(post);
     doPut(post);
   };
 

@@ -12,7 +12,7 @@ function Home() {
     l.SERVER_HOME_POSTS
   );
   const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
-    l.SERVER_UPDATE_POST
+    l.SERVER_UPDATE_HOMEPOST
   );
 
   const [activePost, setActivePost] = useState(null);
@@ -26,18 +26,32 @@ function Home() {
     navigate("/");
     if (!!donateShow && donateShow === parseInt(e.target.id)) {
       let copyPost = post;
-      if (copyPost.amount - DonateInput <= 0) {
-        copyPost.donated = copyPost.amount;
-
-        setShow(true);
-        return doPut(copyPost);
+      if (parseInt(DonateInput) === 0 || isNaN(parseInt(DonateInput))) {
+        return;
       } else {
-        copyPost.donated = DonateInput;
+        copyPost.donated = parseInt(DonateInput) + parseInt(copyPost.donated);
         setShow(true);
         return doPut(copyPost);
       }
     } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
   };
+
+  // const handleDonate = (e, post) => {
+  //   navigate("/");
+  //   if (!!donateShow && donateShow === parseInt(e.target.id)) {
+  //     let copyPost = post;
+  //     if (copyPost.amount - DonateInput <= 0) {
+  //       copyPost.donated = copyPost.amount;
+
+  //       setShow(true);
+  //       return doPut(copyPost);
+  //     } else {
+  //       copyPost.donated = DonateInput;
+  //       setShow(true);
+  //       return doPut(copyPost);
+  //     }
+  //   } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
+  // };
 
   useEffect(
     (_) => {
@@ -57,6 +71,7 @@ function Home() {
           (p) => p.amount > p.donated
         ) ?? null
       );
+
       setDonatedPost(
         serverGetResponse.serverData.posts.filter(
           (p) => p.amount <= p.donated
@@ -88,6 +103,7 @@ function Home() {
           </div>
         </div>
       )}
+      {activePost?.length === 0 ? <div>no posts created</div> : null}
       {activePost?.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">

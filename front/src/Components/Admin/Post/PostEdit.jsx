@@ -7,6 +7,7 @@ import Textarea from "../../UserSignAndLogin/Forms/Textarea";
 import Inputs from "../../UserSignAndLogin/Forms/Inputs";
 import { LoaderContext } from "../../Context/Loader";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 export default function PostEdit() {
   const params = useParams();
@@ -62,7 +63,15 @@ export default function PostEdit() {
   return (
     <div className="container p-0">
       <section>
-        {null === post && <h3>Palaukite, siunčiami straipsnio duomenys...</h3>}
+        {null === post && (
+          <div className="row Spinner">
+            <div className="col loadingDataContainer">
+              <h4>Loading post data...</h4>
+
+              <HashLoader color="#358cc8" size={100} />
+            </div>
+          </div>
+        )}
         {null !== post && (
           <>
             <div className="col d-flex justify-content-center align-items-center SignInText">

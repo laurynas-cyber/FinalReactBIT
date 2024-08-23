@@ -29,6 +29,7 @@ export const SERVER_PENDING_POSTS = "admin/pending/posts";
 export const SERVER_POST = "post";
 export const SERVER_DELETE_POST = "admin/delete/post";
 export const SERVER_UPDATE_POST = "admin/update/post";
+export const SERVER_UPDATE_HOMEPOST = "home/update/post";
 export const SERVER_HOME_POSTS = "home/posts";
 export const SERVER_EDIT_POST = "web/edit/post";
 

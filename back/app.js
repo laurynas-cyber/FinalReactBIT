@@ -117,7 +117,6 @@ const checkSession = (req, _, next) => {
       return next();
     }
     req.user = rows[0];
-    console.log(req.user);
     next();
   });
 };
@@ -420,7 +419,7 @@ app.put("/admin/update/post/:id", (req, res) => {
     const { id } = req.params;
     const { title, donated, description, amount, image, confirmed, is_top } =
       req.body;
-
+    console.log(donated);
     const sql = `
             UPDATE posts
             SET title = ?, donated = donated + ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
@@ -460,10 +459,50 @@ app.put("/admin/update/post/:id", (req, res) => {
   }, 1500);
 });
 
+app.put("/home/update/post/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+    const { donated } = req.body;
+
+    const sql = `
+            UPDATE posts
+            SET donated = ?
+            WHERE id = ?
+            `;
+
+    connection.query(sql, [donated, id], (err, result) => {
+      if (err) throw err;
+      const updated = result.affectedRows;
+      if (!updated) {
+        res
+          .status(404)
+          .json({
+            message: {
+              type: "info",
+              title: "Post",
+              text: `Post was not found`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          message: {
+            type: "success",
+            title: "Post",
+            text: `Post updated successfully`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
-    console.log(id);
+
     const sql = `
         DELETE 
         FROM users 

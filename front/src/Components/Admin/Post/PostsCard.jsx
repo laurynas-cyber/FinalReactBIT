@@ -9,6 +9,7 @@ const PostsCard = ({
   doDelete,
   onClick,
   mainBtnName = "Edit",
+  DeleteName= "Decline"
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
 
@@ -94,7 +95,7 @@ const PostsCard = ({
             }}
             className="btn SecondActionBtn"
           >
-            Decline
+            {DeleteName}
           </button>
         </div>
       </div>

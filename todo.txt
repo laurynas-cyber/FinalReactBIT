@@ -4,10 +4,6 @@ Inputus pagerinti /label/ input shadow
 
 responsive
 
-pataisyti zinutes is app i angl kalba, palieku kol suprasciau kaip veikia
-
-pakeisti a anchor i Link router
-
 padaryti validaciją kol rašom i inputa
 
 info padaryti kai blogas email is serverside
@@ -16,3 +12,6 @@ suziureti routerio url vardus, pakeisti htmle, ir pervadinti i angl kalba
 
 info Message
 
+Gates for user index.jse
+
+Edit postas neveikia su nuotrauka

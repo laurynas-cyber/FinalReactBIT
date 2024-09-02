@@ -15,8 +15,7 @@ function Home() {
     l.SERVER_UPDATE_HOMEPOST
   );
 
-  const [activePost, setActivePost] = useState(null);
-  const [donatedPost, setDonatedPost] = useState(null);
+  const [posts, setPosts] = useState(null);
   const { setShow } = useContext(LoaderContext);
   const [donateShow, setDonateShow] = useState(null);
   const [DonateInput, setDonateInput] = useState("");
@@ -36,23 +35,6 @@ function Home() {
     } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
   };
 
-  // const handleDonate = (e, post) => {
-  //   navigate("/");
-  //   if (!!donateShow && donateShow === parseInt(e.target.id)) {
-  //     let copyPost = post;
-  //     if (copyPost.amount - DonateInput <= 0) {
-  //       copyPost.donated = copyPost.amount;
-
-  //       setShow(true);
-  //       return doPut(copyPost);
-  //     } else {
-  //       copyPost.donated = DonateInput;
-  //       setShow(true);
-  //       return doPut(copyPost);
-  //     }
-  //   } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
-  // };
-
   useEffect(
     (_) => {
       doGet();
@@ -65,21 +47,18 @@ function Home() {
       if (null === serverGetResponse) {
         return;
       }
-
-      setActivePost(
-        serverGetResponse.serverData.posts.filter(
-          (p) => p.amount > p.donated
-        ) ?? null
-      );
-
-      setDonatedPost(
-        serverGetResponse.serverData.posts.filter(
-          (p) => p.amount <= p.donated
-        ) ?? null
-      );
+      if (serverGetResponse.type === "success") {
+        setPosts(serverGetResponse.serverData.posts);
+      }
     },
-    [serverGetResponse, setDonatedPost]
+    [serverGetResponse]
   );
+
+  const donatedPosts =
+    posts === null ? null : posts.filter((p) => p.amount <= p.donated);
+
+  const ActivePosts =
+    posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
   useEffect(
     (_) => {
@@ -94,7 +73,7 @@ function Home() {
   );
   return (
     <div className="container p-0">
-      {activePost === null && (
+      {ActivePosts === null && (
         <div className="row Spinner">
           <div className="col loadingDataContainer">
             <h4>Loading Slider</h4>
@@ -103,15 +82,15 @@ function Home() {
           </div>
         </div>
       )}
-      {activePost?.length === 0 ? <div>no posts created</div> : null}
-      {activePost?.length > 0 && (
+      {ActivePosts?.length === 0 ? <div>no posts created</div> : null}
+      {ActivePosts?.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">
             <h2>Posts waiting for donations</h2>
           </div>
           <div className="SliderCont">
             <ImageSlider
-              postData={activePost}
+              postData={ActivePosts}
               onClick={handleDonate}
               donateShow={donateShow}
               setDonateInput={setDonateInput}
@@ -121,13 +100,13 @@ function Home() {
         </>
       )}
 
-      {donatedPost !== null && donatedPost.length > 0 && (
+      {donatedPosts !== null && donatedPosts.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">
             <p>Donated Posts</p>
           </div>
           <div className="SliderCont">
-            <ImageSlider postData={donatedPost} />
+            <ImageSlider postData={donatedPosts} />
           </div>
         </>
       )}

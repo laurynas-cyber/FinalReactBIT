@@ -115,7 +115,7 @@ function UsersList() {
                         </Link>
                         <button
                           type="button"
-                          className="btn btn-primary SecondActionBtn mainActionBtn"
+                          className="btn SecondActionBtn"
                           onClick={(_) =>
                             setDeleteModal({
                               data: u,

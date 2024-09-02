@@ -174,7 +174,7 @@ export const ImageSlider = ({
         <div className="IndexSlideBubbles">
           {postData.map((p, index) => (
             <button
-              key={p.description}
+              key={index}
               className="img-slide-dot-btn"
               onClick={() => setImageIndex(index)}
               aria-label={`View Image ${index}`}

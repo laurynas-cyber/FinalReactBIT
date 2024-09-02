@@ -10,6 +10,7 @@
 }
 
 .SecondActionBtn {
+  transition: all ease-in 0.3s;
   background-color: white;
   border: 2px solid $mint;
   color: black;
@@ -18,5 +19,3 @@
     border: 2px solid $mint;
   }
 }
-
-

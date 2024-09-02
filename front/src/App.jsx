@@ -6,12 +6,14 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import DeleteModal from "./Components/Common/DeleteModal";
 import { LoaderContainer } from "./Components/Common/LoaderContainer";
+import DonateModal from "./Components/Common/DonateModal";
 
 function App() {
   return (
     <>
       <Nav />
       <DeleteModal />
+      <DonateModal />
       <Outlet />
       <ToastContainer />
       <LoaderContainer />

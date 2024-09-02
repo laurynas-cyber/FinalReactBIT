@@ -9,7 +9,7 @@ const PostsCard = ({
   doDelete,
   onClick,
   mainBtnName = "Edit",
-  DeleteName= "Decline"
+  DeleteName = "Decline",
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
 
@@ -45,11 +45,19 @@ const PostsCard = ({
       </div>
       <div className="postPictureCont">
         <h5>Picture</h5>
-        <img
-          src={l.SERVER_IMAGES_URL + post.image}
-          alt="img"
-          className="postImage"
-        ></img>
+        {post.image === null ? (
+          <img
+            alt="no photo"
+            src={l.SERVER_IMAGES_URL + "no-image.png"}
+            className="img-slider-img"
+          />
+        ) : (
+          <img
+            alt={post.image}
+            src={l.SERVER_IMAGES_URL + post.image}
+            className="img-slider-img"
+          />
+        )}
       </div>
       <div className="PostAuthorCont">
         <h5>{post.name ? "Fund Author" : "Active Post"}</h5>

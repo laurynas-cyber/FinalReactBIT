@@ -6,7 +6,6 @@ function DeleteModal() {
   const { deleteModal, setDeleteModal } = useContext(ModalContext);
   const submitDelete = () => {
     deleteModal.doDelete(deleteModal.data);
-    console.log(deleteModal.data);
     setDeleteModal(null);
     deleteModal.hideData(deleteModal.data);
   };

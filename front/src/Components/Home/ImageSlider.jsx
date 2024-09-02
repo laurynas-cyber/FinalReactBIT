@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useContext } from "react";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
 import * as l from "../../Constants/urls";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { ModalContext } from "../Context/Modals";
 
 export const ImageSlider = ({
   postData,
@@ -13,6 +14,7 @@ export const ImageSlider = ({
   DonateInput = null,
   setDonateInput = null,
 }) => {
+  const { donateModal, setDonateModal } = useContext(ModalContext);
   const [imageIndex, setImageIndex] = useState(0);
 
   const intervalRef = useRef(null);
@@ -75,11 +77,20 @@ export const ImageSlider = ({
               key={p.id}
               style={{ translate: `${-100 * imageIndex}%` }}
             >
-              <img
-                alt={p.image}
-                src={l.SERVER_IMAGES_URL + p.image}
-                className="img-slider-img"
-              />
+              {p.image === null ? (
+                <img
+                  alt="no photo"
+                  src={l.SERVER_IMAGES_URL + "no-image.png"}
+                  className="img-slider-img"
+                />
+              ) : (
+                <img
+                  alt={p.image}
+                  src={l.SERVER_IMAGES_URL + p.image}
+                  className="img-slider-img"
+                />
+              )}
+
               <div className="sliderPostText">
                 <h5 className="sliderPostTitle">{p.title}</h5>
                 <p className="sliderPostDescript">{p.description}</p>
@@ -126,6 +137,9 @@ export const ImageSlider = ({
                         }}
                       >
                         Donate
+                      </button>
+                      <button onClick={(_) => setDonateModal({ data: p })}>
+                        test Donate
                       </button>
 
                       {donateShow === p.id ? (

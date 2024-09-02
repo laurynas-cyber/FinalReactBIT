@@ -329,88 +329,44 @@ app.delete("/admin/delete/post/:id", (req, res) => {
 // app.put("/admin/update/post/:id", (req, res) => {
 //   setTimeout((_) => {
 //     const { id } = req.params;
+//     const { title, description, image, confirmed, is_top } = req.body;
 
-//     const { title, donated, description, amount, image, confirmed, is_top } =
-//       req.body;
-
-//     if (image) {
-//       image.length > 40 && deleteImage(id);
-//       const filename = image.length > 40 ? writeImage(image) : image;
-
-//       const sql = `
-//           UPDATE posts
-//             SET title = ?, donated = donated + ?, description = ?, amount = ?, image = ?, confirmed = ?, is_top = ?
+//     const sql = `
+//             UPDATE posts
+//             SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?
 //             WHERE id = ?
 //             `;
 
-//       connection.query(
-//         sql,
-//         [title, donated, description, amount, filename, confirmed, is_top],
-//         (err, result) => {
-//           if (err) throw err;
-//           const updated = result.affectedRows;
-//           if (!updated) {
-//             res
-//               .status(404)
-//               .json({
-//                 message: {
-//                   type: "info",
-//                   title: "Post",
-//                   text: `Post was not found`,
-//                 },
-//               })
-//               .end();
-//             return;
-//           }
+//     connection.query(
+//       sql,
+//       [title, description, image, confirmed, is_top, id],
+//       (err, result) => {
+//         if (err) throw err;
+//         const updated = result.affectedRows;
+//         if (!updated) {
 //           res
+//             .status(404)
 //             .json({
 //               message: {
-//                 type: "success",
+//                 type: "info",
 //                 title: "Post",
-//                 text: `Post updated successfully`,
+//                 text: `Post was not found`,
 //               },
 //             })
 //             .end();
+//           return;
 //         }
-//       );
-//     } else {
-//       deleteImage(id);
-//       const sql = `
-//       UPDATE posts
-//         SET title = ?, donated = donated + ?, description = ?, amount = ?, image = NULL, confirmed = ?, is_top = ?
-//         WHERE id = ?
-//         `;
-//       connection.query(
-//         sql,
-//         [title, donated, description, amount, confirmed, is_top],
-//         (err, result) => {
-//           if (err) throw err;
-//           const updated = result.affectedRows;
-//           if (!updated) {
-//             res
-//               .status(404)
-//               .json({
-//                 message: {
-//                   type: "info",
-//                   title: "Post",
-//                   text: `Post was not found`,
-//                 },
-//               })
-//               .end();
-//             return;
-//           }
-//           res
-//             .json({
-//               message: {
-//                 type: "success",
-//                 title: "Post",
-//                 text: `Post updated successfully`,
-//               },
-//             })
-//             .end();
-//         }
-//       );
-//     }
+//         res
+//           .json({
+//             message: {
+//               type: "success",
+//               title: "Post",
+//               text: `Post updated successfully`,
+//             },
+//           })
+//           .end();
+//       }
+//     );
 //   }, 1500);
 // });
 
@@ -418,42 +374,83 @@ app.put("/admin/update/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
     const { title, description, image, confirmed, is_top } = req.body;
-    const sql = `
-            UPDATE posts
-            SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?
-            WHERE id = ?
-            `;
 
-    connection.query(
-      sql,
-      [title, description, image, confirmed, is_top, id],
-      (err, result) => {
-        if (err) throw err;
-        const updated = result.affectedRows;
-        if (!updated) {
+    if (image) {
+      image.length > 40 && deleteImage(id);
+      const filename = image.length > 40 ? writeImage(image) : image;
+      const sql = `
+                    UPDATE posts
+                    SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?
+                    WHERE id = ?
+                    `;
+      connection.query(
+        sql,
+        [title, description, filename, confirmed, is_top, id],
+        (err, result) => {
+          if (err) throw err;
+          const updated = result.affectedRows;
+          if (!updated) {
+            res
+              .status(404)
+              .json({
+                message: {
+                  type: "info",
+                  title: "Posts",
+                  text: `Post was not found`,
+                },
+              })
+              .end();
+            return;
+          }
           res
-            .status(404)
             .json({
               message: {
-                type: "info",
-                title: "Post",
-                text: `Post was not found`,
+                type: "success",
+                title: "Posts",
+                text: `Post was updated`,
               },
             })
             .end();
-          return;
         }
-        res
-          .json({
-            message: {
-              type: "success",
-              title: "Post",
-              text: `Post updated successfully`,
-            },
-          })
-          .end();
-      }
-    );
+      );
+    } else {
+      deleteImage(id);
+      const sql = `
+                    UPDATE posts
+                    SET title = ?, description = ?, image = NULL, confirmed = ?, is_top = ?
+                    WHERE id = ?
+                    `;
+      connection.query(
+        sql,
+        [title, description, confirmed, is_top, id],
+        (err, result) => {
+          if (err) throw err;
+          const updated = result.affectedRows;
+          if (!updated) {
+            res
+              .status(404)
+              .json({
+                message: {
+                  type: "info",
+                  title: "Posts",
+                  text: `Post was not found`,
+                },
+              })
+              .end();
+            return;
+          }
+          res
+            .json({
+              message: {
+                type: "success",
+                title: "Posts",
+                text: `Post was updated`,
+              },
+            })
+            .end();
+        }
+      );
+    }
   }, 1500);
 });
 

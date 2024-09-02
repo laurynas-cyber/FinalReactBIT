@@ -73,16 +73,16 @@ function Home() {
   );
   return (
     <div className="container p-0">
-      {ActivePosts === null && (
+      {ActivePosts?.length === 0 && (
         <div className="row Spinner">
           <div className="col loadingDataContainer">
-            <h4>Loading Slider</h4>
+            <h4>Loading Posts</h4>
 
-            <HashLoader color="#358cc8" size={150} />
+            <HashLoader color="#358cc8" size={100} />
           </div>
         </div>
       )}
-      {ActivePosts?.length === 0 ? <div>no posts created</div> : null}
+      {ActivePosts?.length === null ? <div>no posts created</div> : null}
       {ActivePosts?.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">

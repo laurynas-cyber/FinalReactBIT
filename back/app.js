@@ -796,6 +796,29 @@ app.post("/register", (req, res) => {
   }, 1500);
 });
 
+app.post("/donate", (req, res) => {
+  setTimeout((_) => {
+    const { name, email, donation, post_id } = req.body;
+    const sql = `
+    INSERT INTO donors(name,email, donation, post_id)
+    VALUES (?, ?, ?, ?)
+    `;
+    connection.query(sql, [name, email, donation, post_id], (err) => {
+      if (err) throw err;
+      res
+        .status(201)
+        .json({
+          message: {
+            type: "success",
+            title: "Successful donation",
+            text: `Thank you for your kindness`,
+          },
+        })
+        .end();
+    });
+  });
+});
+
 app.post("/post", (req, res) => {
   setTimeout((_) => {
     const { title, description, amount, image, userID } = req.body;

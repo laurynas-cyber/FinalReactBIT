@@ -35,8 +35,15 @@
   }
   .donate-modal {
     height: auto;
+    min-width: 600px;
     .buttons {
       margin-top: 20px;
+    }
+    form {
+      width: 80%;
+    }
+    input {
+      margin-top: 10px;
     }
   }
 }

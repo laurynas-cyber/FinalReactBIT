@@ -1,9 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ModalContext } from "../Context/Modals";
 import { GiCancel } from "react-icons/gi";
 
 function DonateModal() {
   const { donateModal, setDonateModal } = useContext(ModalContext);
+
+  const [donateForm, setDonateForm] = useState({
+    name: "",
+    email: "",
+    donation: "",
+  });
+
+  const handleForm = (e) => {
+    setDonateForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
 
   if (donateModal === null) {
     return null;
@@ -24,15 +34,30 @@ function DonateModal() {
         <form>
           <div>
             <div>Name</div>
-            <input className="form-control"></input>
+            <input
+              className="form-control"
+              name="name"
+              value={donateForm.name}
+              onChange={handleForm}
+            ></input>
           </div>
           <div>
             <div>Email</div>
-            <input className="form-control"></input>
+            <input
+              className="form-control"
+              name="email"
+              value={donateForm.email}
+              onChange={handleForm}
+            ></input>
           </div>
           <div>
             <div>Donation sum</div>
-            <input className="form-control"></input>
+            <input
+              className="form-control"
+              name="donation"
+              value={donateForm.donation}
+              onChange={handleForm}
+            ></input>
           </div>
         </form>
         <div className="buttons d-flex gap-2">

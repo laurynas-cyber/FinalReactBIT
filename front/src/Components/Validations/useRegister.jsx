@@ -9,9 +9,10 @@ function useRegister() {
 
   const validate = (form) => {
     const errorsBag = {};
-    if (form.name.length <= 3) {
-      errorsBag.name = "Name is too short must be atlest 3 symbols";
+    if (form.name.length <= 4) {
+      errorsBag.name = "Name is too short must be atlest 4 symbols";
     }
+
 
     if (!/\S+@\S+\.\S+/.test(form.email)) {
       errorsBag.email = "Email format is invalid";

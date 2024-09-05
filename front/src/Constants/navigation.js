@@ -24,15 +24,8 @@ const RoutesNav = [
     },
   },
   {
-    tag: "PageTwo",
-    to: "pageTwo",
-    active: ({ isActive }) => {
-      return isActive ? "Pages ActiveTag" : "Pages";
-    },
-  },
-  {
-    tag: "PageThree",
-    to: "pageThree",
+    tag: "Donors list",
+    to: "donors",
     active: ({ isActive }) => {
       return isActive ? "Pages ActiveTag" : "Pages";
     },

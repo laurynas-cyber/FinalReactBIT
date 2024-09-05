@@ -20,7 +20,7 @@ export const SERVER_USER_PENDING_POSTS = "user/createdposts";
 //Server URLs
 
 export const SERVER_REGISTER = "register";
-export const SERVER_DONATE = "donate"
+export const SERVER_DONATE = "donate";
 export const SERVER_GET_USERS = "admin/users";
 export const SERVER_DELETE_USER = "admin/delete/user";
 export const SERVER_EDIT_USER = "admin/edit/user";
@@ -30,7 +30,7 @@ export const SERVER_PENDING_POSTS = "admin/pending/posts";
 export const SERVER_POST = "post";
 export const SERVER_DELETE_POST = "admin/delete/post";
 export const SERVER_UPDATE_POST = "admin/update/post";
-export const SERVER_UPDATE_HOMEPOST = "home/update/post";
+// export const SERVER_UPDATE_HOMEPOST = "home/update/post";
 export const SERVER_HOME_POSTS = "home/posts";
 export const SERVER_EDIT_POST = "web/edit/post";
 

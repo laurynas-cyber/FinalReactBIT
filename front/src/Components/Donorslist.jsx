@@ -1,6 +1,6 @@
 import React from "react";
 
-function Page2() {
+function Donorslist() {
   return (
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis
@@ -61,4 +61,4 @@ function Page2() {
   );
 }
 
-export default Page2;
+export default Donorslist;

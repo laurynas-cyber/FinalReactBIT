@@ -1,8 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Page2 from "./Components/Page2";
-import Page3 from "./Components/Page3";
+
 import SignIn from "./Components/UserSignAndLogin/SignIn.jsx";
 import LogIn from "./Components/UserSignAndLogin/LogIn.jsx";
 import ErrorPage from "./Components/Common/ErrorPage.jsx";
@@ -25,6 +24,7 @@ import PendingPosts from "./Components/Admin/Post/PendingPosts.jsx";
 import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
 import CreatedPosts from "./Components/Users/CreatedPosts.jsx";
 import PostEdit from "./Components/Admin/Post/PostEdit.jsx";
+import Donorslist from "./Components/Donorslist.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,12 +34,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "pageTwo",
-        element: <Page2 />,
-      },
-      {
-        path: "pageThree",
-        element: <Page3 />,
+        path: "donors",
+        element: <Donorslist />,
       },
       {
         path: "SignIn",

@@ -454,45 +454,45 @@ app.put("/admin/update/post/:id", (req, res) => {
   }, 1500);
 });
 
-app.put("/home/update/post/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
-    const { donated } = req.body;
+// app.put("/home/update/post/:id", (req, res) => {
+//   setTimeout((_) => {
+//     const { id } = req.params;
+//     const { donated } = req.body;
 
-    const sql = `
-            UPDATE posts
-            SET donated = ?
-            WHERE id = ?
-            `;
+//     const sql = `
+//             UPDATE posts
+//             SET donated = ?
+//             WHERE id = ?
+//             `;
 
-    connection.query(sql, [donated, id], (err, result) => {
-      if (err) throw err;
-      const updated = result.affectedRows;
-      if (!updated) {
-        res
-          .status(404)
-          .json({
-            message: {
-              type: "info",
-              title: "Post",
-              text: `Post was not found`,
-            },
-          })
-          .end();
-        return;
-      }
-      res
-        .json({
-          message: {
-            type: "success",
-            title: "Post",
-            text: `Post updated successfully`,
-          },
-        })
-        .end();
-    });
-  }, 1500);
-});
+//     connection.query(sql, [donated, id], (err, result) => {
+//       if (err) throw err;
+//       const updated = result.affectedRows;
+//       if (!updated) {
+//         res
+//           .status(404)
+//           .json({
+//             message: {
+//               type: "info",
+//               title: "Post",
+//               text: `Post was not found`,
+//             },
+//           })
+//           .end();
+//         return;
+//       }
+//       res
+//         .json({
+//           message: {
+//             type: "success",
+//             title: "Post",
+//             text: `Post updated successfully`,
+//           },
+//         })
+//         .end();
+//     });
+//   }, 1500);
+// });
 
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
@@ -796,27 +796,109 @@ app.post("/register", (req, res) => {
   }, 1500);
 });
 
+// app.post("/donate", (req, res) => {
+//   setTimeout((_) => {
+//     const { name, email, donation, post_id } = req.body;
+//     const sql = `
+//     INSERT INTO donors(name,email, donation, post_id)
+//     VALUES (?, ?, ?, ?)
+//     `;
+//     connection.query(sql, [name, email, donation, post_id], (err) => {
+//       if (err) throw err;
+//       res
+//         .status(201)
+//         .json({
+//           message: {
+//             type: "success",
+//             title: "Successful donation",
+//             text: `Thank you for your kindness`,
+//           },
+//         })
+//         .end();
+//     });
+//   });
+// });
+
 app.post("/donate", (req, res) => {
   setTimeout((_) => {
     const { name, email, donation, post_id } = req.body;
-    const sql = `
-    INSERT INTO donors(name,email, donation, post_id)
-    VALUES (?, ?, ?, ?)
+
+    // SQL for inserting into donors
+    const insertDonorSql = `
+      INSERT INTO donors(name, email, donation, post_id)
+      VALUES (?, ?, ?, ?)
     `;
-    connection.query(sql, [name, email, donation, post_id], (err) => {
-      if (err) throw err;
-      res
-        .status(201)
-        .json({
-          message: {
-            type: "success",
-            title: "Successful donation",
-            text: `Thank you for your kindness`,
-          },
-        })
-        .end();
+
+    // SQL for updating the donated amount in posts
+    const updatePostSql = `
+      UPDATE posts
+      SET donated = donated + ?
+      WHERE id = ?
+    `;
+
+    // Begin transaction
+    connection.beginTransaction((err) => {
+      if (err) {
+        res.status(500).json({ error: "Transaction error" }).end();
+        throw err;
+      }
+
+      // First, insert into donors
+      connection.query(
+        insertDonorSql,
+        [name, email, donation, post_id],
+        (err) => {
+          if (err) {
+            return connection.rollback(() => {
+              res
+                .status(500)
+                .json({ error: "Error inserting into donors" })
+                .end();
+              throw err;
+            });
+          }
+
+          // After successful insert, update the posts table
+          connection.query(updatePostSql, [donation, post_id], (err) => {
+            if (err) {
+              return connection.rollback(() => {
+                res
+                  .status(500)
+                  .json({ error: "Error updating posts table" })
+                  .end();
+                throw err;
+              });
+            }
+
+            // Commit transaction if both queries succeed
+            connection.commit((err) => {
+              if (err) {
+                return connection.rollback(() => {
+                  res
+                    .status(500)
+                    .json({ error: "Transaction commit error" })
+                    .end();
+                  throw err;
+                });
+              }
+
+              // Send success response
+              res
+                .status(201)
+                .json({
+                  message: {
+                    type: "success",
+                    title: "Successful donation",
+                    text: `Thank you for your kindness`,
+                  },
+                })
+                .end();
+            });
+          });
+        }
+      );
     });
-  });
+  }, 1500);
 });
 
 app.post("/post", (req, res) => {

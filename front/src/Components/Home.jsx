@@ -11,29 +11,25 @@ function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
     l.SERVER_HOME_POSTS
   );
-  const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
-    l.SERVER_UPDATE_HOMEPOST
-  );
 
   const [posts, setPosts] = useState(null);
-  const { setShow } = useContext(LoaderContext);
+
   const [donateShow, setDonateShow] = useState(null);
   const [DonateInput, setDonateInput] = useState("");
-  const navigate = useNavigate();
 
-  const handleDonate = (e, post) => {
-    navigate("/");
-    if (!!donateShow && donateShow === parseInt(e.target.id)) {
-      let copyPost = post;
-      if (parseInt(DonateInput) === 0 || isNaN(parseInt(DonateInput))) {
-        return;
-      } else {
-        copyPost.donated = parseInt(DonateInput) + parseInt(copyPost.donated);
-        setShow(true);
-        return doPut(copyPost);
-      }
-    } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
-  };
+  // const handleDonate = (e, post) => {
+  //   navigate("/");
+  //   if (!!donateShow && donateShow === parseInt(e.target.id)) {
+  //     let copyPost = post;
+  //     if (parseInt(DonateInput) === 0 || isNaN(parseInt(DonateInput))) {
+  //       return;
+  //     } else {
+  //       copyPost.donated = parseInt(DonateInput) + parseInt(copyPost.donated);
+  //       setShow(true);
+  //       return doPut(copyPost);
+  //     }
+  //   } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
+  // };
 
   useEffect(
     (_) => {
@@ -60,17 +56,17 @@ function Home() {
   const ActivePosts =
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
-  useEffect(
-    (_) => {
-      if (null === serverPutResponse) {
-        return;
-      }
-      if (serverPutResponse.type === "error") {
-        console.log(" error");
-      }
-    },
-    [serverPutResponse]
-  );
+  // useEffect(
+  //   (_) => {
+  //     if (null === serverPutResponse) {
+  //       return;
+  //     }
+  //     if (serverPutResponse.type === "error") {
+  //       console.log(" error");
+  //     }
+  //   },
+  //   [serverPutResponse]
+  // );
   return (
     <div className="container p-0">
       {ActivePosts?.length === 0 && (
@@ -89,13 +85,7 @@ function Home() {
             <h2>Posts waiting for donations</h2>
           </div>
           <div className="SliderCont">
-            <ImageSlider
-              postData={ActivePosts}
-              onClick={handleDonate}
-              donateShow={donateShow}
-              setDonateInput={setDonateInput}
-              DonateInput={DonateInput}
-            />
+            <ImageSlider postData={ActivePosts} />
           </div>
         </>
       )}

@@ -7,16 +7,10 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { ModalContext } from "../Context/Modals";
 
-export const ImageSlider = ({
-  postData,
-  onClick = null,
-  donateShow = null,
-  DonateInput = null,
-  setDonateInput = null,
-}) => {
+export const ImageSlider = ({ postData }) => {
   const { donateModal, setDonateModal } = useContext(ModalContext);
   const [imageIndex, setImageIndex] = useState(0);
-
+  const [donationAfterConfirm, setdonationAfterConfirm] = useState(0);
   const intervalRef = useRef(null);
 
   useCallback((_) => {}, []);
@@ -110,7 +104,10 @@ export const ImageSlider = ({
                     <div
                       className="donatedBar"
                       style={{
-                        width: `${DonatedBar(p.amount, p.donated)}%`,
+                        width: `${
+                          DonatedBar(p.amount, p.donated) +
+                          DonatedBar(p.amount, donationAfterConfirm)
+                        }%`,
                         backgroundColor:
                           p.amount <= p.donated ? "#f08702" : "#3498db",
                       }}
@@ -123,45 +120,28 @@ export const ImageSlider = ({
                 {p.amount <= p.donated ? null : (
                   <>
                     <div className="ButtonContainerDonate">
-                      {donateShow === p.id ? (
+                      {donateModal?.data.id === p.id ? (
                         <FaLongArrowAltRight className="DonateArrows" />
                       ) : null}
 
                       <button
-                        onClick={(e) => onClick(e, p)}
                         id={p.id}
                         className="btn mainActionBtn"
                         style={{
                           backgroundColor:
-                            donateShow === p.id ? "#f08702" : "#3498db",
+                            donateModal?.data.id === p.id
+                              ? "#f08702"
+                              : "#3498db",
                         }}
+                        onClick={(_) => setDonateModal({ data: p })}
                       >
-                        Donate
-                      </button>
-                      <button onClick={(_) => setDonateModal({ data: p })}>
                         test Donate
                       </button>
 
-                      {donateShow === p.id ? (
+                      {donateModal?.data.id === p.id ? (
                         <FaLongArrowAltLeft className="DonateArrows" />
                       ) : null}
                     </div>
-                    <div
-                      className="InputContainer"
-                      style={{
-                        maxHeight: donateShow === p.id ? "100px" : null,
-                      }}
-                    >
-                      <input
-                        className="DonateInput"
-                        type="text"
-                        value={DonateInput}
-                        onChange={(e) => setDonateInput(e.target.value)}
-                        style={{
-                          maxHeight: donateShow === p.id ? "100px" : null,
-                        }}
-                      />
-                    </div>{" "}
                   </>
                 )}
               </div>

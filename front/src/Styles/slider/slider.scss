@@ -76,26 +76,26 @@
     }
   }
 
-  .InputContainer {
-    max-height: 0;
-    overflow: hidden;
-    transition: all ease-in 0.3s;
-    margin-top: 10px;
-    display: flex;
+  // .InputContainer {
+  //   max-height: 0;
+  //   overflow: hidden;
+  //   transition: all ease-in 0.3s;
+  //   margin-top: 10px;
+  //   display: flex;
 
-    .DonateInput {
-      max-height: 0;
-      box-sizing: border-box;
-      transition: all ease-in 0.3s;
-      border: none;
-      border-radius: 4px;
-      border: 2px solid $emerald;
-      outline: none;
-      background: none;
-      color: $white;
-      text-align: center;
-    }
-  }
+  //   .DonateInput {
+  //     max-height: 0;
+  //     box-sizing: border-box;
+  //     transition: all ease-in 0.3s;
+  //     border: none;
+  //     border-radius: 4px;
+  //     border: 2px solid $emerald;
+  //     outline: none;
+  //     background: none;
+  //     color: $white;
+  //     text-align: center;
+  //   }
+  // }
 
   .donationLeft {
     color: $white;

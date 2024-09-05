@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function DonateModal() {
   const { donateModal, setDonateModal } = useContext(ModalContext);
   const { errors, validate } = useDonation();
-  const { doAction, serverResponse } = useServerPost(l.SERVER_DONATE);
+  const { doAction, serverResponse } = useServerPost(l.POST_DONATE);
   const { setShow } = useContext(LoaderContext);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [donateForm, setDonateForm] = useState({

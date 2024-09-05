@@ -50,7 +50,7 @@ function Login() {
       <Gate status="not-logged">
         <div className="container p-0 logIngHeight">
           <div className="col d-flex justify-content-center align-items-center SignInText">
-            <p>Log in or Sign in if you are still not our member</p>
+            <h3>Log in or Sign in if you are still not our member</h3>
           </div>
 
           <form className="formCenter">

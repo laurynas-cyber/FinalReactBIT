@@ -135,7 +135,7 @@ export const ImageSlider = ({ postData }) => {
                         }}
                         onClick={(_) => setDonateModal({ data: p })}
                       >
-                        test Donate
+                        Donate
                       </button>
 
                       {donateModal?.data.id === p.id ? (

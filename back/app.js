@@ -177,6 +177,25 @@ app.get("/admin/users", (req, res) => {
   }, 1500);
 });
 
+app.get("/home/donors", (req, res) => {
+  setTimeout((_) => {
+    const sql = `
+    SELECT donors.*, posts.title, posts.image
+    FROM donors
+    JOIN posts ON donors.post_id = posts.id
+  `;
+
+    connection.query(sql, (err, rows) => {
+      if (err) throw err;
+      res
+        .json({
+          users: rows,
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.get("/admin/pending/posts", (req, res) => {
   setTimeout((_) => {
     if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {

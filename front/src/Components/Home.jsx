@@ -56,17 +56,6 @@ function Home() {
   const ActivePosts =
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
-  // useEffect(
-  //   (_) => {
-  //     if (null === serverPutResponse) {
-  //       return;
-  //     }
-  //     if (serverPutResponse.type === "error") {
-  //       console.log(" error");
-  //     }
-  //   },
-  //   [serverPutResponse]
-  // );
   return (
     <div className="container p-0">
       {ActivePosts?.length === 0 && (
@@ -93,7 +82,7 @@ function Home() {
       {donatedPosts !== null && donatedPosts.length > 0 && (
         <>
           <div className="col d-flex justify-content-center align-items-center SignInText">
-            <p>Donated Posts</p>
+            <h3>Donated Posts</h3>
           </div>
           <div className="SliderCont">
             <ImageSlider postData={donatedPosts} />

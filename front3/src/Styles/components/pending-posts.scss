@@ -1,0 +1,54 @@
+.postContainer {
+  width: auto;
+  max-height: 15rem;
+  border-radius: 4px;
+  box-shadow: 0 0 5px $blue;
+  display: flex;
+  margin: 20px 0;
+  //   filter: opacity(0.5);
+}
+
+.postContainer > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.postImage {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.amount,
+.titlePosts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.descript {
+  text-align: center;
+}
+
+.PostButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.author {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 80%;
+}
+
+.userConfirmed {
+  color: $orange;
+  font-weight: 700;
+}

@@ -20,7 +20,8 @@ connection.connect();
 
 app.use(
   cors({
-    origin: "http://localhost:3005",
+    // origin: "http://localhost:3005",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );

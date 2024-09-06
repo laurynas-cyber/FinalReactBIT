@@ -1,0 +1,53 @@
+.userTable {
+  margin: 20px 0;
+
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  .tableNames {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .tableReference {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      margin: 10px;
+    }
+  }
+
+  .divideRow {
+    background-color: $blue;
+    height: 3px;
+    width: 100%;
+    border-radius: 4px;
+  }
+}
+
+.Spinner {
+  margin-top: 100px;
+
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .loadingDataContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    gap: 20px;
+  }
+}
+
+.TablePost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,122 +1,172 @@
-nav {
+.navbar {
   z-index: 10;
-}
+  position: fixed;
+  box-shadow: 0.2px 0.2px 1px $gray;
+  top: 0;
+  background-color: white;
+  .navItemsCont {
+    .navbarBrand {
+      margin-left: 20px;
+    }
+    .RoutesContainer {
+      display: block;
+      align-self: stretch;
+      min-width: 400px;
+      width: auto;
+      display: flex;
+      justify-content: center;
 
-.Navigation {
+      .LoginContainer {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        .RouterLogLinks {
+          transition: all ease 0.3s;
+        }
+        .RouterLogLinks:hover {
+          color: $orange;
+        }
+      }
 
-  border-radius: 5px;
-  border: solid 2px $emerald;
-  border-top: none;
-  z-index: 10;
-  a:hover {
-    color: $orange;
+      .RouterLinks {
+        padding: 10px;
+        margin: 1px;
+        background-color: $emerald;
+        color: white;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        letter-spacing: -1px;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: $emeraldDark;
+        }
+      }
+    }
   }
-}
-
-.Pages {
-  border-right: 2px solid $emerald;
-  padding-right: 5px;
-}
-
-.UserTags {
-  border-left: 2px solid $emerald;
-  padding-left: 5px;
 }
 
 .ActiveTag {
   color: $orange;
 }
 
-//NavIcon
-.NavIconHide {
-  display: none;
-  .NavIconCont {
-    width: 40px;
-    height: 40px;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    overflow: hidden;
-    display: none;
+// .Navigation {
+//   border-radius: 5px;
+//   border: solid 2px $emerald;
+//   border-top: none;
+//   z-index: 10;
+//   a:hover {
+//     color: $orange;
+//   }
+// }
 
-    cursor: pointer;
-    .sticks {
-      width: 90%;
-      height: 3px;
-      border-radius: 4px;
-      background-color: $emerald;
-      position: relative;
-      top: 0;
-      transition: all ease-in 0.3s;
-    }
-  }
-}
+// .Pages {
+//   border-right: 2px solid $emerald;
+//   padding-right: 5px;
+// }
 
-.stickMoveUp {
-  top: -20px;
-}
+// .UserTags {
+//   border-left: 2px solid $emerald;
+//   padding-left: 5px;
+// }
 
-.stickMoveDown {
-  top: 20px;
-}
+// .ActiveTag {
+//   color: $orange;
+// }
 
-.stickCrossOne {
-  transform: rotate(45deg);
-  top: 5px;
-}
+// //NavIcon
+// .NavIconHide {
+//   display: none;
+//   .NavIconCont {
+//     width: 40px;
+//     height: 40px;
+//     flex-direction: column;
+//     justify-content: space-evenly;
+//     align-items: center;
+//     overflow: hidden;
+//     display: none;
 
-.stickCrossTwo {
-  transform: rotate(-45deg);
-  top: -3px;
-}
+//     cursor: pointer;
+//     .sticks {
+//       width: 90%;
+//       height: 3px;
+//       border-radius: 4px;
+//       background-color: $emerald;
+//       position: relative;
+//       top: 0;
+//       transition: all ease-in 0.3s;
+//     }
+//   }
+// }
 
-@media only screen and (max-width: 769px) {
-  .NavIconHide {
-    display: block;
-    .NavIconCont {
-      display: flex;
-    }
-  }
+// .stickMoveUp {
+//   top: -20px;
+// }
 
-  .Pages {
-    border-bottom: 2px solid $emerald;
-    border-right: none;
-  }
+// .stickMoveDown {
+//   top: 20px;
+// }
 
-  .NavRoutesHidden {
-    position: absolute;
-    top: 100px;
-    top: 0;
-    min-height: 100px;
-    display: flex;
-    gap: 3px;
-    justify-content: center;
-    align-items: center;
-    z-index: -1;
-    transition: all ease-in 0.3s;
-    border: 2px solid $emerald;
-    border-radius: 4px;
-    z-index: 5;
-    background-color: white;
-    a:hover {
-      color: $orange;
-    }
-  }
-}
+// .stickCrossOne {
+//   transform: rotate(45deg);
+//   top: 5px;
+// }
 
-/*New */
-.nav {
-  position: fixed;
-  background-color: white;
-  box-shadow: 0.2px 0.2px 1px $gray;
-  .navItemsCont {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
+// .stickCrossTwo {
+//   transform: rotate(-45deg);
+//   top: -3px;
+// }
 
-.home {
-  min-height: 1000px;
-  background-color: $white;
-}
+// @media only screen and (max-width: 769px) {
+//   .NavIconHide {
+//     display: block;
+//     .NavIconCont {
+//       display: flex;
+//     }
+//   }
+
+//   .Pages {
+//     border-bottom: 2px solid $emerald;
+//     border-right: none;
+//   }
+
+//   .NavRoutesHidden {
+//     position: absolute;
+//     top: 100px;
+//     top: 0;
+//     min-height: 100px;
+//     display: flex;
+//     gap: 3px;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: -1;
+//     transition: all ease-in 0.3s;
+//     border: 2px solid $emerald;
+//     border-radius: 4px;
+//     z-index: 5;
+//     background-color: white;
+//     a:hover {
+//       color: $orange;
+//     }
+//   }
+// }
+
+/* NEW*/
+
+// .nav {
+//   position: fixed;
+//   z-index: 50;
+//   background-color: white;
+//   height: 100px;
+//   box-shadow: 0.2px 0.2px 1px $gray;
+//   .navItemsCont {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//   }
+// }

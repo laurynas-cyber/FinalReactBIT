@@ -1,16 +1,16 @@
 const LoginNav = [
   {
-    tag: "Sign In",
+    tag: "SIGN IN",
     to: "SignIn",
     active: ({ isActive }) => {
-      return isActive ? "UserTags ActiveTag" : "UserTags";
+      return isActive ? "RouterLogLinks ActiveTag" : "RouterLogLinks";
     },
   },
   {
-    tag: "Log in",
+    tag: "LOG IN",
     to: "LogIn",
     active: ({ isActive }) => {
-      return isActive ? "UserTags ActiveTag" : "UserTags";
+      return isActive ? "RouterLogLinks ActiveTag" : "RouterLogLinks";
     },
   },
 ];

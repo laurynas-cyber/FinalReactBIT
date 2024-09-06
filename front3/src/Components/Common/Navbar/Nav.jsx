@@ -9,18 +9,42 @@ import { LoginNav } from "../../../Constants/navigation";
 import { AuthContext } from "../../Context/Auth";
 import Logout from "../Logout";
 import Gate from "../Gate";
+import * as l from "../../../Constants/urls";
 
 console.log(LoginNav);
 
 function Nav() {
   const { user } = useContext(AuthContext);
   const { isFullSize } = useContext(NavContext);
-  console.log(user);
+
   return (
     <>
-      {isFullSize ? null : <NavRoutes />}
+      <nav className="navbar container-fluid">
+        <div className="navItemsCont container-fluid">
+          <a className="navbarBrand " href={l.SIDE_URL}>
+            <img src={logo} alt="recoveryLogo" width="150" height="auto" />
+          </a>
 
-      <nav className="navbar bg-body-tertiary pt-2">
+          <div className="RoutesContainer">
+            <div className="LoginContainer">
+              {LoginNav.map((link) => (
+                <NavLink className={link.active} key={link.tag} to={link.to}>
+                  {link.tag}
+                </NavLink>
+              ))}
+              <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
+            </div>
+
+            <NavLink className="RouterLinks" to="donors">
+              DONORS
+            </NavLink>
+          </div>
+        </div>
+      </nav>
+
+      {/* {isFullSize ? null : <NavRoutes />}
+
+      <nav className="navbar container-fluid bg-body-tertiary pt-2">
         <div className="container-md Navigation ">
           {isFullSize ? <NavRoutes /> : <NavIcon />}
           <div className="col d-flex justify-content-center">
@@ -54,7 +78,7 @@ function Nav() {
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
           </div>
         </div>
-      </nav>
+      </nav> */}
     </>
   );
 }

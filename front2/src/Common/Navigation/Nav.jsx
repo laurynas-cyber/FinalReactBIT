@@ -8,7 +8,7 @@ function Nav() {
         <a className="navbar-brand " href={l.SIDE_URL}>
           <img src={logo} alt="recoveryLogo" width="150" height="auto" />
         </a>
-        <div>hello</div>
+        <div className="RoutesContainer border border-danger"></div>
       </div>
     </div>
   );

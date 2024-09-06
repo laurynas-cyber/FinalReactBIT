@@ -57,7 +57,7 @@ function Home() {
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
   return (
-    <div className="container p-0">
+    <div className="contentDown container p-0">
       {ActivePosts?.length === 0 && (
         <div className="row Spinner">
           <div className="col loadingDataContainer">

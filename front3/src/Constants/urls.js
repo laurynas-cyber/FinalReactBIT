@@ -1,5 +1,5 @@
 export const SERVER_URL = "http://localhost:3006/";
-export const SIDE_URL = "http://localhost:3005/";
+export const SIDE_URL = "http://localhost:3000/";
 export const SERVER_IMAGES_URL = "http://localhost:3006/img/";
 //Site URLs
 

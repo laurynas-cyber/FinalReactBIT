@@ -6,6 +6,7 @@ import HashLoader from "react-spinners/HashLoader";
 import { LoaderContext } from "./Context/Loader";
 import useServerPut from "./Hooks/useServerPut";
 import { useNavigate } from "react-router-dom";
+import Banner from "./Home/Banner";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -57,39 +58,42 @@ function Home() {
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
   return (
-    <div className="contentDown container p-0">
-      {ActivePosts?.length === 0 && (
-        <div className="row Spinner">
-          <div className="col loadingDataContainer">
-            <h4>Loading Posts</h4>
+    <>
+      <Banner />
+      <div className="contentDown container p-0">
+        {ActivePosts?.length === 0 && (
+          <div className="row Spinner">
+            <div className="col loadingDataContainer">
+              <h4>Loading Posts</h4>
 
-            <HashLoader color="#358cc8" size={100} />
+              <HashLoader color="#358cc8" size={100} />
+            </div>
           </div>
-        </div>
-      )}
-      {ActivePosts?.length === null ? <div>no posts created</div> : null}
-      {ActivePosts?.length > 0 && (
-        <>
-          <div className="col d-flex justify-content-center align-items-center SignInText">
-            <h2>Posts waiting for donations</h2>
-          </div>
-          <div className="SliderCont">
-            <ImageSlider postData={ActivePosts} />
-          </div>
-        </>
-      )}
+        )}
+        {ActivePosts?.length === null ? <div>no posts created</div> : null}
+        {ActivePosts?.length > 0 && (
+          <>
+            <div className="col d-flex justify-content-center align-items-center SignInText">
+              <h2>Posts waiting for donations</h2>
+            </div>
+            <div className="SliderCont">
+              <ImageSlider postData={ActivePosts} />
+            </div>
+          </>
+        )}
 
-      {donatedPosts !== null && donatedPosts.length > 0 && (
-        <>
-          <div className="col d-flex justify-content-center align-items-center SignInText">
-            <h3>Donated Posts</h3>
-          </div>
-          <div className="SliderCont">
-            <ImageSlider postData={donatedPosts} />
-          </div>
-        </>
-      )}
-    </div>
+        {donatedPosts !== null && donatedPosts.length > 0 && (
+          <>
+            <div className="col d-flex justify-content-center align-items-center SignInText">
+              <h3>Donated Posts</h3>
+            </div>
+            <div className="SliderCont">
+              <ImageSlider postData={donatedPosts} />
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 

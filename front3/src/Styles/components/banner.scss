@@ -1,0 +1,27 @@
+.BannerContainer {
+  //   background-image: url("../../assets/images/banner.jpg");
+  //   object-fit: fill;
+  //   background-repeat: no-repeat;
+  min-height: 500px;
+  position: relative;
+  margin-top: 100px;
+  .BannerImg {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+  }
+  .BannerText {
+    position: absolute;
+    top: 20%;
+    right: 50px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: -1;
+    padding: 10px 5px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 30px;
+  }
+}

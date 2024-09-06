@@ -28,8 +28,8 @@ export default function Logout() {
   );
 
   return (
-    <Link onClick={(_) => doAction() || setShow(true)} className="UserTags">
-      Log out
+    <Link onClick={(_) => doAction() || setShow(true)} className="RouterLogLinks">
+      LOG OUT
     </Link>
   );
 }

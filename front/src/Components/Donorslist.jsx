@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useServerGet from "./Hooks/useServerGet";
 import * as l from "../Constants/urls";
 import HashLoader from "react-spinners/HashLoader";
-import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
+import { Search } from "./UserSignAndLogin/Forms/Search";
 
 function Donorslist() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -10,13 +10,11 @@ function Donorslist() {
   );
 
   const [users, setUsers] = useState(null);
-  const [sortedUp, setSortedUp] = useState(null);
-  const [sortedNameUp, setSortedNameUp] = useState(null);
+  const [usersCopyList, setUsersCopyList] = useState(null);
 
   useEffect(
     (_) => {
       doGet();
-      console.log(!null);
     },
     [doGet]
   );
@@ -28,61 +26,18 @@ function Donorslist() {
       }
 
       setUsers(serverGetResponse.serverData.users ?? null);
+      setUsersCopyList(serverGetResponse.serverData.users ?? null);
     },
     [serverGetResponse]
   );
-
-  const NameSort = (e) => {
-    setUsers((u) => {
-      if (sortedNameUp) {
-        return u.toSorted((a, b) => b.name.localeCompare(a.name));
-      } else {
-        return u.toSorted((a, b) => a.name.localeCompare(b.name));
-      }
-    });
-
-    setSortedNameUp((prev) => !prev);
-  };
-
-  const DonateSort = () => {
-    setUsers((u) => {
-      if (sortedUp) {
-        return u.toSorted((a, b) => a.donation - b.donation);
-      } else {
-        return u.toSorted((a, b) => b.donation - a.donation);
-      }
-    });
-
-    setSortedUp((prev) => !prev);
-  };
 
   return (
     <div className="container p-0">
       <div className="col d-flex justify-content-center align-items-center SignInText">
         <h3>Special thanks for these donors</h3>
       </div>
-      <div className="FilterBlock">
-        <div>Filter</div>
-        <div className="sortblock">
-          <span>Sort</span>
-          <button className="btn mainActionBtn" onClick={NameSort}>
-            by name{" "}
-            {sortedNameUp === null ? null : sortedNameUp ? (
-              <FaLongArrowAltUp className="DonateArrows" />
-            ) : (
-              <FaLongArrowAltDown className="DonateArrows" />
-            )}
-          </button>
-          <button className="btn mainActionBtn" onClick={DonateSort}>
-            by Donated sum{" "}
-            {sortedUp === null ? null : sortedUp ? (
-              <FaLongArrowAltUp className="DonateArrows" />
-            ) : (
-              <FaLongArrowAltDown className="DonateArrows" />
-            )}
-          </button>
-        </div>
-      </div>
+
+      <Search usersCopyList={usersCopyList} setUsers={setUsers} sortType={"sum"} />
 
       <div className="userTable">
         <div>

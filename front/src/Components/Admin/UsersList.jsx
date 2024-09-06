@@ -5,6 +5,7 @@ import useServerDelete from "../Hooks/useServerDelete";
 import { ModalContext } from "../Context/Modals";
 import { Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import { Search } from "../UserSignAndLogin/Forms/Search";
 
 function UsersList() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -14,6 +15,7 @@ function UsersList() {
     useServerDelete(l.SERVER_DELETE_USER);
   const { setDeleteModal } = useContext(ModalContext);
   const [users, setUsers] = useState(null);
+  const [usersCopyList, setUsersCopyList] = useState(null);
 
   const hideUser = (user) => {
     setUsers((u) =>
@@ -48,6 +50,7 @@ function UsersList() {
       }
 
       setUsers(serverGetResponse.serverData.users ?? null);
+      setUsersCopyList(serverGetResponse.serverData.users ?? null);
     },
     [serverGetResponse]
   );
@@ -70,6 +73,11 @@ function UsersList() {
     <>
       <div className="container p-0">
         <h2>UsersList</h2>
+        <Search
+          usersCopyList={usersCopyList}
+          setUsers={setUsers}
+          sortType={"role"}
+        />
         {users === null && (
           <div className="row Spinner">
             <div className="col loadingDataContainer">
@@ -79,62 +87,70 @@ function UsersList() {
             </div>
           </div>
         )}
+
         {users !== null && (
-          <div className="userTable">
-            <div className="tableNames">
-              <div className="col tableReference userNam">
-                <strong>Name </strong>
+          <>
+            <div>Total users: {users.filter((u) => !u.hidden).length}</div>
+            <div className="userTable">
+              <div className="tableNames">
+                <div className="col tableReference userNam">
+                  <strong>Name </strong>
+                </div>
+                <div className="col tableReference userEmai">
+                  <strong>Email</strong>
+                </div>
+                <div className="col tableReference userRol">
+                  <strong>Role</strong>
+                </div>
+                <div className="col tableReference Action">
+                  <strong>Actions</strong>
+                </div>
               </div>
-              <div className="col tableReference userEmai">
-                <strong>Email</strong>
-              </div>
-              <div className="col tableReference userRol">
-                <strong>Role</strong>
-              </div>
-              <div className="col tableReference Action">
-                <strong>Actions</strong>
-              </div>
-            </div>
-            <div className="divideRow"></div>
-            {users.map((u) =>
-              u.hidden ? null : (
-                <div key={u.id}>
-                  <div className="tableNames">
-                    <div className="col tableReference userName">{u.name}</div>
-                    <div className="col tableReference userEmail">
-                      {u.email}
-                    </div>
-                    <div className="col tableReference userRole">{u.role}</div>
-                    <div className="col tableReference Actions">
-                      <div className="TableButtons">
-                        <Link
-                          to={`/dashbord/userlist/${u.id}`}
-                          className="btn mainActionBtn"
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          type="button"
-                          className="btn SecondActionBtn"
-                          onClick={(_) =>
-                            setDeleteModal({
-                              data: u,
-                              name: u.name,
-                              doDelete,
-                              hideData: hideUser,
-                            })
-                          }
-                        >
-                          Delete
-                        </button>
+              <div className="divideRow"></div>
+              {users.map((u) =>
+                u.hidden ? null : (
+                  <div key={u.id}>
+                    <div className="tableNames">
+                      <div className="col tableReference userName">
+                        {u.name}
+                      </div>
+                      <div className="col tableReference userEmail">
+                        {u.email}
+                      </div>
+                      <div className="col tableReference userRole">
+                        {u.role}
+                      </div>
+                      <div className="col tableReference Actions">
+                        <div className="TableButtons">
+                          <Link
+                            to={`/dashbord/userlist/${u.id}`}
+                            className="btn mainActionBtn"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            type="button"
+                            className="btn SecondActionBtn"
+                            onClick={(_) =>
+                              setDeleteModal({
+                                data: u,
+                                name: u.name,
+                                doDelete,
+                                hideData: hideUser,
+                              })
+                            }
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
+                    <div className="divideRow"></div>
                   </div>
-                  <div className="divideRow"></div>
-                </div>
-              )
-            )}
-          </div>
+                )
+              )}
+            </div>
+          </>
         )}
 
         {/* <div>Viso vartototojų: {users.filter((u) => !u.hidden).length}</div> */}

@@ -10,10 +10,8 @@ import { ModalContext } from "../Context/Modals";
 export const ImageSlider = ({ postData }) => {
   const { donateModal, setDonateModal } = useContext(ModalContext);
   const [imageIndex, setImageIndex] = useState(0);
-  const [donationAfterConfirm, setdonationAfterConfirm] = useState(0);
-  const intervalRef = useRef(null);
 
-  useCallback((_) => {}, []);
+  const intervalRef = useRef(null);
 
   const startSlider = useCallback(() => {
     intervalRef.current = setInterval(() => {
@@ -104,10 +102,7 @@ export const ImageSlider = ({ postData }) => {
                     <div
                       className="donatedBar"
                       style={{
-                        width: `${
-                          DonatedBar(p.amount, p.donated) +
-                          DonatedBar(p.amount, donationAfterConfirm)
-                        }%`,
+                        width: `${DonatedBar(p.amount, p.donated)}%`,
                         backgroundColor:
                           p.amount <= p.donated ? "#f08702" : "#3498db",
                       }}

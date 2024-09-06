@@ -1,6 +1,18 @@
-.sortblock {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+.FilterBlock {
+  gap: 10px;
+  height: auto;
+  .searchInput {
+    width: 20%;
+  }
+  .sortblock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 10px 0;
+  }
+  .searchIcon {
+    fill: $emerald;
+    font-size: 20px;
+  }
 }

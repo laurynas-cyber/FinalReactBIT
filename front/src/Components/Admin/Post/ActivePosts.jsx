@@ -129,7 +129,6 @@ const PendingPosts = () => {
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
-              DeleteName="Delete"
             />
           )
         )}

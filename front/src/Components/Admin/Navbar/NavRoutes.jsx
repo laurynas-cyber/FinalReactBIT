@@ -18,6 +18,7 @@ function NavRoutes() {
       <Link className="Pages" to={`/`}>
         Home
       </Link>
+
       <NavLink
         className={({ isActive }) => {
           return isActive ? "Pages ActiveTag" : "Pages";

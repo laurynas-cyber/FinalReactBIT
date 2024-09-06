@@ -4,7 +4,7 @@ import NavIcon from "./NavIcon";
 import NavRoutes from "./NavRoutes";
 import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LoginNav } from "../../../Constants/navigation";
 import { AuthContext } from "../../Context/Auth";
 import Logout from "../Logout";

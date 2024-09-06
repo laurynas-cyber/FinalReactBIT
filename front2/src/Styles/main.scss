@@ -1,6 +1,17 @@
 @import "bootstrap/scss/bootstrap";
-@import "./colors.scss";
 
-img {
-  width: 10%;
+@import "./global/colors.scss";
+@import "./global/toasts.scss";
+@import "./global/buttons.scss";
+@import "./global/form.scss";
+@import "./global/range.scss";
+
+@import "./components/navigation.scss";
+
+* {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  box-sizing: border-box;
 }
+

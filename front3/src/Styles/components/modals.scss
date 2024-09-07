@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    span {
+    .cancel {
       color: $emerald;
       font-size: 25px;
       position: absolute;
@@ -49,9 +49,13 @@
   .decline-modal {
     min-width: 600px;
     height: auto;
-    textarea {
-      max-width: 200px;
-      max-height: 200px;
+    .descriptionForm,
+    select {
+      margin: 20px 0;
+      textarea {
+        max-width: 200px;
+        max-height: 200px;
+      }
     }
   }
 }

@@ -3,10 +3,11 @@ import { useRef } from "react";
 export default function Textarea({
   label = null,
   onChange,
-  value= null,
+  value = null,
   type,
   name,
   maxChar,
+  title = "Description",
   placeholder = null,
   autoComplete = null,
   errors = {},
@@ -16,7 +17,7 @@ export default function Textarea({
     <>
       <div className="input-group descriptionForm">
         <div className="input-group-text descriptLabel">
-          <span> Description </span>{" "}
+          <span> {title} </span>{" "}
           <span> Max Characters: {characters.current - value.length}</span>
         </div>
         <textarea

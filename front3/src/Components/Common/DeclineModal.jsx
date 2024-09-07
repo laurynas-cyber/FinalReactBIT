@@ -6,6 +6,8 @@ import * as l from "../../Constants/urls";
 import { LoaderContext } from "../Context/Loader";
 import { useNavigate } from "react-router-dom";
 import Textarea from "../UserSignAndLogin/Forms/Textarea";
+import Select from "../UserSignAndLogin/Forms/Select";
+import comments from "../../Constants/comments";
 
 function DeclineModal() {
   const { declineModal, setDeclineModal } = useContext(ModalContext);
@@ -14,13 +16,14 @@ function DeclineModal() {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [declineForm, setDeclineForm] = useState({
     comment: "",
+    selectComment: "",
   });
   const navigate = useNavigate();
   const handleForm = (e) => {
     setDeclineForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  // console.log(declineModal.data.id);
+
 
   useEffect(
     (_) => {
@@ -36,7 +39,6 @@ function DeclineModal() {
     [serverResponse, navigate]
   );
 
-  console.log(declineModal);
   if (declineModal === null) {
     return null;
   }
@@ -53,7 +55,6 @@ function DeclineModal() {
     setDeclineModal(null);
   };
 
-  console.log(declineModal);
   return (
     <div className="delete-modal-container">
       <div className="modal decline-modal">
@@ -65,16 +66,26 @@ function DeclineModal() {
           <strong> decline section</strong>
         </div>
 
-        <p>Please leave reason comment</p>
+        <p>Please choose decline reason comment</p>
         <form>
-          <Textarea
+          <Select
             onChange={handleForm}
-            type="text"
-            name="comment"
-            value={declineForm.comment}
-            placeholder="leave your comment"
-            maxChar={100}
+            value={declineForm.selectComment}
+            name="selectComment"
+            options={comments}
           />
+
+          {declineForm.selectComment === "Other" ? (
+            <Textarea
+              onChange={handleForm}
+              type="text"
+              name="comment"
+              value={declineForm.comment}
+              title="Comment"
+              placeholder="Leave your here comment"
+              maxChar={50}
+            />
+          ) : null}
         </form>
         <div className="buttons d-flex gap-2">
           <button

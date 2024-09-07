@@ -12,7 +12,7 @@ const PostsCard = ({
   mainBtnName = "Edit",
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
-  const {setDeclineModal } = useContext(ModalContext);
+  const { setDeclineModal } = useContext(ModalContext);
 
   const handleModal = (post) => {
     setDeclineModal(post);
@@ -98,13 +98,8 @@ const PostsCard = ({
           )}
           {isPending && (
             <button
-              className="btn mainActionBtn"
+              className="btn SecondActionBtn"
               disabled={post.comment ? true : null}
-              // onClick={(_) => {
-              //   setDeclineModal({
-              //     data: post,
-              //   });
-              // }}
               onClick={(_) => handleModal(post)}
             >
               Decline

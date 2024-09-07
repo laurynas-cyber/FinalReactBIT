@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
 import Logout from "../../Common/Logout";
 import { AuthContext } from "../../Context/Auth";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Nav() {
   const { user } = useContext(AuthContext);
@@ -25,7 +25,13 @@ function Nav() {
           </div>
 
           <div className="col d-flex justify-content-end align-items-center gap-3">
-            <Link className="UserTags">{user?.role + " " + user?.name}</Link>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? "Pages ActiveTag" : "Pages";
+              }}
+            >
+              {user?.role + " " + user?.name}
+            </NavLink>
             <Logout />
             <FaUser style={{ color: "#00ba75", fontSize: "25px" }} />
           </div>

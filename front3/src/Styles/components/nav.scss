@@ -56,3 +56,23 @@
     }
   }
 }
+
+
+//logIn routes
+
+.Pages {
+  border-right: 2px solid $emerald;
+  padding-right: 5px;
+}
+
+.UserTags {
+  border-left: 2px solid $emerald;
+  padding-left: 5px;
+}
+
+.ActiveTag {
+  color: $orange;
+  border: solid 2px $emerald;
+  box-sizing: border-box;
+  padding: 10px;
+}

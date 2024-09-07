@@ -63,6 +63,7 @@ const createPostTable = (_) => {
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(100) NOT NULL,
       description TEXT NOT NULL,
+      comment TEXT NULL,
       userID SMALLINT UNSIGNED,
       amount MEDIUMINT UNSIGNED,
       image VARCHAR(65000) NULL,
@@ -71,6 +72,7 @@ const createPostTable = (_) => {
       donated MEDIUMINT DEFAULT 0
   )`;
 
+  // naujas idetas comment
   connection.query(sql, function (err) {
     if (err) throw err;
     console.log("Post table created");

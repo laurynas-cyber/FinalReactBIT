@@ -16,13 +16,10 @@ const PendingPosts = () => {
     l.SERVER_UPDATE_POST
   );
 
-  
-
   const { doAction: doDelete, serverResponse: serverDeleteResponse } =
     useServerDelete(l.SERVER_DELETE_POST);
 
   const [pendingPosts, setPendingPosts] = useState(null);
-
 
   const { setShow } = useContext(LoaderContext);
 
@@ -67,6 +64,7 @@ const PendingPosts = () => {
       }
 
       setPendingPosts(serverGetResponse.serverData.posts ?? null);
+
     },
     [serverGetResponse]
   );
@@ -91,7 +89,6 @@ const PendingPosts = () => {
         return;
       }
       if (serverPutResponse.type === "error") {
-   
         showPost();
         console.log(" error");
       } else {
@@ -121,12 +118,13 @@ const PendingPosts = () => {
         pendingPosts.map((post, index) =>
           post.hidden || post.confirmed ? null : (
             <PostsCard
+              isPending = {true}
               key={index}
               post={post}
               hidePost={hidePost}
               doDelete={doDelete}
               onClick={submit}
-              mainBtnName= {"Confirm"}
+              mainBtnName={"Confirm"}
             />
           )
         )}

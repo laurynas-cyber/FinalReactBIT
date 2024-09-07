@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { NavContext } from "../../Context/NavContext";
 import Logout from "../../Common/Logout";
 import { AuthContext } from "../../Context/Auth";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Nav() {
   const { user } = useContext(AuthContext);

@@ -204,7 +204,7 @@ app.get("/admin/pending/posts", (req, res) => {
     }
 
     const sql = `
-       SELECT p.id, p.userID, p.title, p.description, p.amount, p.image, p.confirmed, p.is_top, p.donated, u.name, u.email
+       SELECT p.id, p.userID, p.title, p.description,p.comment, p.amount, p.image, p.confirmed, p.is_top, p.donated, u.name, u.email
         FROM posts AS p
         INNER JOIN users AS u
         ON p.userID = u.id

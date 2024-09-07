@@ -3,14 +3,15 @@ import { useRef } from "react";
 export default function Textarea({
   label = null,
   onChange,
-  value,
+  value= null,
   type,
   name,
+  maxChar,
   placeholder = null,
   autoComplete = null,
   errors = {},
 }) {
-  const characters = useRef(190);
+  const characters = useRef(maxChar);
   return (
     <>
       <div className="input-group descriptionForm">

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as l from "../../../Constants/urls";
 import useServerGet from "../../Hooks/useServerGet";
 import useServerPut from "../../Hooks/useServerPut";
@@ -47,7 +47,7 @@ export default function PostEdit() {
         navigate(-1);
       }
     },
-    [serverPutResponse]
+    [serverPutResponse, navigate]
   );
 
   const handleForm = (e) => {
@@ -91,6 +91,7 @@ export default function PostEdit() {
                   onChange={handleForm}
                   type="text"
                   name="description"
+                  maxChar={190}
                   value={post.description}
                 />
                 <Upload post={post} setPost={setPost} />

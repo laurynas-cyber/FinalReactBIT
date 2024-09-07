@@ -4,6 +4,7 @@ import * as l from "../../../Constants/urls";
 import { Link } from "react-router-dom";
 
 const PostsCard = ({
+  isPending = false,
   post,
   hidePost,
   doDelete,
@@ -11,6 +12,12 @@ const PostsCard = ({
   mainBtnName = "Edit",
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
+  const {setDeclineModal } = useContext(ModalContext);
+
+  const handleModal = (post) => {
+    setDeclineModal(post);
+    // console.log(declineModal);
+  };
 
   return (
     <div
@@ -46,7 +53,7 @@ const PostsCard = ({
         <h5>Picture</h5>
         {post.image === null ? (
           <img
-            alt="no photo"
+            alt="post.image"
             src={l.SERVER_IMAGES_URL + "no-image.png"}
             className="img-slider-img"
           />
@@ -80,7 +87,6 @@ const PostsCard = ({
           {mainBtnName !== "Edit" ? (
             <button
               onClick={(_) => onClick(post)}
-              // disabled={post.confirmed ? true : null}
               className="btn mainActionBtn"
             >
               {mainBtnName}
@@ -89,6 +95,20 @@ const PostsCard = ({
             <Link to={`${post.id}`} className="btn mainActionBtn">
               {mainBtnName}
             </Link>
+          )}
+          {isPending && (
+            <button
+              className="btn mainActionBtn"
+              disabled={post.comment ? true : null}
+              // onClick={(_) => {
+              //   setDeclineModal({
+              //     data: post,
+              //   });
+              // }}
+              onClick={(_) => handleModal(post)}
+            >
+              Decline
+            </button>
           )}
 
           <button

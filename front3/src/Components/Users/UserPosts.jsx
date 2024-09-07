@@ -79,6 +79,7 @@ const UserPosts = () => {
             onChange={handleForm}
             type="text"
             name="description"
+            maxChar={190}
             value={post.description}
           />
 

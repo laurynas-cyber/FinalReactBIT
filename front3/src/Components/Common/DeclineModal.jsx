@@ -1,43 +1,65 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../Context/Modals";
 import { GiCancel } from "react-icons/gi";
-import useServerPost from "../Hooks/useServerPost";
+
 import * as l from "../../Constants/urls";
 import { LoaderContext } from "../Context/Loader";
 import { useNavigate } from "react-router-dom";
 import Textarea from "../UserSignAndLogin/Forms/Textarea";
 import Select from "../UserSignAndLogin/Forms/Select";
 import comments from "../../Constants/comments";
+import useServerPut from "../Hooks/useServerPut";
 
 function DeclineModal() {
   const { declineModal, setDeclineModal } = useContext(ModalContext);
-  const { doAction, serverResponse } = useServerPost(l.POST_DONATE);
+  const [data, setData] = useState(null);
+  const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
+    l.SERVER_UPDATE_COMMENTPOST
+  );
   const { setShow } = useContext(LoaderContext);
-  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [declineForm, setDeclineForm] = useState({
+    id: declineModal.id,
     comment: "",
-    selectComment: "",
+    selectComment: "No picture",
   });
   const navigate = useNavigate();
   const handleForm = (e) => {
     setDeclineForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+
+    if (declineForm.selectComment === "Other") {
+      setData({ id: declineModal.id, comment: declineForm.comment });
+    } else {
+      setData({ id: declineModal.id, comment: declineForm.selectComment });
+    }
   };
-
-
 
   useEffect(
     (_) => {
-      if (null === serverResponse) {
+      if (null === serverPutResponse) {
         return;
       }
-
-      setButtonDisabled(false);
-      if (serverResponse.type === "success") {
-        navigate("/");
+      if ("success" === serverPutResponse.type) {
+        navigate("/dashbord/userlist");
       }
     },
-    [serverResponse, navigate]
+    [serverPutResponse, navigate]
   );
+
+  // useEffect(
+  //   (_) => {
+  //     if (declineModal === null) {
+  //       return;
+  //     } else {
+  //       console.log(data);
+  //       if (declineForm.selectComment === "Other") {
+  //         setData({ id: declineModal.id, comment: declineForm.comment });
+  //       } else {
+  //         setData({ id: declineModal.id, comment: declineForm.selectComment });
+  //       }
+  //     }
+  //   },
+  //   [declineModal, declineForm]
+  // );
 
   if (declineModal === null) {
     return null;
@@ -45,13 +67,16 @@ function DeclineModal() {
 
   const handleConfirm = (_) => {
     setShow(true);
-    setButtonDisabled(true);
-    doAction({
-      name: declineForm.name,
-      email: declineForm.email,
-      donation: declineForm.donation,
-      post_id: declineModal.data.id,
-    });
+
+    if (declineForm.selectComment === "Other") {
+      setData({ id: declineModal.id, comment: declineForm.comment });
+      console.log(data);
+    } else {
+      setData({ id: declineModal.id, comment: declineForm.selectComment });
+      console.log(data);
+    }
+
+    doPut(data);
     setDeclineModal(null);
   };
 
@@ -89,12 +114,11 @@ function DeclineModal() {
         </form>
         <div className="buttons d-flex gap-2">
           <button
-            disabled={buttonDisabled}
             type="button"
             className="btn mainActionBtn"
             onClick={handleConfirm}
           >
-            Confirm
+            Decline
           </button>
           <button
             onClick={(_) => setDeclineModal(null)}

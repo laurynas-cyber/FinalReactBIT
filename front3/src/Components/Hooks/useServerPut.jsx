@@ -18,7 +18,7 @@ const useServerPut = (url) => {
   const navigate = useNavigate();
   const doAction = (data) => {
     const param = data.id ? `/${data.id}` : "";
-
+    console.log(param);
     axios
       .put(`${l.SERVER_URL}${url}${param}`, data, { withCredentials: true })
       .then((res) => {

@@ -16,7 +16,6 @@ const PostsCard = ({
 
   const handleModal = (post) => {
     setDeclineModal(post);
-    // console.log(declineModal);
   };
 
   return (

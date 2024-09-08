@@ -346,50 +346,6 @@ app.delete("/admin/delete/post/:id", (req, res) => {
   }, 1500);
 });
 
-// app.put("/admin/update/post/:id", (req, res) => {
-//   setTimeout((_) => {
-//     const { id } = req.params;
-//     const { title, description, image, confirmed, is_top } = req.body;
-
-//     const sql = `
-//             UPDATE posts
-//             SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?
-//             WHERE id = ?
-//             `;
-
-//     connection.query(
-//       sql,
-//       [title, description, image, confirmed, is_top, id],
-//       (err, result) => {
-//         if (err) throw err;
-//         const updated = result.affectedRows;
-//         if (!updated) {
-//           res
-//             .status(404)
-//             .json({
-//               message: {
-//                 type: "info",
-//                 title: "Post",
-//                 text: `Post was not found`,
-//               },
-//             })
-//             .end();
-//           return;
-//         }
-//         res
-//           .json({
-//             message: {
-//               type: "success",
-//               title: "Post",
-//               text: `Post updated successfully`,
-//             },
-//           })
-//           .end();
-//       }
-//     );
-//   }, 1500);
-// });
-
 app.put("/admin/update/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
@@ -474,45 +430,44 @@ app.put("/admin/update/post/:id", (req, res) => {
   }, 1500);
 });
 
-// app.put("/home/update/post/:id", (req, res) => {
-//   setTimeout((_) => {
-//     const { id } = req.params;
-//     const { donated } = req.body;
-
-//     const sql = `
-//             UPDATE posts
-//             SET donated = ?
-//             WHERE id = ?
-//             `;
-
-//     connection.query(sql, [donated, id], (err, result) => {
-//       if (err) throw err;
-//       const updated = result.affectedRows;
-//       if (!updated) {
-//         res
-//           .status(404)
-//           .json({
-//             message: {
-//               type: "info",
-//               title: "Post",
-//               text: `Post was not found`,
-//             },
-//           })
-//           .end();
-//         return;
-//       }
-//       res
-//         .json({
-//           message: {
-//             type: "success",
-//             title: "Post",
-//             text: `Post updated successfully`,
-//           },
-//         })
-//         .end();
-//     });
-//   }, 1500);
-// });
+app.put("/admin/update/commentpost/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+    const { comment } = req.body;
+    console.log(comment);
+    const sql = `
+                    UPDATE posts
+                    SET comment = ?
+                    WHERE id = ?
+                    `;
+    connection.query(sql, [comment, id], (err, result) => {
+      if (err) throw err;
+      const updated = result.affectedRows;
+      if (!updated) {
+        res
+          .status(404)
+          .json({
+            message: {
+              type: "info",
+              title: "Posts",
+              text: `Post was not found`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          message: {
+            type: "success",
+            title: "Posts decline",
+            text: `Post was declined, Admin comment added`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
 
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {

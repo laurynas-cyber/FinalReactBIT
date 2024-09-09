@@ -299,6 +299,7 @@ app.get("/home/posts", (req, res) => {
   }, 1500);
 });
 
+//Padaryti kad deletintu kai nuotraukos nera
 app.delete("/admin/delete/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
@@ -349,19 +350,19 @@ app.delete("/admin/delete/post/:id", (req, res) => {
 app.put("/admin/update/post/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;
-    const { title, description, image, confirmed, is_top } = req.body;
+    const { title, description, image, confirmed, comment, is_top } = req.body;
 
     if (image) {
       image.length > 40 && deleteImage(id);
       const filename = image.length > 40 ? writeImage(image) : image;
       const sql = `
                     UPDATE posts
-                    SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?
+                    SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?, comment = NULL
                     WHERE id = ?
                     `;
       connection.query(
         sql,
-        [title, description, filename, confirmed, is_top, id],
+        [title, description, filename, confirmed, is_top, id, comment],
         (err, result) => {
           if (err) throw err;
           const updated = result.affectedRows;
@@ -393,12 +394,12 @@ app.put("/admin/update/post/:id", (req, res) => {
       deleteImage(id);
       const sql = `
                     UPDATE posts
-                    SET title = ?, description = ?, image = NULL, confirmed = ?, is_top = ?
+                    SET title = ?, description = ?, image = NULL, confirmed = ?, is_top = ?, comment = NULL
                     WHERE id = ?
                     `;
       connection.query(
         sql,
-        [title, description, confirmed, is_top, id],
+        [title, description, confirmed, is_top, id, comment],
         (err, result) => {
           if (err) throw err;
           const updated = result.affectedRows;
@@ -437,7 +438,7 @@ app.put("/admin/update/commentpost/:id", (req, res) => {
     console.log(comment);
     const sql = `
                     UPDATE posts
-                    SET comment = ?
+                    SET comment = ?, confirmed = FALSE
                     WHERE id = ?
                     `;
     connection.query(sql, [comment, id], (err, result) => {

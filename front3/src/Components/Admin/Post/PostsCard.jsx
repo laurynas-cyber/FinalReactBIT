@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import DeclineDot from "./DeclineDot";
 
 const PostsCard = ({
+  isAdmin = false,
   isPending = false,
   post,
   hidePost,
@@ -71,6 +72,7 @@ const PostsCard = ({
           {post.name ? (
             <>
               <span>{post.name} </span> <span>{post.email}</span>
+              {!!post.comment && <DeclineDot post={post} />}
             </>
           ) : !!post.confirmed ? (
             <span className="userConfirmed">
@@ -80,7 +82,6 @@ const PostsCard = ({
           ) : !!post.comment ? (
             <>
               <DeclineDot post={post} />
-             
             </>
           ) : (
             <span>Not Confirmed yet</span>
@@ -101,10 +102,18 @@ const PostsCard = ({
               {mainBtnName}
             </Link>
           )}
-          {isPending && (
+          {isAdmin &&
+            !!post.confirmed &&
+            (post.is_top ? (
+              <div>BANNER</div>
+            ) : (
+              <button className="btn mainActionBtn">Banner Post</button>
+            ))}
+
+          {isAdmin && (
             <button
               className="btn SecondActionBtn"
-              // disabled={post.comment ? true : null}
+              disabled={post.comment ? true : null}
               onClick={(_) => handleModal(post)}
             >
               Decline

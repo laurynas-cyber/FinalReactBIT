@@ -124,6 +124,7 @@ const PendingPosts = () => {
         pendingPosts.map((post, index) =>
           post.hidden || !post.confirmed ? null : (
             <PostsCard
+              isAdmin={true}
               key={index}
               post={post}
               hidePost={hidePost}

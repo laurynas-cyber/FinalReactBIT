@@ -46,7 +46,7 @@ const PendingPosts = () => {
     //TODO: Validation
     setShow(true);
     hidePost(post);
-    let copyPost = post
+    let copyPost = post;
     copyPost.confirmed = true;
     doPut(copyPost);
   };
@@ -118,7 +118,7 @@ const PendingPosts = () => {
         pendingPosts.map((post, index) =>
           post.hidden || post.confirmed ? null : (
             <PostsCard
-              isPending={true}
+              isAdmin={true}
               key={index}
               post={post}
               hidePost={hidePost}

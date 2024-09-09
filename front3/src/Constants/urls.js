@@ -30,6 +30,7 @@ export const SERVER_POST = "post";
 export const SERVER_DELETE_POST = "admin/delete/post";
 export const SERVER_UPDATE_POST = "admin/update/post";
 export const SERVER_UPDATE_COMMENTPOST = "admin/update/commentpost";
+export const SERVER_UPDATE_BANNER = "admin/banner"
 export const SERVER_HOME_POSTS = "home/posts";
 export const SERVER_EDIT_POST = "web/edit/post";
 

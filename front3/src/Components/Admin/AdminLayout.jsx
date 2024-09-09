@@ -6,6 +6,7 @@ import DeleteModal from "../Common/DeleteModal";
 import { ToastContainer } from "react-toastify";
 import { LoaderContainer } from "../Common/LoaderContainer";
 import DeclineModal from "../Common/DeclineModal";
+import BannerModal from "../Common/BannerModal";
 
 function AdminLayout() {
   return (
@@ -13,6 +14,7 @@ function AdminLayout() {
       <Nav />
       <DeleteModal />
       <DeclineModal />
+      <BannerModal />
       <Outlet />
       <ToastContainer />
       <LoaderContainer />

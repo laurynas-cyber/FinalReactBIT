@@ -1,12 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ModalContext } from "../../Context/Modals";
 import * as l from "../../../Constants/urls";
 import { Link } from "react-router-dom";
 import DeclineDot from "./DeclineDot";
+import { FaCircle, FaRegCircle } from "react-icons/fa";
+import { FaRegCircleDot } from "react-icons/fa6";
+import useServerPut from "../../Hooks/useServerPut";
 
 const PostsCard = ({
   isAdmin = false,
-  isPending = false,
+  setPosts = null,
   post,
   hidePost,
   doDelete,
@@ -15,16 +18,34 @@ const PostsCard = ({
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
   const { setDeclineModal } = useContext(ModalContext);
+  const { setBannerModal } = useContext(ModalContext);
+
+  const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
+    l.SERVER_UPDATE_BANNER
+  );
 
   const handleModal = (post) => {
     setDeclineModal(post);
   };
 
+  useEffect(
+    (_) => {
+      if (null === serverPutResponse) {
+        return;
+      }
+      if ("success" === serverPutResponse.type) {
+        setPosts((p) =>
+          p.map((p) =>
+            p.id === post.id ? { ...p, is_top: 1 } : { ...p, is_top: 0 }
+          )
+        );
+      }
+    },
+    [serverPutResponse]
+  );
+
   return (
-    <div
-      className="container p-0 postContainer"
-      // style={{ filter: post.confirmed ? null : "opacity(0.5)" }}
-    >
+    <div className="container p-0 postContainer">
       <div className="postTitle">
         <h5>Title</h5>
         <div className="titlePosts">
@@ -67,7 +88,7 @@ const PostsCard = ({
         )}
       </div>
       <div className="PostAuthorCont">
-        <h5>{post.name ? "Fund Author" : "Active Post"}</h5>
+        <h5>{post.name ? "Fund Author" : "Status"}</h5>
         <div className="author">
           {post.name ? (
             <>
@@ -88,8 +109,32 @@ const PostsCard = ({
           )}
         </div>
       </div>
+      {!!post.confirmed && isAdmin && (
+        <div className="PostAuthorCont">
+          <h5 className="BannerPostName">Banner Post</h5>
+          <div className="checkboxCont">
+            <button className="img-slide-dot-btn PostCardBannerBtn">
+              {post.is_top ? (
+                <FaRegCircleDot aria-hidden />
+              ) : (
+                <FaRegCircle
+                  aria-hidden
+                  onClick={(_) => {
+                    setBannerModal({
+                      data: post,
+                      doPut,
+                    });
+                  }}
+                />
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="PostButtons">
-        <div className="d-flex gap-2">
+        <h5>Actions</h5>
+        <div className="d-flex gap-2 PostCardBtnCont">
           {mainBtnName !== "Edit" ? (
             <button
               onClick={(_) => onClick(post)}
@@ -102,13 +147,6 @@ const PostsCard = ({
               {mainBtnName}
             </Link>
           )}
-          {isAdmin &&
-            !!post.confirmed &&
-            (post.is_top ? (
-              <div>BANNER</div>
-            ) : (
-              <button className="btn mainActionBtn">Banner Post</button>
-            ))}
 
           {isAdmin && (
             <button

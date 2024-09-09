@@ -470,6 +470,40 @@ app.put("/admin/update/commentpost/:id", (req, res) => {
   }, 1500);
 });
 
+app.put("/admin/banner/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+
+    const sql = `UPDATE posts SET is_top = CASE WHEN id = ? THEN 1 ELSE 0 END`;
+    connection.query(sql, [id], (err, result) => {
+      if (err) throw err;
+      const updated = result.affectedRows;
+      if (!updated) {
+        res
+          .status(404)
+          .json({
+            message: {
+              type: "info",
+              title: "Posts",
+              text: `Post was not found`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          message: {
+            type: "success",
+            title: "Posts updated",
+            text: `Post updated to banner`,
+          },
+        })
+        .end();
+    });
+  }, 1500);
+});
+
 app.delete("/admin/delete/user/:id", (req, res) => {
   setTimeout((_) => {
     const { id } = req.params;

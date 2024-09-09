@@ -6,6 +6,7 @@ function Modals({ children }) {
   const [deleteModal, setDeleteModal] = useState(null);
   const [donateModal, setDonateModal] = useState(null);
   const [declineModal, setDeclineModal] = useState(null);
+  const [bannerModal, setBannerModal] = useState(null);
 
   return (
     <ModalContext.Provider
@@ -16,6 +17,8 @@ function Modals({ children }) {
         setDonateModal,
         declineModal,
         setDeclineModal,
+        bannerModal,
+        setBannerModal,
       }}
     >
       {children}

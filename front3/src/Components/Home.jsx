@@ -57,9 +57,11 @@ function Home() {
   const ActivePosts =
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
+  const bannerPost = posts === null ? [] : posts.filter((p) => !!p.is_top);
+
   return (
     <>
-      <Banner />
+      <Banner post={bannerPost} />
       <div className="contentDown container p-0">
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">

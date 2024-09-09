@@ -5,6 +5,7 @@ const comments = [
     label: "Picture content is not allowed",
   },
   { value: "Wrong Title", label: "Wrong Title" },
+  { value: "Missing Title/Description", label: "Missing Title/Description" },
   { value: "This post already exist", label: "This post already exist" },
   { value: "Other", label: "Other" },
 ];

@@ -44,13 +44,24 @@ const PendingPosts = () => {
     setPendingPosts((p) => p.filter((p) => !p.hidden));
   }, []);
 
+  const makeTop = (post) => {
+    setPendingPosts((p) =>
+      p.map((p) =>
+        p.id === post.id ? { ...p, is_top: 1 } : { ...p, is_top: 0 }
+      )
+    );
+    setShow(true);
+    doPut(post);
+  };
+
   const submit = (post) => {
     //TODO: Validation
     setShow(true);
     hidePost(post);
-    post.confirmed = true;
-    console.log(post);
-    doPut(post);
+    let copytPost = post;
+    copytPost.confirmed = true;
+
+    doPut(copytPost);
   };
 
   useEffect(
@@ -124,6 +135,8 @@ const PendingPosts = () => {
         pendingPosts.map((post, index) =>
           post.hidden || !post.confirmed ? null : (
             <PostsCard
+           
+            setPosts={setPendingPosts}
               isAdmin={true}
               key={index}
               post={post}

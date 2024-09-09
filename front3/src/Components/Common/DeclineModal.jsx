@@ -18,19 +18,22 @@ function DeclineModal() {
   );
   const { setShow } = useContext(LoaderContext);
   const [declineForm, setDeclineForm] = useState({
-    id: declineModal.id,
     comment: "",
     selectComment: "No picture",
   });
   const navigate = useNavigate();
   const handleForm = (e) => {
     setDeclineForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  };
 
-    if (declineForm.selectComment === "Other") {
-      setData({ id: declineModal.id, comment: declineForm.comment });
-    } else {
-      setData({ id: declineModal.id, comment: declineForm.selectComment });
-    }
+  const handleConfirm = (_) => {
+    setShow(true);
+    doPut(data);
+    setDeclineModal(null);
+    setDeclineForm({
+      comment: "",
+      selectComment: "No picture",
+    });
   };
 
   useEffect(
@@ -39,46 +42,28 @@ function DeclineModal() {
         return;
       }
       if ("success" === serverPutResponse.type) {
-        navigate("/dashbord/userlist");
+        navigate("/dashbord/pendingposts");
       }
     },
     [serverPutResponse, navigate]
   );
 
-  // useEffect(
-  //   (_) => {
-  //     if (declineModal === null) {
-  //       return;
-  //     } else {
-  //       console.log(data);
-  //       if (declineForm.selectComment === "Other") {
-  //         setData({ id: declineModal.id, comment: declineForm.comment });
-  //       } else {
-  //         setData({ id: declineModal.id, comment: declineForm.selectComment });
-  //       }
-  //     }
-  //   },
-  //   [declineModal, declineForm]
-  // );
+  useEffect(
+    (_) => {
+      if (declineModal !== null) {
+        if (declineForm.selectComment === "Other") {
+          setData({ id: declineModal.id, comment: declineForm.comment });
+        } else {
+          setData({ id: declineModal.id, comment: declineForm.selectComment });
+        }
+      }
+    },
+    [declineModal, declineForm]
+  );
 
   if (declineModal === null) {
     return null;
   }
-
-  const handleConfirm = (_) => {
-    setShow(true);
-
-    if (declineForm.selectComment === "Other") {
-      setData({ id: declineModal.id, comment: declineForm.comment });
-      console.log(data);
-    } else {
-      setData({ id: declineModal.id, comment: declineForm.selectComment });
-      console.log(data);
-    }
-
-    doPut(data);
-    setDeclineModal(null);
-  };
 
   return (
     <div className="delete-modal-container">
@@ -121,7 +106,13 @@ function DeclineModal() {
             Decline
           </button>
           <button
-            onClick={(_) => setDeclineModal(null)}
+            onClick={(_) => {
+              setDeclineModal(null);
+              setDeclineForm({
+                comment: "",
+                selectComment: "No picture",
+              });
+            }}
             type="button"
             className="btn SecondActionBtn"
           >

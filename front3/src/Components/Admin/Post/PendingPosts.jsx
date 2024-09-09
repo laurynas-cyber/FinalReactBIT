@@ -46,8 +46,9 @@ const PendingPosts = () => {
     //TODO: Validation
     setShow(true);
     hidePost(post);
-    post.confirmed = true;
-    doPut(post);
+    let copyPost = post
+    copyPost.confirmed = true;
+    doPut(copyPost);
   };
 
   useEffect(
@@ -64,7 +65,6 @@ const PendingPosts = () => {
       }
 
       setPendingPosts(serverGetResponse.serverData.posts ?? null);
-
     },
     [serverGetResponse]
   );
@@ -118,7 +118,7 @@ const PendingPosts = () => {
         pendingPosts.map((post, index) =>
           post.hidden || post.confirmed ? null : (
             <PostsCard
-              isPending = {true}
+              isPending={true}
               key={index}
               post={post}
               hidePost={hidePost}

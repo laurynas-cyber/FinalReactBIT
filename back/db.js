@@ -64,6 +64,7 @@ const createPostTable = (_) => {
       title VARCHAR(100) NOT NULL,
       description TEXT NOT NULL,
       comment TEXT NULL,
+      edited BOOLEAN DEFAULT FALSE,
       userID SMALLINT UNSIGNED,
       amount MEDIUMINT UNSIGNED,
       image VARCHAR(65000) NULL,

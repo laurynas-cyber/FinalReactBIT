@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ModalContext } from "../../Context/Modals";
 import * as l from "../../../Constants/urls";
 import { Link } from "react-router-dom";
+import DeclineDot from "./DeclineDot";
 
 const PostsCard = ({
   isPending = false,
@@ -76,8 +77,13 @@ const PostsCard = ({
               {" "}
               <strong> Confirmed </strong>{" "}
             </span>
+          ) : !!post.comment ? (
+            <>
+              <DeclineDot post={post} />
+             
+            </>
           ) : (
-            <span>Not Confirmed </span>
+            <span>Not Confirmed yet</span>
           )}
         </div>
       </div>
@@ -98,7 +104,7 @@ const PostsCard = ({
           {isPending && (
             <button
               className="btn SecondActionBtn"
-              disabled={post.comment ? true : null}
+              // disabled={post.comment ? true : null}
               onClick={(_) => handleModal(post)}
             >
               Decline

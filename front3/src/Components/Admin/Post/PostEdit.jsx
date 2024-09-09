@@ -8,6 +8,7 @@ import Inputs from "../../UserSignAndLogin/Forms/Inputs";
 import { LoaderContext } from "../../Context/Loader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import DeclineDot from "./DeclineDot";
 
 export default function PostEdit() {
   const params = useParams();
@@ -52,12 +53,13 @@ export default function PostEdit() {
 
   const handleForm = (e) => {
     setPost((p) => ({ ...p, [e.target.name]: e.target.value }));
+    console.log(post);
   };
 
   const submit = (_) => {
     //TODO: Validation
     setShow(true);
-    console.log(post);
+
     doPut(post);
   };
 
@@ -76,7 +78,10 @@ export default function PostEdit() {
         {null !== post && (
           <>
             <div className="col d-flex justify-content-center align-items-center SignInText">
-              <p>Post {post.title} edit</p>
+              <p>Post {post.title} edit </p>
+              <div className="author">
+                {post.comment ? <DeclineDot post={post} /> : null}
+              </div>
             </div>
             <form className="formCenter">
               <div className="container formContainer">

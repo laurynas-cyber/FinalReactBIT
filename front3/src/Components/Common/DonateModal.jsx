@@ -22,10 +22,10 @@ function DonateModal() {
   const navigate = useNavigate();
   const handleForm = (e) => {
     setDonateForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+    setId(donateModal.data.id);
   };
-
-  // console.log(donateModal.data.id);
-
+  const [id, setId] = useState(null);
+  console.log(donateModal);
   useEffect(
     (_) => {
       if (null === serverResponse) {
@@ -56,6 +56,15 @@ function DonateModal() {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
+    donateModal.addAmount(id, donateForm.donation);
+    // donateModal.setPosts((p) =>
+    //   p.id === id
+    //     ? {
+    //         ...p,
+    //         amount: parseInt(p.amount) + parseInt(donateForm.donation),
+    //       }
+    //     : p
+    // );
     setDonateModal(null);
   };
 

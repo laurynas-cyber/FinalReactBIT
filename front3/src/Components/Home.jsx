@@ -14,7 +14,7 @@ function Home() {
   );
 
   const [posts, setPosts] = useState(null);
-
+  console.log(posts);
   const [donateShow, setDonateShow] = useState(null);
   const [DonateInput, setDonateInput] = useState("");
 
@@ -57,11 +57,22 @@ function Home() {
   const ActivePosts =
     posts === null ? [] : posts.filter((p) => p.amount > p.donated);
 
-  const bannerPost = posts === null ? [] : posts.filter((p) => !!p.is_top);
+  let bannerPost = posts === null ? [] : posts.filter((p) => !!p.is_top);
+
+  const addAmount = (id, donated) => {
+    setPosts((p) =>
+      p.id === id ? { ...p, amount: parseInt(p.amount) + parseInt(donated) } : p
+    );
+    // bannerPost.amount = parseInt(bannerPost.amount) + parseInt(donated);
+  };
 
   return (
     <>
-      <Banner post={bannerPost} />
+      <Banner
+        post={posts ? posts.filter((p) => !!p.is_top) : []}
+        addAmount={addAmount}
+        setPosts={setPosts}
+      />
       <div className="contentDown container p-0">
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">

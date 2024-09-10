@@ -1,7 +1,4 @@
 .BannerContainer {
-  //   background-image: url("../../assets/images/banner.jpg");
-  //   object-fit: fill;
-  //   background-repeat: no-repeat;
   min-height: 500px;
   position: relative;
   margin-top: 100px;
@@ -27,5 +24,84 @@
     border-radius: 4px;
     font-weight: 700;
     font-size: 30px;
+  }
+  .PostInfoCont {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    width: 35%;
+
+    .PosterText {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      font-size: 30px;
+      font-weight: 700;
+      padding: 10px 5px;
+      min-width: 50%;
+      max-width: 100%;
+      width: min-content;
+      text-transform: uppercase;
+    }
+    .sliderPostText {
+      border-radius: 4px 4px 0px 0px;
+    }
+    .SliderDonationContainer {
+      border-radius: 0px 4px 4px 4px;
+      min-width: 30rem;
+      width: max-content;
+    }
+    .ThankYouPoster {
+      // background-color: $emerald;
+      border-radius: 4px;
+      margin: 20px 0;
+      color: white;
+      h3 {
+        padding: 10px;
+        border-radius: 4px 4px 4px 0px;
+        background-color: $emerald;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        .HeartIcon {
+          fill: white;
+          font-size: 40px;
+          padding-left: 10px;
+          animation: heart 1.3s infinite alternate linear;
+        }
+      }
+      p {
+        padding: 10px;
+        border-radius: 0px 0px 4px 4px;
+        background-color: $emerald;
+        width: fit-content;
+        font-size: 25px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@keyframes heart {
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.5);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.5);
+  }
+
+  80% {
+    transform: scale(1);
   }
 }

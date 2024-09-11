@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Banner from "./Home/Banner";
 import DonateModal from "./Common/DonateModal";
 import { ModalContext } from "./Context/Modals";
+import DonorsText from "./Home/Donors/DonorsText";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -17,7 +18,7 @@ function Home() {
 
   const [posts, setPosts] = useState(null);
   const [donatedBar, setDonatedBar] = useState(0);
-  const { donateModal, setDonateModal } = useContext(ModalContext); // 2 var
+  console.log(posts);
   useEffect(
     (_) => {
       doGet();
@@ -45,36 +46,16 @@ function Home() {
 
   let bannerPost = posts === null ? [] : posts.filter((p) => !!p.is_top);
 
-  const addAmount = (id, donated) => {
-    setPosts((p) =>
-      p.id === id ? { ...p, amount: parseInt(p.amount) + parseInt(donated) } : p
-    );
-    // bannerPost.amount = parseInt(bannerPost.amount) + parseInt(donated);
-  };
-
-  const updateDonatedBar = (id, donation) => {
-    // 2 var
-    // setDonatedBar((prev) => prev + parseInt(donation));
-    setPosts((p) =>
-      p.id === id
-        ? {
-            ...p,
-            amount: parseInt(p.amount) + parseInt(donation),
-          }
-        : p
-    );
-  };
-
   return (
     <>
       {!!posts && (
         <Banner
-          post={posts ? posts.filter((p) => !!p.is_top) : []}
+          post={bannerPost}
           donatedBar={donatedBar}
           setDonatedBar={setDonatedBar}
         />
       )}
-      <div className="contentDown container p-0">
+      <div className="container p-0">
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">
             <div className="col loadingDataContainer">
@@ -87,6 +68,9 @@ function Home() {
         {ActivePosts?.length === null ? <div>no posts created</div> : null}
         {ActivePosts?.length > 0 && (
           <>
+            <div className="HomeDonorsTextContainer">
+              <DonorsText usersCount={posts[0].donors_count} />
+            </div>
             <div className="col d-flex justify-content-center align-items-center SignInText">
               <h2>Posts waiting for donations</h2>
             </div>
@@ -115,11 +99,11 @@ function Home() {
           </>
         )}
 
-        {donateModal && (
+        {/* {donateModal && (
           <DonateModal
             updateDonatedBar={updateDonatedBar} // 2 var
           />
-        )}
+        )} */}
       </div>
     </>
   );

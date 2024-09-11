@@ -110,7 +110,7 @@
     justify-content: space-around;
     gap: 10px;
     .donationBarContainer {
-      height: 10px;
+      height: 40px;
 
       min-width: 150px;
       background-color: $gray;
@@ -118,7 +118,8 @@
 
       .donatedBar {
         background-color: $blue;
-        transition: all ease 0.5s;
+        transition: all ease 2s;
+        transition-delay: 2s;
       }
     }
     .Donated {

@@ -24,7 +24,7 @@ import PendingPosts from "./Components/Admin/Post/PendingPosts.jsx";
 import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
 import CreatedPosts from "./Components/Users/CreatedPosts.jsx";
 import PostEdit from "./Components/Admin/Post/PostEdit.jsx";
-import Donorslist from "./Components/Donorslist.jsx";
+import Donorslist from "./Components/Home/Donors/Donorslist.jsx";
 
 const router = createBrowserRouter([
   {

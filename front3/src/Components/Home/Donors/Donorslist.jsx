@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useServerGet from "./Hooks/useServerGet";
-import * as l from "../Constants/urls";
+import useServerGet from "../../Hooks/useServerGet";
+import * as l from "../../../Constants/urls";
 import HashLoader from "react-spinners/HashLoader";
-import { Search } from "./UserSignAndLogin/Forms/Search";
+import { Search } from "../../UserSignAndLogin/Forms/Search";
+import DonorsText from "./DonorsText";
+import { FaHeart } from "react-icons/fa";
 
 function Donorslist() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -32,12 +34,22 @@ function Donorslist() {
   );
 
   return (
-    <div className="container p-0">
-      <div className="col d-flex justify-content-center align-items-center SignInText">
-        <h3>Special thanks for these donors</h3>
+    <div className="container contentDown p-0">
+      <div className="BannerDonorsText">
+        {users === null ? null : <DonorsText usersCount={users.length} />}
       </div>
 
-      <Search usersCopyList={usersCopyList} setUsers={setUsers} sortType={"sum"} />
+      <div className="col d-flex justify-content-center align-items-center SignInText">
+        <h3>
+          Special thanks for these donors <FaHeart className="HeartIcon" />
+        </h3>
+      </div>
+
+      <Search
+        usersCopyList={usersCopyList}
+        setUsers={setUsers}
+        sortType={"sum"}
+      />
 
       <div className="userTable">
         <div>

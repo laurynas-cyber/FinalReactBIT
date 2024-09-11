@@ -62,7 +62,7 @@ function SignIn() {
   return (
     <>
       <Gate status="not-logged">
-        <div className="container">
+        <div className="container contentDown">
           <div className="row SignInTextContainer">
             <div className="col d-flex justify-content-center align-items-center SignInText">
               <h2>Become a member of our are team</h2>

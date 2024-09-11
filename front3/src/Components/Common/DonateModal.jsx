@@ -8,7 +8,7 @@ import * as l from "../../Constants/urls";
 import { LoaderContext } from "../Context/Loader";
 import { useNavigate } from "react-router-dom";
 
-function DonateModal({ updateDonatedBar }) {
+function DonateModal() {
   const { donateModal, setDonateModal } = useContext(ModalContext);
   const { errors, validate } = useDonation();
   const { doAction, serverResponse } = useServerPost(l.POST_DONATE);
@@ -20,14 +20,9 @@ function DonateModal({ updateDonatedBar }) {
     donation: "",
   });
   const navigate = useNavigate();
-  console.log(updateDonatedBar);
   const handleForm = (e) => {
     setDonateForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-    setId(donateModal.data.id);
-    setRequired(donateModal.data.amount);
   };
-  const [id, setId] = useState(null);
-  const [required, setRequired] = useState(null);
 
   useEffect(
     (_) => {
@@ -37,7 +32,6 @@ function DonateModal({ updateDonatedBar }) {
 
       setButtonDisabled(false);
       if (serverResponse.type === "success") {
-        updateDonatedBar(id, donateForm.donation); // 2var
         navigate("/");
       }
     },
@@ -61,7 +55,7 @@ function DonateModal({ updateDonatedBar }) {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
-    // donateModal.setDonatedBar(parseInt(donateForm.donation)); // 1var
+    donateModal.setDonatedBar(parseInt(donateForm.donation)); // 1var
 
     setDonateModal(null);
   };

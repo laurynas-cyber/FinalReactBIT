@@ -7,6 +7,8 @@ import { LoaderContext } from "./Context/Loader";
 import useServerPut from "./Hooks/useServerPut";
 import { useNavigate } from "react-router-dom";
 import Banner from "./Home/Banner";
+import DonateModal from "./Common/DonateModal";
+import { ModalContext } from "./Context/Modals";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -14,31 +16,15 @@ function Home() {
   );
 
   const [posts, setPosts] = useState(null);
-  console.log(posts);
-  const [donateShow, setDonateShow] = useState(null);
-  const [DonateInput, setDonateInput] = useState("");
-
-  // const handleDonate = (e, post) => {
-  //   navigate("/");
-  //   if (!!donateShow && donateShow === parseInt(e.target.id)) {
-  //     let copyPost = post;
-  //     if (parseInt(DonateInput) === 0 || isNaN(parseInt(DonateInput))) {
-  //       return;
-  //     } else {
-  //       copyPost.donated = parseInt(DonateInput) + parseInt(copyPost.donated);
-  //       setShow(true);
-  //       return doPut(copyPost);
-  //     }
-  //   } else setDonateShow((b) => (+e.target.id === b ? null : +e.target.id));
-  // };
-
+  const [donatedBar, setDonatedBar] = useState(0);
+  const { donateModal, setDonateModal } = useContext(ModalContext); // 2 var
   useEffect(
     (_) => {
       doGet();
     },
     [doGet]
   );
-
+  console.log(posts);
   useEffect(
     (_) => {
       if (null === serverGetResponse) {
@@ -66,13 +52,28 @@ function Home() {
     // bannerPost.amount = parseInt(bannerPost.amount) + parseInt(donated);
   };
 
+  const updateDonatedBar = (id, donation) => {
+    // 2 var
+    // setDonatedBar((prev) => prev + parseInt(donation));
+    setPosts((p) =>
+      p.id === id
+        ? {
+            ...p,
+            amount: parseInt(p.amount) + parseInt(donation),
+          }
+        : p
+    );
+  };
+
   return (
     <>
-      <Banner
-        post={posts ? posts.filter((p) => !!p.is_top) : []}
-        addAmount={addAmount}
-        setPosts={setPosts}
-      />
+      {!!posts && (
+        <Banner
+          post={posts ? posts.filter((p) => !!p.is_top) : []}
+          donatedBar={donatedBar}
+          setDonatedBar={setDonatedBar}
+        />
+      )}
       <div className="contentDown container p-0">
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">
@@ -90,7 +91,11 @@ function Home() {
               <h2>Posts waiting for donations</h2>
             </div>
             <div className="SliderCont">
-              <ImageSlider postData={ActivePosts} />
+              <ImageSlider
+                postData={ActivePosts}
+                donatedBar={donatedBar}
+                setDonatedBar={setDonatedBar}
+              />
             </div>
           </>
         )}
@@ -101,9 +106,19 @@ function Home() {
               <h3>Donated Posts</h3>
             </div>
             <div className="SliderCont">
-              <ImageSlider postData={donatedPosts} />
+              <ImageSlider
+                postData={donatedPosts}
+                donatedBar={donatedBar}
+                setDonatedBar={setDonatedBar}
+              />
             </div>
           </>
+        )}
+
+        {donateModal && (
+          <DonateModal
+            updateDonatedBar={updateDonatedBar} // 2 var
+          />
         )}
       </div>
     </>

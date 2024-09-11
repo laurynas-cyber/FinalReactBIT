@@ -118,6 +118,7 @@
 
       .donatedBar {
         background-color: $blue;
+        transition: all ease 0.5s;
       }
     }
     .Donated {
@@ -132,7 +133,6 @@
       color: $orange;
       width: 30%;
     }
- 
   }
 }
 

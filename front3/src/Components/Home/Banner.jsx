@@ -1,29 +1,33 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import bannerPic from "../../assets/images/bannerpic.webp";
 import * as l from "../../Constants/urls";
 import { ModalContext } from "../Context/Modals";
 import { FaHeart } from "react-icons/fa";
 
-function Banner({ post, addAmount , setPosts}) {
+function Banner({ post, setDonatedBar, donatedBar }) {
   const { setDonateModal } = useContext(ModalContext);
+
+  console.log(post.length);
 
   function DonatedBar(required, donated) {
     let result = (donated * 100) / required;
     return parseInt(result);
   }
 
-  let imgPath = bannerPic;
-  if (post.length > 0) {
+  let imgPath;
+  if (post.length === 0) {
+    imgPath = bannerPic;
+  } else if (post.length > 0) {
     imgPath =
       post[0]?.image?.length > 40
         ? bannerPic
         : l.SERVER_IMAGES_URL + post[0]?.image;
-  } else return;
+  }
   return (
     <div className="container-fluid BannerContainer">
       <img className="BannerImg" src={imgPath} alt="" />
       <div className="BannerText">DONATE TO CHARITY ONLINE</div>
-      {post !== null ? (
+      {post.length > 0 ? (
         <div className="PostInfoCont">
           <div className="PosterText">{post[0].title}</div>
           {post[0].amount > post[0].donated ? (
@@ -35,10 +39,15 @@ function Banner({ post, addAmount , setPosts}) {
                 <div className="donationLeft">
                   {post[0].amount <= post[0].donated
                     ? null
-                    : `Left ${post[0].amount - post[0].donated}eur to complete`}
+                    : `Left ${
+                        post[0].amount - post[0].donated - donatedBar
+                      }eur to complete`}
                 </div>
                 <div className="dontaionInfo">
-                  <span className="Donated"> Donated {post[0].donated}eur</span>
+                  <span className="Donated">
+                    {" "}
+                    Donated {post[0].donated + donatedBar}eur
+                  </span>
                   <div
                     className="donationBarContainer"
                     style={{ width: `${post[0].amount / 10}px` }}
@@ -46,13 +55,14 @@ function Banner({ post, addAmount , setPosts}) {
                     <div
                       className="donatedBar"
                       style={{
-                        width: `${DonatedBar(
-                          post[0].amount,
-                          post[0].donated
-                        )}%`,
+                        transition: "width ease 0.5s",
+                        width: `${
+                          DonatedBar(post[0].amount, post[0].donated) +
+                          DonatedBar(post[0].amount, donatedBar)
+                        }%`,
 
                         backgroundColor:
-                          post[0].amount <= post[0].donated
+                          post[0].amount <= post[0].donated + donatedBar
                             ? "#f08702"
                             : "#3498db",
                       }}
@@ -65,7 +75,13 @@ function Banner({ post, addAmount , setPosts}) {
               </div>
               <button
                 className="btn mainDonateBtn"
-                onClick={(_) => setDonateModal({ data: post[0], addAmount, setPosts })}
+                onClick={(_) =>
+                  setDonateModal({
+                    data: post[0],
+
+                    setDonatedBar,
+                  })
+                }
               >
                 DONATE NOW
               </button>

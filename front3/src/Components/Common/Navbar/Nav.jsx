@@ -8,7 +8,6 @@ import { AuthContext } from "../../Context/Auth";
 import Logout from "../Logout";
 import Gate from "../Gate";
 
-
 console.log(LoginNav);
 
 function Nav() {
@@ -50,9 +49,8 @@ function Nav() {
                   {link.tag}
                 </NavLink>
               ))}
-       
             </Gate>
-      
+
             <NavLink
               className={({ isActive }) => {
                 return isActive ? "ActiveTag" : "RouterLinks";
@@ -64,7 +62,6 @@ function Nav() {
           </div>
         </div>
       </nav>
-
     </>
   );
 }

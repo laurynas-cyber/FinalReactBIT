@@ -8,7 +8,7 @@ import * as l from "../../Constants/urls";
 import { LoaderContext } from "../Context/Loader";
 import { useNavigate } from "react-router-dom";
 
-function DonateModal() {
+function DonateModal({ updateDonatedBar }) {
   const { donateModal, setDonateModal } = useContext(ModalContext);
   const { errors, validate } = useDonation();
   const { doAction, serverResponse } = useServerPost(l.POST_DONATE);
@@ -20,12 +20,15 @@ function DonateModal() {
     donation: "",
   });
   const navigate = useNavigate();
+  console.log(updateDonatedBar);
   const handleForm = (e) => {
     setDonateForm((f) => ({ ...f, [e.target.name]: e.target.value }));
     setId(donateModal.data.id);
+    setRequired(donateModal.data.amount);
   };
   const [id, setId] = useState(null);
-  console.log(donateModal);
+  const [required, setRequired] = useState(null);
+
   useEffect(
     (_) => {
       if (null === serverResponse) {
@@ -34,6 +37,7 @@ function DonateModal() {
 
       setButtonDisabled(false);
       if (serverResponse.type === "success") {
+        updateDonatedBar(id, donateForm.donation); // 2var
         navigate("/");
       }
     },
@@ -50,21 +54,15 @@ function DonateModal() {
     }
     setShow(true);
     setButtonDisabled(true);
+
     doAction({
       name: donateForm.name,
       email: donateForm.email,
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
-    donateModal.addAmount(id, donateForm.donation);
-    // donateModal.setPosts((p) =>
-    //   p.id === id
-    //     ? {
-    //         ...p,
-    //         amount: parseInt(p.amount) + parseInt(donateForm.donation),
-    //       }
-    //     : p
-    // );
+    // donateModal.setDonatedBar(parseInt(donateForm.donation)); // 1var
+
     setDonateModal(null);
   };
 

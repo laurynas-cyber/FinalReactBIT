@@ -283,8 +283,9 @@ app.get("/user/createdposts/:id", (req, res) => {
 app.get("/home/posts", (req, res) => {
   setTimeout((_) => {
     const sql = `
-      SELECT *
-      FROM posts
+      SELECT p.*,
+      (SELECT COUNT(*) FROM users) AS users_count
+      FROM posts p
       WHERE confirmed = true
     `;
 

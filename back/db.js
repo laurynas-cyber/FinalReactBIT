@@ -64,7 +64,6 @@ const createPostTable = (_) => {
       title VARCHAR(100) NOT NULL,
       description TEXT NOT NULL,
       comment TEXT NULL,
-      edited BOOLEAN DEFAULT FALSE,
       userID SMALLINT UNSIGNED,
       amount MEDIUMINT UNSIGNED,
       image VARCHAR(65000) NULL,
@@ -104,12 +103,53 @@ const seedPostsTable = (_) => {
   });
 };
 
+const createDonorsTable = (_) => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS donors (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(40) NOT NULL,
+        email VARCHAR(80) NOT NULL,
+        donation SMALLINT UNSIGNED,
+        post_id SMALLINT UNSIGNED
+  )`;
+  connection.query(sql, function (err) {
+    //prijungiam databaze
+    if (err) throw err;
+    console.log("donors table created");
+  });
+};
+
+const seedDonorsTable = (_) => {
+  const sql = `
+        INSERT INTO donors
+        (name, email,donation,post_id)
+        VALUES
+        ('Bebras', 'Liet@gmail.com','1', '1000')
+    `;
+  connection.query(sql, function (err) {
+    if (err) throw err;
+    console.log("posts table seeded");
+  });
+};
+
+const dropDonorsTable = (_) => {
+  const sql = "DROP TABLE IF EXISTS donors";
+
+  connection.query(sql, function (err) {
+    if (err) throw err;
+    console.log("donors table dropped");
+  });
+};
+
 dropUsersTable(); //istrinam tik developinamo metu nes jeigu bus klaidu nereikes taisyti kiekviena karta duomenu baizeje
 dropPostsTable();
+dropDonorsTable();
 createUsersTable();
 createPostTable();
+createDonorsTable();
 seedUsersTable();
-seedPostsTable();
+// seedPostsTable();
+// seedDonorsTable();
 
 connection.end(function (err) {
   //atsijungiam databaze

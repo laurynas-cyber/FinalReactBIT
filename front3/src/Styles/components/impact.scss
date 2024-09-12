@@ -1,0 +1,80 @@
+.ImpactContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 0 80px 0;
+  .textContainer {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  h3 {
+    margin: 20px 0 20px 0;
+    font-weight: 700;
+    text-align: center;
+  }
+  p {
+    text-align: center;
+    font-size: 20px;
+  }
+  .RangeInputContainer {
+    margin: 20px 0;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .RangeValue {
+      font-weight: 700;
+      font-size: 4em;
+    }
+  }
+  .HelpCountContainer {
+    width: 80%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .HelpKitContainer {
+      display: inline-block;
+      width: 25%;
+      height: 100%;
+      position: relative;
+      .HelpKitImgContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        img {
+          width: 50px;
+          height: 100%;
+        }
+        span {
+          font-weight: 700;
+          font-size: 3em;
+        }
+      }
+      .divide-line {
+        background-color: #d1d1d1;
+        width: 2px;
+        height: 100%;
+        border-radius: 2px;
+        left: 0;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .divide-text {
+          position: absolute;
+          background-color: white;
+          padding: 2px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

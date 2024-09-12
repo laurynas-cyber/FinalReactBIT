@@ -10,6 +10,7 @@ import Banner from "./Home/Banner";
 import DonateModal from "./Common/DonateModal";
 import { ModalContext } from "./Context/Modals";
 import DonorsText from "./Home/Donors/DonorsText";
+import Impact from "./Home/Impact";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -68,6 +69,7 @@ function Home() {
         {ActivePosts?.length === null ? <div>no posts created</div> : null}
         {ActivePosts?.length > 0 && (
           <>
+            <Impact />
             <div className="HomeDonorsTextContainer">
               <DonorsText usersCount={posts[0].donors_count} />
             </div>

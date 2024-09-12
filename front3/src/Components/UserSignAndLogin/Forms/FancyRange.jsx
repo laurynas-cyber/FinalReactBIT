@@ -1,4 +1,4 @@
-function FancyRange({rangeValue, setRangeValue}) {
+function FancyRange({ rangeValue, setRangeValue }) {
   return (
     <input
       type="range"
@@ -11,7 +11,7 @@ function FancyRange({rangeValue, setRangeValue}) {
           rangeValue - (rangeValue > 50 ? 1 : 0)
         }%, #ddd  ${rangeValue}%)`,
       }}
-      onChange={(e) => setRangeValue(e.target.value)}
+      onChange={(e) => setRangeValue(+e.target.value)}
     ></input>
   );
 }

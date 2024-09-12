@@ -36,7 +36,10 @@ function Donorslist() {
   return (
     <div className="container contentDown p-0">
       <div className="BannerDonorsText">
-        {users === null ? null : <DonorsText usersCount={users.length} />}
+        {/* {users === null ? null : (
+          <DonorsText usersCount={users.length} isDonorsList={true} />
+        )} */}
+        <DonorsText usersCount={users?.length} isDonorsList={true} />
       </div>
 
       <div className="col d-flex justify-content-center align-items-center SignInText">

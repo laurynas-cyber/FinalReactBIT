@@ -194,7 +194,7 @@ app.get("/home/donors", (req, res) => {
         })
         .end();
     });
-  }, 1500);
+  }, 1000);
 });
 
 app.get("/admin/pending/posts", (req, res) => {

@@ -19,7 +19,8 @@ function Home() {
 
   const [posts, setPosts] = useState(null);
   const [donatedBar, setDonatedBar] = useState(0);
-  console.log(posts);
+  const [scroll, setScroll] = useState(false);
+
   useEffect(
     (_) => {
       doGet();
@@ -39,6 +40,18 @@ function Home() {
     [serverGetResponse]
   );
 
+  useEffect(() => {
+    window.addEventListener("scroll", scrollBar);
+  }, []);
+
+  const scrollBar = () => {
+    if (window.scrollY > 600) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  };
+
   const donatedPosts =
     posts === null ? null : posts.filter((p) => p.amount <= p.donated);
 
@@ -56,6 +69,7 @@ function Home() {
           setDonatedBar={setDonatedBar}
         />
       )}
+
       <div className="container p-0">
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">
@@ -71,7 +85,9 @@ function Home() {
           <>
             <Impact />
             <div className="HomeDonorsTextContainer">
-              <DonorsText usersCount={posts[0].donors_count} />
+              {scroll ? (
+                <DonorsText usersCount={posts[0].donors_count} />
+              ) : null}
             </div>
             <div className="col d-flex justify-content-center align-items-center SignInText">
               <h2>Posts waiting for donations</h2>

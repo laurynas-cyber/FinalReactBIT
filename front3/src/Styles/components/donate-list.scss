@@ -29,11 +29,21 @@
   overflow: hidden;
   border-radius: 4px;
   .banner-container {
-    display: inline-block;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 4rem;
-    font-weight: bold;
+    font-weight: 700;
     text-align: center;
+    span {
+      font-weight: 700;
+      font-style: italic;
+      text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    .space {
+      min-width: 100px;
+      padding: 0;
+    }
   }
   .letter {
     text-shadow: 1px 1px 3px $gray;
@@ -45,10 +55,9 @@
     opacity: 0;
     transform: translateY(-100px);
     animation: drop 0.2s forwards ease-out;
-
+    color: $orange;
   }
 }
-
 
 @keyframes drop {
   to {

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
 function DonorsText({ usersCount, isDonorsList = false }) {
-  const [text, setText] = useState(`JOIN OVER ${usersCount} SUPPORTERS `);
+  const Text = useRef(`JOIN OVER ${usersCount} SUPPORTERS `);
 
-  const [text2, setText2] = useState(`HELPING CHILDREN`);
+  const Text2 = useRef(`HELPING CHILDREN`);
 
-  const [text3, setText3] = useState(`GET THE FUTURE THEY DESERVE`);
+  const Text3 = useRef(`GET THE FUTURE THEY DESERVE`);
 
   if (!!isDonorsList) {
     return (
@@ -32,10 +32,10 @@ function DonorsText({ usersCount, isDonorsList = false }) {
           <span>SUPPORTERS</span>
         </div>
         <div className="banner-container">
-          <span>{text2} </span>
+          <span>{Text2} </span>
         </div>
         <div className="banner-container">
-          <span>{text3} </span>
+          <span>{Text3} </span>
         </div>
       </>
     );
@@ -44,7 +44,7 @@ function DonorsText({ usersCount, isDonorsList = false }) {
   return (
     <>
       <div className="banner-container">
-        {text.split("").map((letter, index) => (
+        {Text.current.split("").map((letter, index) => (
           <span
             key={index}
             className="letter"
@@ -55,7 +55,7 @@ function DonorsText({ usersCount, isDonorsList = false }) {
         ))}
       </div>
       <div className="banner-container">
-        {text2.split("").map((letter, index) => (
+        {Text2.current.split("").map((letter, index) => (
           <span
             key={index}
             className="letter"
@@ -66,7 +66,7 @@ function DonorsText({ usersCount, isDonorsList = false }) {
         ))}
       </div>
       <div className="banner-container">
-        {text3.split("").map((letter, index) => (
+        {Text3.current.split("").map((letter, index) => (
           <span
             key={index}
             className="letter"

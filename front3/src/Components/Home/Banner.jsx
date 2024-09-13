@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import bannerPic from "../../assets/images/bannerpic.webp";
 import * as l from "../../Constants/urls";
 import { ModalContext } from "../Context/Modals";
 import { FaHeart } from "react-icons/fa";
-import DonationBannerBar from "./DonationBannerBar";
+import DonationBannerBar from "./Donors/DonationBannerBar";
 
 function Banner({ post, setDonatedBar, donatedBar }) {
   const { setDonateModal } = useContext(ModalContext);

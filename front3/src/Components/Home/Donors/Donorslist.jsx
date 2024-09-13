@@ -36,9 +36,6 @@ function Donorslist() {
   return (
     <div className="container contentDown p-0">
       <div className="BannerDonorsText">
-        {/* {users === null ? null : (
-          <DonorsText usersCount={users.length} isDonorsList={true} />
-        )} */}
         <DonorsText usersCount={users?.length} isDonorsList={true} />
       </div>
 
@@ -83,7 +80,7 @@ function Donorslist() {
           </div>
         ) : (
           users.map((u) => (
-            <div key={u.id}>
+            <div key={u.id} className="Table">
               <div className="tableNames">
                 <div className="col tableReference userName">{u.name}</div>
                 <div className="col tableReference userEmail">{u.email}</div>
@@ -96,7 +93,7 @@ function Donorslist() {
                     <div className="postPictureCont">
                       {u.image === null ? (
                         <img
-                          alt="no photo"
+                          alt={u.title}
                           src={l.SERVER_IMAGES_URL + "no-image.png"}
                           className="img-slider-img"
                         />

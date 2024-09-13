@@ -69,7 +69,7 @@ export const Search = ({ usersCopyList, setUsers, sortType }) => {
       <div className="sortblock">
         <span>Filter </span>
         <input
-          class="form-control searchInput"
+          className="form-control searchInput"
           type="text"
           value={input}
           onChange={(e) => handleSearch(e)}

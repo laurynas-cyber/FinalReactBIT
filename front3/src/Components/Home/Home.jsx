@@ -1,16 +1,11 @@
-import { ImageSlider } from "./Home/ImageSlider";
-import useServerGet from "./Hooks/useServerGet";
-import * as l from "../Constants/urls";
-import { useContext, useEffect, useState } from "react";
+import { ImageSlider } from "./ImageSlider";
+import useServerGet from "../Hooks/useServerGet";
+import * as l from "../../Constants/urls";
+import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
-import { LoaderContext } from "./Context/Loader";
-import useServerPut from "./Hooks/useServerPut";
-import { useNavigate } from "react-router-dom";
-import Banner from "./Home/Banner";
-import DonateModal from "./Common/DonateModal";
-import { ModalContext } from "./Context/Modals";
-import DonorsText from "./Home/Donors/DonorsText";
-import Impact from "./Home/Impact";
+import Banner from "./Banner";
+import DonorsText from "./Donors/DonorsText";
+import Impact from "./Impact";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(

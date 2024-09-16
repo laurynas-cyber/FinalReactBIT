@@ -12,7 +12,6 @@
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
-
   }
   .letter {
     text-shadow: 1px 1px 3px $gray;
@@ -23,7 +22,6 @@
     transform: translateY(-100px);
     animation: drop 0.2s forwards ease-out;
   }
- 
 }
 
 @keyframes drop {

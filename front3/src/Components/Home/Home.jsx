@@ -6,6 +6,7 @@ import HashLoader from "react-spinners/HashLoader";
 import Banner from "./Banner";
 import DonorsText from "./Donors/DonorsText";
 import Impact from "./Impact";
+import ActivePostSlider from "./ActivePostSlider";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -22,7 +23,7 @@ function Home() {
     },
     [doGet]
   );
-  console.log(posts);
+
   useEffect(
     (_) => {
       if (null === serverGetResponse) {
@@ -84,6 +85,8 @@ function Home() {
                 <DonorsText usersCount={posts[0].donors_count} />
               ) : null}
             </div>
+
+            <ActivePostSlider postData={ActivePosts} />
             <div className="col d-flex justify-content-center align-items-center SignInText">
               <h2>Posts waiting for donations</h2>
             </div>
@@ -111,8 +114,6 @@ function Home() {
             </div>
           </>
         )}
-
-    
       </div>
     </>
   );

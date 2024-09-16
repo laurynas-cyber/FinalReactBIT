@@ -194,3 +194,27 @@
   height: 100%;
   width: 100%;
 }
+
+.ActivePostSliderSection {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .ActivePostSliderContainer {
+    border: solid 1px red;
+    width: 80%;
+    height: 100%;
+    position: relative;
+    min-height: 500px;
+    .PostSlider {
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

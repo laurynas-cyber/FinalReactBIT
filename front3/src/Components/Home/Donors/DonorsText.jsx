@@ -32,10 +32,10 @@ function DonorsText({ usersCount, isDonorsList = false }) {
           <span>SUPPORTERS</span>
         </div>
         <div className="banner-container">
-          <span>{Text2} </span>
+          <span>{Text2.current} </span>
         </div>
         <div className="banner-container">
-          <span>{Text3} </span>
+          <span>{Text3.current} </span>
         </div>
       </>
     );

@@ -112,11 +112,7 @@ function Home() {
           </>
         )}
 
-        {/* {donateModal && (
-          <DonateModal
-            updateDonatedBar={updateDonatedBar} // 2 var
-          />
-        )} */}
+    
       </div>
     </>
   );

@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { useContext} from "react";
 import bannerPic from "../../assets/images/bannerpic.webp";
 import * as l from "../../Constants/urls";
 import { ModalContext } from "../Context/Modals";
 import { FaHeart } from "react-icons/fa";
 import DonationBannerBar from "./Donors/DonationBannerBar";
 
-function Banner({ post, setPosts }) {
+function Banner({ post, setPosts, setLastDonatedId }) {
   const { setDonateModal } = useContext(ModalContext);
+ 
 
   let imgPath;
   if (post.length === 0) {
@@ -35,8 +36,8 @@ function Banner({ post, setPosts }) {
                 onClick={(_) =>
                   setDonateModal({
                     data: post[0],
-
                     setPosts,
+                    setLastDonatedId
                   })
                 }
               >

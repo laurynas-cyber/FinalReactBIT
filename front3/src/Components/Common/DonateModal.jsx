@@ -7,6 +7,7 @@ import useServerPost from "../Hooks/useServerPost";
 import * as l from "../../Constants/urls";
 import { LoaderContext } from "../Context/Loader";
 import { useNavigate } from "react-router-dom";
+import DonationPostBar from "../Home/Donors/DonationPostBar";
 
 function DonateModal() {
   const { donateModal, setDonateModal } = useContext(ModalContext);
@@ -55,7 +56,7 @@ function DonateModal() {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
- 
+    donateModal.setLastDonatedId(donateModal.data.id);
     donateModal.setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === donateModal.data.id
@@ -78,6 +79,7 @@ function DonateModal() {
         </div>
 
         <p>Please fill your data</p>
+        <DonationPostBar post={donateModal.data} />
         <form>
           <Inputs
             errors={errors}

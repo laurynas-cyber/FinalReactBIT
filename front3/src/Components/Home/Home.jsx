@@ -14,7 +14,7 @@ function Home() {
   );
 
   const [posts, setPosts] = useState(null);
-
+  const [lastDonatedId, setLastDonatedId] = useState(null);
   const [scroll, setScroll] = useState(false);
   console.log(posts);
   useEffect(
@@ -61,7 +61,7 @@ function Home() {
       {!!posts && (
         <Banner
           post={bannerPost}
-    
+          setLastDonatedId={setLastDonatedId}
           setPosts={setPosts}
         />
       )}
@@ -83,7 +83,8 @@ function Home() {
 
             <ActivePostSlider
               postData={ActivePosts.filter((p) => !p.is_top)}
-  
+              setLastDonatedId={setLastDonatedId}
+              lastDonatedId={lastDonatedId}
               setPosts={setPosts}
             />
           </>
@@ -100,10 +101,7 @@ function Home() {
               <h3>Donated Posts</h3>
             </div>
             <div className="SliderCont">
-              <ImageSlider
-                postData={donatedPosts}
-  
-              />
+              <ImageSlider postData={donatedPosts} />
             </div>
           </>
         )}

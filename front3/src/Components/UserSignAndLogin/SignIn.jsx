@@ -65,7 +65,7 @@ function SignIn() {
         <div className="container contentDown">
           <div className="row SignInTextContainer">
             <div className="col d-flex justify-content-center align-items-center SignInText">
-              <h2>Become a member of our are team</h2>
+              <h2>Become a member of our team</h2>
               <p>
                 Sign in, create your fund, post it, get donations and help
                 someone arround the world

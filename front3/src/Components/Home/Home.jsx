@@ -7,6 +7,8 @@ import DonorsText from "./Donors/DonorsText";
 import Impact from "./Impact";
 import ActivePostSlider from "./Sliders/ActivePostSlider";
 import { ImageSlider } from "./Sliders/ImageSlider";
+import DivideLine from "../Common/DivideLine";
+import DonateNowText from "./DonateNowText";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -67,6 +69,7 @@ function Home() {
       )}
 
       <div className="container p-0">
+        <DivideLine />
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">
             <div className="col loadingDataContainer">
@@ -80,7 +83,8 @@ function Home() {
         {!!ActivePosts && ActivePosts?.length > 0 && (
           <>
             <Impact />
-
+            <DivideLine />
+            <DonateNowText />
             <ActivePostSlider
               postData={ActivePosts.filter((p) => !p.is_top)}
               setLastDonatedId={setLastDonatedId}
@@ -94,7 +98,10 @@ function Home() {
           <>
             <div className="HomeDonorsTextContainer">
               {scroll ? (
-                <DonorsText usersCount={posts[0].donors_count} />
+                <>
+                  <DivideLine />
+                  <DonorsText usersCount={posts[0].donors_count} />
+                </>
               ) : null}
             </div>
             <div className="col d-flex justify-content-center align-items-center SignInText">

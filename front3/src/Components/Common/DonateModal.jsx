@@ -79,7 +79,7 @@ function DonateModal() {
         </div>
 
         <p>Please fill your data</p>
-        <DonationPostBar post={donateModal.data} />
+
         <form>
           <Inputs
             errors={errors}

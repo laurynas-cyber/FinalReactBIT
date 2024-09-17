@@ -1,0 +1,13 @@
+.DivideLineContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  .DivideLine {
+    width: 100px;
+    height: 4px;
+    background-color: $emerald;
+    border-radius: 4px;
+  }
+}

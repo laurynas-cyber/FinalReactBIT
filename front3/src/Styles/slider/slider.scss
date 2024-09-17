@@ -219,9 +219,32 @@
           width: 60%;
           height: 20%;
           z-index: 100;
-          opacity: 0;
-
+          // opacity: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
           transition: all 0.5s ease;
+          color: white;
+          text-transform: uppercase;
+          .dontaionInfo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .Donated {
+              width: 30%;
+              border: solid 1px blue;
+            }
+            .DonationRequired {
+              color: $orange;
+              width: 30%;
+              border: solid 1px blue;
+            }
+            .donationBarContainer {
+              width: 40%;
+              border: solid 1px green;
+            }
+          }
         }
 
         img {

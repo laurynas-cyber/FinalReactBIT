@@ -74,7 +74,7 @@ export default function ActivePostSlider({ postData, setDonatedBar }) {
                   <IoIosArrowForward />
                 </div>
 
-                <DonationPostBar post={p} donatedBar={0} />
+                <DonationPostBar post={p} donatedBar={0} index={i} />
               </div>
             ))}
           </div>

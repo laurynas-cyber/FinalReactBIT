@@ -1,17 +1,7 @@
-Pastilinti
+Inputai grazesni
 
-Inputus pagerinti /label/ input shadow
+DonorListas pagal postus
 
-responsive
+Filter ir search dashborde
 
-padaryti validaciją kol rašom i inputa
-
-info padaryti kai blogas email is serverside
-
-suziureti routerio url vardus, pakeisti htmle, ir pervadinti i angl kalba
-
-info Message
-
-Gates for user index.jse
-
-Edit postas neveikia su nuotrauka
+Statistine Grafikos lentele

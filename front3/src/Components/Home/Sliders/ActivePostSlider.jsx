@@ -4,7 +4,6 @@ import { IoIosArrowForward } from "react-icons/io";
 import { ModalContext } from "../../Context/Modals";
 import SliderButtonsLeft from "./SliderButtonsLeft";
 import SliderButtonsRight from "./SliderButtonsRight";
-import DonationBannerBar from "../Donors/DonationBannerBar";
 import DonationPostBar from "../Donors/DonationPostBar";
 
 export default function ActivePostSlider({ postData, setDonatedBar }) {
@@ -33,9 +32,11 @@ export default function ActivePostSlider({ postData, setDonatedBar }) {
   }
 
   const NewPostData = [];
-
+  console.log(postData);
   for (let i = 0; i < postData.length; i += 3) {
-    NewPostData.push(postData.slice(i, i + 3));
+   
+      NewPostData.push(postData.slice(i, i + 3));
+    
   }
 
   return (
@@ -56,13 +57,6 @@ export default function ActivePostSlider({ postData, setDonatedBar }) {
                   })
                 }
               >
-                <div className="ActivePostImageBox-PostTitle">
-                  {p.title}
-                  <IoIosArrowForward />
-                </div>
-                {/* <div>
-                  <DonationPostBar post={p} donatedBar={0} />
-                </div> */}
                 <div
                   className="ActiveSliderPostText"
                   style={{ maxWidth: i % 3 === 0 ? "25rem" : null }}
@@ -75,6 +69,12 @@ export default function ActivePostSlider({ postData, setDonatedBar }) {
                   </p>
                 </div>
                 <img alt={arr.title} src={l.SERVER_IMAGES_URL + p?.image}></img>
+                <div className="ActivePostImageBox-PostTitle">
+                  {p.title}
+                  <IoIosArrowForward />
+                </div>
+
+                <DonationPostBar post={p} donatedBar={0} />
               </div>
             ))}
           </div>

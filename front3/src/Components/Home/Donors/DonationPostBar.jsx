@@ -7,8 +7,8 @@ function DonationPostBar({ post, donatedBar }) {
   }
 
   return (
-    <div className="SliderDonationContainer">
-      <div className="donationLeft">
+    <div className="SliderPostDonationContainer">
+      {/* <div className="donationLeft">
         {post.amount <= post.donated
           ? null
           : `Left ${post.amount - post.donated - donatedBar}eur to complete`}
@@ -37,7 +37,7 @@ function DonationPostBar({ post, donatedBar }) {
         <span className="DonationRequired">
           <strong>Required {post.amount}eur </strong>
         </span>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -42,6 +42,7 @@
   left: 60px;
   top: 50px;
   background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
   border-radius: 4px;
   max-width: 20rem;
   .sliderPostTitle {
@@ -58,6 +59,7 @@
   right: 60px;
   top: 50px;
   background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
   border-radius: 4px;
   max-height: 15rem;
   max-width: 35rem;
@@ -76,30 +78,10 @@
     }
   }
 
-  // .InputContainer {
-  //   max-height: 0;
-  //   overflow: hidden;
-  //   transition: all ease-in 0.3s;
-  //   margin-top: 10px;
-  //   display: flex;
-
-  //   .DonateInput {
-  //     max-height: 0;
-  //     box-sizing: border-box;
-  //     transition: all ease-in 0.3s;
-  //     border: none;
-  //     border-radius: 4px;
-  //     border: 2px solid $emerald;
-  //     outline: none;
-  //     background: none;
-  //     color: $white;
-  //     text-align: center;
-  //   }
-  // }
-
   .donationLeft {
     color: $white;
     filter: brightness(0.9);
+
     font-size: 15px;
   }
 
@@ -226,10 +208,20 @@
         cursor: pointer;
         position: relative;
         transition: all 0.5s ease;
-        .SliderDonationContainer {
+        .SliderPostDonationContainer {
+          bottom: 10px;
+          right: 5px;
           position: absolute;
-          right: 10px;
-          bottom: 5px;
+          border: solid 1px red;
+          border-radius: 4px;
+          background-color: rgba(0, 0, 0, 0.2);
+          backdrop-filter: blur(2px);
+          width: 60%;
+          height: 20%;
+          z-index: 100;
+          opacity: 0;
+
+          transition: all 0.5s ease;
         }
 
         img {
@@ -263,7 +255,7 @@
           background-color: rgba(0, 0, 0, 0.2);
           border-radius: 4px;
           max-width: 16rem;
-
+          backdrop-filter: blur(2px);
           opacity: 0;
           transition: all 0.3s ease-in;
           .sliderPostDescript {
@@ -281,8 +273,8 @@
           color: $emeraldDark;
         }
 
-        &:hover .ActiveSliderPostText {
-          visibility: visible;
+        &:hover .ActiveSliderPostText,
+        &:hover .SliderPostDonationContainer {
           opacity: 1;
         }
       }

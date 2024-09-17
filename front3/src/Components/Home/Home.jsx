@@ -82,7 +82,7 @@ function Home() {
             <Impact />
 
             <ActivePostSlider
-              postData={ActivePosts}
+              postData={ActivePosts.filter((p) => !p.is_top)}
               setDonatedBar={setDonatedBar}
             />
           </>

@@ -16,7 +16,7 @@ function Home() {
   const [posts, setPosts] = useState(null);
   const [donatedBar, setDonatedBar] = useState(0);
   const [scroll, setScroll] = useState(false);
-
+  console.log(posts);
   useEffect(
     (_) => {
       doGet();
@@ -63,6 +63,7 @@ function Home() {
           post={bannerPost}
           donatedBar={donatedBar}
           setDonatedBar={setDonatedBar}
+          setPosts={setPosts}
         />
       )}
 
@@ -85,6 +86,7 @@ function Home() {
               postData={ActivePosts.filter((p) => !p.is_top)}
               setDonatedBar={setDonatedBar}
               donatedBar={donatedBar}
+              setPosts={setPosts}
             />
           </>
         )}

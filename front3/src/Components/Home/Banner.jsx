@@ -5,7 +5,7 @@ import { ModalContext } from "../Context/Modals";
 import { FaHeart } from "react-icons/fa";
 import DonationBannerBar from "./Donors/DonationBannerBar";
 
-function Banner({ post, setDonatedBar, donatedBar }) {
+function Banner({ post, setDonatedBar, donatedBar,setPosts }) {
   const { setDonateModal } = useContext(ModalContext);
 
   let imgPath;
@@ -36,6 +36,7 @@ function Banner({ post, setDonatedBar, donatedBar }) {
                   setDonateModal({
                     data: post[0],
                     setDonatedBar,
+                    setPosts
                   })
                 }
               >

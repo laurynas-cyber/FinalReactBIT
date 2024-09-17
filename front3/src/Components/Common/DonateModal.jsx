@@ -56,7 +56,13 @@ function DonateModal() {
       post_id: donateModal.data.id,
     });
     // donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation)); // 1var
- donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation));
+    donateModal.setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === donateModal.data.id
+          ? { ...post, donated: post.donated + parseInt(donateForm.donation) }
+          : post
+      )
+    );
     setDonateModal(null);
   };
 

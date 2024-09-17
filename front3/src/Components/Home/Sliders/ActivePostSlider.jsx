@@ -6,7 +6,12 @@ import SliderButtonsLeft from "./SliderButtonsLeft";
 import SliderButtonsRight from "./SliderButtonsRight";
 import DonationPostBar from "../Donors/DonationPostBar";
 
-export default function ActivePostSlider({ postData, setDonatedBar, donatedBar }) {
+export default function ActivePostSlider({
+  postData,
+  setDonatedBar,
+  donatedBar,
+  setPosts,
+}) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const { setDonateModal } = useContext(ModalContext);
@@ -34,9 +39,7 @@ export default function ActivePostSlider({ postData, setDonatedBar, donatedBar }
   const NewPostData = [];
   console.log(postData);
   for (let i = 0; i < postData.length; i += 3) {
-   
-      NewPostData.push(postData.slice(i, i + 3));
-    
+    NewPostData.push(postData.slice(i, i + 3));
   }
 
   return (
@@ -54,6 +57,7 @@ export default function ActivePostSlider({ postData, setDonatedBar, donatedBar }
                   setDonateModal({
                     data: p,
                     setDonatedBar,
+                    setPosts,
                   })
                 }
               >

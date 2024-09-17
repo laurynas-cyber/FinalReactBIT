@@ -8,8 +8,7 @@ import DonationPostBar from "../Donors/DonationPostBar";
 
 export default function ActivePostSlider({
   postData,
-  setDonatedBar,
-  donatedBar,
+
   setPosts,
 }) {
   const [imageIndex, setImageIndex] = useState(0);
@@ -56,7 +55,7 @@ export default function ActivePostSlider({
                 onClick={(_) =>
                   setDonateModal({
                     data: p,
-                    setDonatedBar,
+              
                     setPosts,
                   })
                 }
@@ -78,7 +77,7 @@ export default function ActivePostSlider({
                   <IoIosArrowForward />
                 </div>
 
-                <DonationPostBar post={p} donatedBar={donatedBar} index={i} />
+                <DonationPostBar post={p}  index={i} />
               </div>
             ))}
           </div>

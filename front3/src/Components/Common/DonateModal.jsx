@@ -55,7 +55,7 @@ function DonateModal() {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
-    // donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation)); // 1var
+ 
     donateModal.setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === donateModal.data.id

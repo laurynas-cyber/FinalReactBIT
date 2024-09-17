@@ -14,7 +14,7 @@ function Home() {
   );
 
   const [posts, setPosts] = useState(null);
-  const [donatedBar, setDonatedBar] = useState(0);
+
   const [scroll, setScroll] = useState(false);
   console.log(posts);
   useEffect(
@@ -61,8 +61,7 @@ function Home() {
       {!!posts && (
         <Banner
           post={bannerPost}
-          donatedBar={donatedBar}
-          setDonatedBar={setDonatedBar}
+    
           setPosts={setPosts}
         />
       )}
@@ -84,8 +83,7 @@ function Home() {
 
             <ActivePostSlider
               postData={ActivePosts.filter((p) => !p.is_top)}
-              setDonatedBar={setDonatedBar}
-              donatedBar={donatedBar}
+  
               setPosts={setPosts}
             />
           </>
@@ -104,8 +102,7 @@ function Home() {
             <div className="SliderCont">
               <ImageSlider
                 postData={donatedPosts}
-                donatedBar={donatedBar}
-                setDonatedBar={setDonatedBar}
+  
               />
             </div>
           </>

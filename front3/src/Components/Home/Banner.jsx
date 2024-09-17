@@ -5,7 +5,7 @@ import { ModalContext } from "../Context/Modals";
 import { FaHeart } from "react-icons/fa";
 import DonationBannerBar from "./Donors/DonationBannerBar";
 
-function Banner({ post, setDonatedBar, donatedBar,setPosts }) {
+function Banner({ post, setPosts }) {
   const { setDonateModal } = useContext(ModalContext);
 
   let imgPath;
@@ -24,19 +24,19 @@ function Banner({ post, setDonatedBar, donatedBar,setPosts }) {
       {post.length > 0 ? (
         <div className="PostInfoCont">
           <div className="PosterText">{post[0].title}</div>
-          {post[0].amount > post[0].donated + donatedBar ? (
+          {post[0].amount > post[0].donated ? (
             <>
               <div className="sliderPostText">
                 <p className="sliderPostDescript">{post[0].description}</p>
               </div>
-              <DonationBannerBar post={post} donatedBar={donatedBar} />
+              <DonationBannerBar post={post} />
               <button
                 className="btn mainDonateBtn"
                 onClick={(_) =>
                   setDonateModal({
                     data: post[0],
-                    setDonatedBar,
-                    setPosts
+
+                    setPosts,
                   })
                 }
               >

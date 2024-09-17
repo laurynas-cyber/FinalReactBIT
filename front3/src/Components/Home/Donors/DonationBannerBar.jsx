@@ -1,6 +1,6 @@
 import React from "react";
 
-const DonationBannerBar = ({ post, donatedBar }) => {
+const DonationBannerBar = ({ post }) => {
   function DonatedBar(required, donated) {
     let result = (donated * 100) / required;
     return parseInt(result);
@@ -11,13 +11,13 @@ const DonationBannerBar = ({ post, donatedBar }) => {
         {post[0].amount <= post[0].donated
           ? null
           : `Left ${
-              post[0].amount - post[0].donated - donatedBar
+              post[0].amount - post[0].donated 
             }eur to complete`}
       </div>
       <div className="dontaionInfo">
         <span className="Donated">
           {" "}
-          Donated {post[0].donated + donatedBar}eur
+          Donated {post[0].donated}eur
         </span>
         <div
           className="donationBarContainer"
@@ -27,12 +27,11 @@ const DonationBannerBar = ({ post, donatedBar }) => {
             className="donatedBar"
             style={{
               width: `${
-                DonatedBar(post[0].amount, post[0].donated) +
-                DonatedBar(post[0].amount, donatedBar)
+                DonatedBar(post[0].amount, post[0].donated) 
               }%`,
 
               backgroundColor:
-                post[0].amount <= post[0].donated + donatedBar
+                post[0].amount <= post[0].donated 
                   ? "#f08702"
                   : "#3498db",
             }}

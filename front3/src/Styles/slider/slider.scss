@@ -197,23 +197,97 @@
 
 .ActivePostSliderSection {
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  height: 500px;
+  position: relative;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
   .ActivePostSliderContainer {
-    border: solid 1px red;
-    width: 80%;
+    width: 100%;
     height: 100%;
-    position: relative;
-    min-height: 500px;
+    display: flex;
+    overflow: hidden;
     .PostSlider {
+      flex-grow: 0;
+      flex-shrink: 0;
+      transition: all 300ms ease-in-out;
+      position: relative;
+
       width: 100%;
       height: 100%;
-      img {
-        width: 100%;
-        height: 100%;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 59% 40%;
+      grid-template-rows: 49% 49%;
+      box-sizing: border-box;
+      .ActivePostImageBox {
+        border: solid 5px white;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.5s ease;
+        .SliderDonationContainer {
+          position: absolute;
+          right: 10px;
+          bottom: 5px;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          background-repeat: no-repeat;
+        }
+        .ActivePostImageBox-PostTitle {
+          background-color: white;
+          position: absolute;
+          text-transform: uppercase;
+          left: 0;
+          top: 40px;
+          font-size: 30px;
+          font-weight: 700;
+          padding: 10px;
+          border-radius: 0px 4px 4px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.5s ease;
+        }
+
+        .ActiveSliderPostText {
+          position: absolute;
+          padding: 10px;
+          gap: 5px;
+          right: 5px;
+          top: 5px;
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+          max-width: 16rem;
+
+          opacity: 0;
+          transition: all 0.3s ease-in;
+          .sliderPostDescript {
+            color: $white;
+            filter: brightness(0.9);
+            font-size: 15px;
+          }
+        }
+
+        &:hover {
+          border: solid 5px $emeraldDark;
+        }
+
+        &:hover .ActivePostImageBox-PostTitle {
+          color: $emeraldDark;
+        }
+
+        &:hover .ActiveSliderPostText {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+      .ActivePostImageBox:first-child {
+        grid-row: span 2;
       }
     }
   }

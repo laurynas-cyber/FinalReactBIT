@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef, useCallback, useContext } from "react";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
-import * as l from "../../Constants/urls";
+import * as l from "../../../Constants/urls";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
-import { ModalContext } from "../Context/Modals";
+import { ModalContext } from "../../Context/Modals";
+import SliderButtonsLeft from "./SliderButtonsLeft";
+import SliderButtonsRight from "./SliderButtonsRight";
+import NoPhoto from "../../Common/NoPhoto";
 
 export const ImageSlider = ({ postData }) => {
   const { donateModal, setDonateModal } = useContext(ModalContext);
@@ -70,11 +72,7 @@ export const ImageSlider = ({ postData }) => {
               style={{ translate: `${-100 * imageIndex}%` }}
             >
               {p.image === null ? (
-                <img
-                  alt="no photo"
-                  src={l.SERVER_IMAGES_URL + "no-image.png"}
-                  className="img-slider-img"
-                />
+                <NoPhoto />
               ) : (
                 <img
                   alt={p.image}
@@ -144,22 +142,8 @@ export const ImageSlider = ({ postData }) => {
           ))}
         </div>
 
-        <button
-          onClick={showPrevImage}
-          className="img-slider-btn"
-          style={{ left: 0 }}
-          aria-label="View Previous Slide"
-        >
-          <FaArrowCircleLeft aria-hidden />
-        </button>
-        <button
-          onClick={showNextImage}
-          className="img-slider-btn"
-          style={{ right: 0 }}
-          aria-label="View NExt Slide"
-        >
-          <FaArrowCircleRight aria-hidden />
-        </button>
+        <SliderButtonsLeft onClick={showPrevImage} />
+        <SliderButtonsRight onClick={showNextImage} />
         <div className="IndexSlideBubbles">
           {postData.map((p, index) => (
             <button

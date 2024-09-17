@@ -1,4 +1,3 @@
-import { ImageSlider } from "./ImageSlider";
 import useServerGet from "../Hooks/useServerGet";
 import * as l from "../../Constants/urls";
 import { useEffect, useState } from "react";
@@ -6,7 +5,8 @@ import HashLoader from "react-spinners/HashLoader";
 import Banner from "./Banner";
 import DonorsText from "./Donors/DonorsText";
 import Impact from "./Impact";
-import ActivePostSlider from "./ActivePostSlider";
+import ActivePostSlider from "./Sliders/ActivePostSlider";
+import { ImageSlider } from "./Sliders/ImageSlider";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -77,31 +77,24 @@ function Home() {
           </div>
         )}
         {ActivePosts?.length === null ? <div>no posts created</div> : null}
-        {ActivePosts?.length > 0 && (
+        {!!ActivePosts && ActivePosts?.length > 0 && (
           <>
             <Impact />
-            <div className="HomeDonorsTextContainer">
-              {scroll ? (
-                <DonorsText usersCount={posts[0].donors_count} />
-              ) : null}
-            </div>
 
-            <ActivePostSlider postData={ActivePosts} />
-            <div className="col d-flex justify-content-center align-items-center SignInText">
-              <h2>Posts waiting for donations</h2>
-            </div>
-            <div className="SliderCont">
-              <ImageSlider
-                postData={ActivePosts}
-                donatedBar={donatedBar}
-                setDonatedBar={setDonatedBar}
-              />
-            </div>
+            <ActivePostSlider
+              postData={ActivePosts}
+              setDonatedBar={setDonatedBar}
+            />
           </>
         )}
 
         {donatedPosts !== null && donatedPosts.length > 0 && (
           <>
+            <div className="HomeDonorsTextContainer">
+              {scroll ? (
+                <DonorsText usersCount={posts[0].donors_count} />
+              ) : null}
+            </div>
             <div className="col d-flex justify-content-center align-items-center SignInText">
               <h3>Donated Posts</h3>
             </div>

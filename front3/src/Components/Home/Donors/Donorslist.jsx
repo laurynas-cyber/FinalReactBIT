@@ -5,6 +5,7 @@ import HashLoader from "react-spinners/HashLoader";
 import { Search } from "../../UserSignAndLogin/Forms/Search";
 import DonorsText from "./DonorsText";
 import { FaHeart } from "react-icons/fa";
+import NoPhoto from "../../Common/NoPhoto";
 
 function Donorslist() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -92,11 +93,7 @@ function Donorslist() {
                     {u.title}
                     <div className="postPictureCont">
                       {u.image === null ? (
-                        <img
-                          alt={u.title}
-                          src={l.SERVER_IMAGES_URL + "no-image.png"}
-                          className="img-slider-img"
-                        />
+                        <NoPhoto />
                       ) : (
                         <img
                           alt={u.image}

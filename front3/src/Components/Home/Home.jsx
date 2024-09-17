@@ -84,6 +84,7 @@ function Home() {
             <ActivePostSlider
               postData={ActivePosts.filter((p) => !p.is_top)}
               setDonatedBar={setDonatedBar}
+              donatedBar={donatedBar}
             />
           </>
         )}

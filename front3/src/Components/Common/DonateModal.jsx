@@ -55,8 +55,8 @@ function DonateModal() {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
-    donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation)); // 1var
-
+    // donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation)); // 1var
+ donateModal.setDonatedBar((prev) => prev + parseInt(donateForm.donation));
     setDonateModal(null);
   };
 

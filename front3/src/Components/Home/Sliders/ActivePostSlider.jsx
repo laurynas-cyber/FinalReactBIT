@@ -6,7 +6,7 @@ import SliderButtonsLeft from "./SliderButtonsLeft";
 import SliderButtonsRight from "./SliderButtonsRight";
 import DonationPostBar from "../Donors/DonationPostBar";
 
-export default function ActivePostSlider({ postData, setDonatedBar }) {
+export default function ActivePostSlider({ postData, setDonatedBar, donatedBar }) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const { setDonateModal } = useContext(ModalContext);
@@ -74,7 +74,7 @@ export default function ActivePostSlider({ postData, setDonatedBar }) {
                   <IoIosArrowForward />
                 </div>
 
-                <DonationPostBar post={p} donatedBar={0} index={i} />
+                <DonationPostBar post={p} donatedBar={donatedBar} index={i} />
               </div>
             ))}
           </div>

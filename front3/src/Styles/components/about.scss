@@ -1,5 +1,4 @@
 .AboutContainer {
-  border: solid 1px red;
   height: 75vh;
   display: flex;
   justify-content: center;
@@ -9,21 +8,46 @@
   gap: 5px;
   color: white;
   font-size: 30px;
-  .EmailContacts {
+  .EmailContainerAbout {
     width: 50%;
     height: 50px;
-    border: solid 4px $emerald;
-    border-radius: 100px 100px 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: black;
-    transition: all 0.3s ease;
-    &:hover {
-      border: solid 4px $emeraldDark;
+    position: relative;
+    .EmailContacts {
+      position: relative;
+      width: 100%;
+      height: 50px;
+      border: solid 4px $emerald;
+      border-radius: 100px 100px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: black;
+      transition: all 0.3s ease;
+      top: 0;
+      background-color: white;
+      &:hover {
+        border: solid 4px $emeraldDark;
+      }
+    }
+    .EmailTextAbout {
+      position: absolute;
+      z-index: -1;
+      font-weight: bold;
+      width: 100%;
+      height: 100%;
+      border-radius: 100px 100px 0 0;
+      top: 0;
+      color: $blueDark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: 4px $emeraldDark dashed;
+      border-right: 4px $emeraldDark dashed;
+      transition: all 0.3s ease;
     }
   }
+
   .SocialContainer {
     width: 50%;
     height: 350px;

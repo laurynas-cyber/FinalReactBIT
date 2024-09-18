@@ -6,11 +6,27 @@ import { useState } from "react";
 export default function About() {
   const [moveGithub, setMoveGithub] = useState(null);
   const [moveLinkedIn, setLinkedIn] = useState(null);
+  const [moveEmail, setMoveEmail] = useState(null);
 
-  console.log(moveGithub);
+  console.log(moveEmail);
   return (
     <div className="container p-0 contentDown AboutContainer">
-      <div className="EmailContacts">Email</div>
+      <div className="EmailContainerAbout">
+        <div
+          className="EmailContacts"
+          onClick={(_) => setMoveEmail((prev) => !prev)}
+          style={{ top: moveEmail ? "-45px" : null }}
+        >
+          Email
+        </div>
+        <div
+          className="EmailTextAbout"
+          style={{ borderRadius: moveEmail ? "0 0 0 0" : " 100px 100px 0 0 " }}
+        >
+          laurynas.stanciauskas@gmail.com
+        </div>
+      </div>
+
       <div className="SocialContainer">
         <div
           className="GitHubContacts "

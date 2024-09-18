@@ -1,0 +1,47 @@
+.AboutContainer {
+  border: solid 1px red;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  gap: 5px;
+  color: white;
+  font-size: 30px;
+  .EmailContacts {
+    width: 50%;
+    height: 50px;
+    border: solid 4px $emerald;
+    border-radius: 100px 100px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+  }
+  .SocialContainer {
+    width: 50%;
+    height: 350px;
+    // border: solid 1px red;
+    border-radius: 0 0 100px 100px;
+    display: flex;
+    gap: 5px;
+    .GitHubContacts,
+    .LinkedInContacts {
+      width: 50%;
+      height: 100%;
+      border: solid 4px $emerald;
+      background-color: $emerald;
+      border-radius: 0 0 0 100px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .LinkedInContacts {
+      border-radius: 0 0 100px 0;
+    }
+  }
+}

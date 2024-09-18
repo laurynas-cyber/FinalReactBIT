@@ -1,7 +1,6 @@
 import logo from "../../../assets/images/logo.png";
 import { FaUser } from "react-icons/fa";
 import { useContext } from "react";
-import { NavContext } from "../../Context/NavContext";
 import { NavLink } from "react-router-dom";
 import { LoginNav } from "../../../Constants/navigation";
 import { AuthContext } from "../../Context/Auth";
@@ -12,7 +11,6 @@ console.log(LoginNav);
 
 function Nav() {
   const { user } = useContext(AuthContext);
-  const { isFullSize } = useContext(NavContext);
 
   return (
     <>
@@ -58,6 +56,14 @@ function Nav() {
               to="donors"
             >
               DONORS
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? "ActiveTag" : "RouterLinks";
+              }}
+              to="about"
+            >
+              ABOUT
             </NavLink>
           </div>
         </div>

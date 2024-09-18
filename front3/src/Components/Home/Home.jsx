@@ -9,6 +9,7 @@ import ActivePostSlider from "./Sliders/ActivePostSlider";
 import { ImageSlider } from "./Sliders/ImageSlider";
 import DivideLine from "../Common/DivideLine";
 import DonateNowText from "./DonateNowText";
+import QR from "../../assets/images/linkedin.png";
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -69,7 +70,7 @@ function Home() {
       )}
 
       <div className="container p-0">
-        <DivideLine />
+
         {ActivePosts?.length === 0 && (
           <div className="row Spinner">
             <div className="col loadingDataContainer">

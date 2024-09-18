@@ -7,7 +7,7 @@ import LogIn from "./Components/UserSignAndLogin/LogIn.jsx";
 import ErrorPage from "./Components/Common/ErrorPage.jsx";
 import AdminLayout from "./Components/Admin/AdminLayout.jsx";
 import UsersList from "./Components/Admin/UsersList.jsx";
-import Home from "./Components/Home/Home.jsx"
+import Home from "./Components/Home/Home.jsx";
 import Dashbord from "./Components/Admin/Dashbord.jsx";
 import UserEdit from "./Components/Admin/UserEdit.jsx";
 import NavResponsive from "./Components/Context/NavContext.jsx";
@@ -25,6 +25,7 @@ import ActivePosts from "./Components/Admin/Post/ActivePosts.jsx";
 import CreatedPosts from "./Components/Users/CreatedPosts.jsx";
 import PostEdit from "./Components/Admin/Post/PostEdit.jsx";
 import Donorslist from "./Components/Home/Donors/Donorslist.jsx";
+import About from "./Components/Home/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,10 +33,14 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home/> },
+      { index: true, element: <Home /> },
       {
         path: "donors",
         element: <Donorslist />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
       {
         path: "SignIn",

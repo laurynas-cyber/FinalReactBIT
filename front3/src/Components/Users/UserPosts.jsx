@@ -13,7 +13,7 @@ const UserPosts = () => {
   const values = {
     title: "",
     description: "",
-    amount: "0",
+    amount: "1",
     image: null,
   };
 

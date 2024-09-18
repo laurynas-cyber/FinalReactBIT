@@ -22,7 +22,7 @@ export default function Textarea({
         </div>
         <textarea
           maxLength={characters.current}
-          className="form-control "
+          className="form-control custom-area"
           aria-label="With textarea"
           onChange={onChange}
           value={value}

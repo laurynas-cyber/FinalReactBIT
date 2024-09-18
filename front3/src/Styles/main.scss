@@ -4,6 +4,8 @@
 @import "./global/buttons.scss";
 @import "./global/form.scss";
 @import "./global/range.scss";
+@import "./global/input.scss";
+@import "./global/textarea.scss";
 
 @import "./components/error-page.scss";
 @import "./components/nav.scss";
@@ -22,7 +24,6 @@
 @import "./components//impact.scss";
 @import "./components//divide-line.scss";
 @import "./components/about.scss";
-@import "./components//input.scss";
 
 * {
   font-family: "Nunito", sans-serif;

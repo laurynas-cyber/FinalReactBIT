@@ -9,7 +9,7 @@ import ActivePostSlider from "./Sliders/ActivePostSlider";
 import { ImageSlider } from "./Sliders/ImageSlider";
 import DivideLine from "../Common/DivideLine";
 import DonateNowText from "./DonateNowText";
-import QR from "../../assets/images/linkedin.png";
+
 
 function Home() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(

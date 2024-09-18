@@ -54,7 +54,7 @@ const UserPosts = () => {
 
       setButtonDisabled(false);
       if (serverResponse.type === "success") {
-        navigate(`/user/${params.id}`);
+        // navigate(`/user/${params.id}/posts`);
       }
     },
     [serverResponse, navigate, params]

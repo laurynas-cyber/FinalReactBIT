@@ -47,9 +47,9 @@ const seedUsersTable = (_) => {
         INSERT INTO users
         (name, email, role, password)
         VALUES
-        ('Briedis', 'briedis@gmail.com', 'admin', '${md5("123")}'),
-        ('Bebras', 'bebras@gmail.com', 'user', '${md5("123")}'),
-        ('Barsukas', 'barsukas@gmail.com', 'editor', '${md5("123")}')
+        ('Larry', 'larry@gmail.com', 'admin', '${md5("123")}'),
+        ('Joe', 'joe@gmail.com', 'user', '${md5("123")}'),
+        ('Chandler', 'chandler@gmail.com', 'editor', '${md5("123")}')
     `;
   connection.query(sql, function (err) {
     if (err) throw err;

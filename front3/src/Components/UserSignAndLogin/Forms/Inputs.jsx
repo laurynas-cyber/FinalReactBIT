@@ -13,7 +13,9 @@ function Inputs({
         onChange={onChange}
         type={type}
         id={name}
-        className={`form-control ${errors[name] ? "showBorder" : ""}`}
+        className={`form-control custom-input ${
+          errors[name] ? "showBorder" : ""
+        }`}
         placeholder={placeholder}
         name={name}
         autoComplete={autoComplete}
@@ -21,7 +23,7 @@ function Inputs({
       ></input>
       <label
         htmlFor="name"
-        className={`form-label ${errors[name] ? "show" : ""}`}
+        className={`form-label custom-input ${errors[name] ? "show" : ""}`}
       >
         {errors[name] ? errors[name] : placeholder}
       </label>

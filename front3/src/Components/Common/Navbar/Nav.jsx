@@ -63,7 +63,7 @@ function Nav() {
               }}
               to="about"
             >
-              ABOUT
+              CONTACTS
             </NavLink>
           </div>
         </div>

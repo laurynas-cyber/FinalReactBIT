@@ -2,6 +2,6 @@ Inputai grazesni
 
 DonorListas pagal postus
 
-Filter ir search dashborde
+Range Dashbourde
 
 Statistine Grafikos lentele

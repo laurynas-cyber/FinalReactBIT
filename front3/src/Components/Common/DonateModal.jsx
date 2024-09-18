@@ -56,7 +56,7 @@ function DonateModal() {
       donation: donateForm.donation,
       post_id: donateModal.data.id,
     });
-    donateModal.setLastDonatedId(donateModal.data.id);
+
     donateModal.setPosts((prevPosts) =>
       prevPosts.map((post) =>
         post.id === donateModal.data.id

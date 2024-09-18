@@ -10,12 +10,13 @@ import Select from "../UserSignAndLogin/Forms/Select";
 import comments from "../../Constants/comments";
 import useServerPut from "../Hooks/useServerPut";
 
-function DeclineModal() {
+function DeclineModal({ setPendingPosts }) {
   const { declineModal, setDeclineModal } = useContext(ModalContext);
   const [data, setData] = useState(null);
   const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(
     l.SERVER_UPDATE_COMMENTPOST
   );
+
   const { setShow } = useContext(LoaderContext);
   const [declineForm, setDeclineForm] = useState({
     comment: "",
@@ -29,11 +30,24 @@ function DeclineModal() {
   const handleConfirm = (_) => {
     setShow(true);
     doPut(data);
-    setDeclineModal(null);
+    setPendingPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id == declineModal.id
+          ? {
+              ...post,
+              comment:
+                declineForm.selectComment === "Other"
+                  ? declineForm.comment
+                  : declineForm.selectComment,
+            }
+          : post
+      )
+    );
     setDeclineForm({
       comment: "",
       selectComment: "No picture",
     });
+    setDeclineModal(null);
   };
 
   useEffect(

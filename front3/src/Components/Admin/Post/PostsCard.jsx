@@ -15,6 +15,7 @@ const PostsCard = ({
   doDelete,
   onClick,
   mainBtnName = "Edit",
+  setPendingPosts = null,
 }) => {
   const { setDeleteModal } = useContext(ModalContext);
   const { setDeclineModal } = useContext(ModalContext);

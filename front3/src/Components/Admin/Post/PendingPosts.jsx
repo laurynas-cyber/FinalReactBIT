@@ -6,6 +6,8 @@ import PostsCard from "./PostsCard";
 import useServerDelete from "../../Hooks/useServerDelete";
 import useServerPut from "../../Hooks/useServerPut";
 import { LoaderContext } from "../../Context/Loader";
+import { ModalContext } from "../../Context/Modals";
+import DeclineModal from "../../Common/DeclineModal";
 
 const PendingPosts = () => {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -20,14 +22,16 @@ const PendingPosts = () => {
     useServerDelete(l.SERVER_DELETE_POST);
 
   const [pendingPosts, setPendingPosts] = useState(null);
-
   const { setShow } = useContext(LoaderContext);
+  const { declineModal } = useContext(ModalContext);
 
   const hidePost = (post) => {
     setPendingPosts((p) =>
       p.map((p) => (p.id === post.id ? { ...p, hidden: true } : p))
     );
   };
+
+  console.log(pendingPosts);
 
   const showPost = useCallback((_) => {
     setPendingPosts((p) =>
@@ -125,9 +129,11 @@ const PendingPosts = () => {
               doDelete={doDelete}
               onClick={submit}
               mainBtnName={"Confirm"}
+              setPendingPosts={setPendingPosts}
             />
           )
         )}
+      {declineModal && <DeclineModal setPendingPosts={setPendingPosts} />}
     </div>
   );
 };

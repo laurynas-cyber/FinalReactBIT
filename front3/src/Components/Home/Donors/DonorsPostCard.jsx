@@ -14,7 +14,9 @@ function DonorsPostCard({ post, users }) {
           <img src={l.SERVER_IMAGES_URL + post.image}></img>
         </div>
         <div className="DonorsPostCard-UsersListContainer">
-          <div className="UsersListContainer-SearchSection">Search</div>
+          <div className="UsersListContainer-SearchSection">
+            <strong>Donted {post.donated} eur </strong>
+          </div>
           <div className="DonorsListContainer">
             <div className="DonorsListBorders-left"></div>
             <div className="DonorsListScrollBar">
@@ -30,7 +32,7 @@ function DonorsPostCard({ post, users }) {
               {users &&
                 users.map((u) =>
                   u.post_id === post.id ? (
-                    <div className="DonorsList-user">
+                    <div key={u.id} className="DonorsList-user">
                       <div className="DonorsListScrollBar-infoSection-name DonorsList-user-divide ">
                         {u.name}
                       </div>

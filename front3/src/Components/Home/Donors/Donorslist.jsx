@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useServerGet from "../../Hooks/useServerGet";
 import * as l from "../../../Constants/urls";
 import HashLoader from "react-spinners/HashLoader";
@@ -14,9 +14,10 @@ function Donorslist() {
   );
 
   const [users, setUsers] = useState(null);
-  const [usersCopyList, setUsersCopyList] = useState(null);
+  const [usersCopyList, setUsersCopyList] = useState([]);
+  const [newPostData, setNewPostData] = useState([]);
+  const [newPostDataCopy, setnewPostDataCopy] = useState(null);
 
-  console.log(users);
   useEffect(
     (_) => {
       doGet();
@@ -36,21 +37,40 @@ function Donorslist() {
     [serverGetResponse]
   );
 
-  const NewPostData = [];
+  const handleNewPostData = useCallback(
+    (_) => {
+      const tempData = [];
 
-  for (let i = 0; i < users?.length; i++) {
-    let obj = {
-      id: users[i].post_id,
-      image: users[i].image,
-      title: users[i].title,
-    };
-    let found = NewPostData.some((element) => element.id === obj.id);
+      for (let i = 0; i < users?.length; i++) {
+        let obj = {
+          id: users[i].post_id,
+          image: users[i].image,
+          title: users[i].title,
+          donated: users[i].donated,
+        };
 
-    if (!found) {
-      NewPostData.push(obj);
-      console.log(NewPostData, "NewPostData");
-    }
-  }
+        let found = tempData.some((element) => element.id === obj.id);
+
+        if (!found) {
+          tempData.push(obj);
+        }
+      }
+
+      // Update the state with the new data
+      setNewPostData(tempData);
+      setnewPostDataCopy(tempData);
+    },
+    [users]
+  );
+
+  useEffect(
+    (_) => {
+      handleNewPostData();
+    },
+    [handleNewPostData, setnewPostDataCopy]
+  );
+  console.log(newPostDataCopy);
+
   return (
     <div className="container contentDown p-0">
       <div className="BannerDonorsText">
@@ -68,9 +88,15 @@ function Donorslist() {
         setUsers={setUsers}
         sortType={"sum"}
       />
-      {NewPostData &&
-        NewPostData.map((p) => (
-          <div className="UsersPostCardList p-0 container">
+
+      {/* <Search
+        usersCopyList={usersCopyList}
+        setUsers={setUsers}
+        sortType={"sum"}
+      /> */}
+      {newPostData &&
+        newPostData.map((p, i) => (
+          <div key={i} className="UsersPostCardList p-0 container">
             <DonorsPostCard
               post={p}
               usersCopyList={usersCopyList}

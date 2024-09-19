@@ -181,7 +181,7 @@ app.get("/admin/users", (req, res) => {
 app.get("/home/donors", (req, res) => {
   setTimeout((_) => {
     const sql = `
-    SELECT donors.*, posts.title, posts.image
+    SELECT donors.*, posts.title, posts.image, posts.donated
     FROM donors
     JOIN posts ON donors.post_id = posts.id
   `;

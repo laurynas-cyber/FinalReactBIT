@@ -68,10 +68,17 @@ function Donorslist() {
         setUsers={setUsers}
         sortType={"sum"}
       />
-
-      <div className="UsersPostCardList p-0 container">
-        <DonorsPostCard />
-      </div>
+      {NewPostData &&
+        NewPostData.map((p) => (
+          <div className="UsersPostCardList p-0 container">
+            <DonorsPostCard
+              post={p}
+              usersCopyList={usersCopyList}
+              setUsers={setUsers}
+              users={users}
+            />
+          </div>
+        ))}
 
       <div className="userTable">
         <div>

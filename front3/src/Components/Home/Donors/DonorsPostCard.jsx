@@ -1,16 +1,17 @@
 import kids from "../../../assets/images/banner.jpg";
 import { Search } from "../../UserSignAndLogin/Forms/Search";
+import * as l from "../../../Constants/urls";
 
-function DonorsPostCard() {
+function DonorsPostCard({ post, users }) {
   return (
     <div className="DonorsPostCard p-0 container">
       <div className="DonorsPostCard-InfoSection">
-        <div className="DonorsPostCardTitle">Ukraine</div>
+        <div className="DonorsPostCardTitle">{post.title}</div>
         <div className="DonorsPostCardUsers">Donors</div>
       </div>
       <div className="DonorsPostCard-ContentContainer">
         <div className="ContentContainer-ImageBox">
-          <img src={kids}></img>
+          <img src={l.SERVER_IMAGES_URL + post.image}></img>
         </div>
         <div className="DonorsPostCard-UsersListContainer">
           <div className="UsersListContainer-SearchSection">Search</div>
@@ -26,17 +27,22 @@ function DonorsPostCard() {
                   Donation Eur
                 </div>
               </div>
-              <div className="DonorsList-user">
-                <div className="DonorsListScrollBar-infoSection-name DonorsList-user-divide ">
-                  NAME
-                </div>
-                <div className="DonorsListScrollBar-infoSection-email DonorsList-user-divide">
-                  EMAIL
-                </div>
-                <div className="DonorsListScrollBar-infoSection-donation DonorsList-user-divide">
-                  DONATION
-                </div>
-              </div>
+              {users &&
+                users.map((u) =>
+                  u.post_id === post.id ? (
+                    <div className="DonorsList-user">
+                      <div className="DonorsListScrollBar-infoSection-name DonorsList-user-divide ">
+                        {u.name}
+                      </div>
+                      <div className="DonorsListScrollBar-infoSection-email DonorsList-user-divide">
+                        {u.email}
+                      </div>
+                      <div className="DonorsListScrollBar-infoSection-donation DonorsList-user-divide">
+                        {u.donation}
+                      </div>
+                    </div>
+                  ) : null
+                )}
             </div>
             <div className="DonorsListBorders-right"></div>
           </div>

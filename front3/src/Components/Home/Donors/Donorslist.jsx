@@ -7,6 +7,7 @@ import DonorsText from "./DonorsText";
 import { FaHeart } from "react-icons/fa";
 import NoPhoto from "../../Common/NoPhoto";
 import DonorsPostCard from "./DonorsPostCard";
+import DonorsListSearch from "./DonorsListSearch";
 
 function Donorslist() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -47,6 +48,7 @@ function Donorslist() {
           image: users[i].image,
           title: users[i].title,
           donated: users[i].donated,
+          amount: users[i].amount,
         };
 
         let found = tempData.some((element) => element.id === obj.id);
@@ -56,7 +58,6 @@ function Donorslist() {
         }
       }
 
-      // Update the state with the new data
       setNewPostData(tempData);
       setnewPostDataCopy(tempData);
     },
@@ -83,17 +84,12 @@ function Donorslist() {
         </h3>
       </div>
 
-      <Search
-        usersCopyList={usersCopyList}
-        setUsers={setUsers}
+      <DonorsListSearch
+        setUsers={setNewPostData}
+        usersCopyList={newPostDataCopy}
         sortType={"sum"}
       />
 
-      {/* <Search
-        usersCopyList={usersCopyList}
-        setUsers={setUsers}
-        sortType={"sum"}
-      /> */}
       {newPostData &&
         newPostData.map((p, i) => (
           <div key={i} className="UsersPostCardList p-0 container">
@@ -106,7 +102,7 @@ function Donorslist() {
           </div>
         ))}
 
-      <div className="userTable">
+      {/* <div className="userTable">
         <div>
           <div className="tableNames">
             <div className="col tableReference userNam">
@@ -163,7 +159,7 @@ function Donorslist() {
             </div>
           ))
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

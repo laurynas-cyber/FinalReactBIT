@@ -15,7 +15,23 @@ function DonorsPostCard({ post, users }) {
         </div>
         <div className="DonorsPostCard-UsersListContainer">
           <div className="UsersListContainer-SearchSection">
-            <strong>Donted {post.donated} eur </strong>
+            {post.amount <= post.donated ? (
+              <strong className="UserListMarkedFinish">
+                {" "}
+                Required {post.amount} eur
+              </strong>
+            ) : (
+              <div> Required {post.amount} eur</div>
+            )}
+            {/* <div
+              style={{
+                color: post.amount <= post.donated ? "#3498db" : null,
+                fontWeight: post.amount <= post.donated ? "1500" : null,
+              }}
+            ></div> */}
+            <strong className="UserListMarked">
+              Donted {post.donated} eur{" "}
+            </strong>
           </div>
           <div className="DonorsListContainer">
             <div className="DonorsListBorders-left"></div>

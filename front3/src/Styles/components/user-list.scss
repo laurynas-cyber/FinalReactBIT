@@ -141,7 +141,13 @@
         border-left: none;
         border-right: none;
         font-size: 20px;
-        color: $orange;
+
+        .UserListMarked {
+          color: $orange;
+        }
+        .UserListMarkedFinish {
+          color: $blue;
+        }
       }
     }
     .ContentContainer-ImageBox {

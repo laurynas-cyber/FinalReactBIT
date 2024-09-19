@@ -90,7 +90,15 @@ function Donorslist() {
         sortType={"sum"}
       />
 
-      {newPostData &&
+      {users === null ? (
+        <div className="row Spinner">
+          <div className="col loadingDataContainer">
+            <h4>Loading Donors</h4>
+
+            <HashLoader color="#358cc8" size={100} />
+          </div>
+        </div>
+      ) : (
         newPostData.map((p, i) => (
           <div key={i} className="UsersPostCardList p-0 container">
             <DonorsPostCard
@@ -100,66 +108,8 @@ function Donorslist() {
               users={users}
             />
           </div>
-        ))}
-
-      {/* <div className="userTable">
-        <div>
-          <div className="tableNames">
-            <div className="col tableReference userNam">
-              <strong>Name </strong>
-            </div>
-            <div className="col tableReference userEmai">
-              <strong>Email</strong>
-            </div>
-            <div className="col tableReference userRol">
-              <strong>Donated</strong>
-            </div>
-            <div className="col tableReference Action">
-              <strong>Post</strong>
-            </div>
-          </div>
-          <div className="divideRow"></div>
-        </div>
-
-        {users === null ? (
-          <div className="row Spinner">
-            <div className="col loadingDataContainer">
-              <h4>Loading Donors</h4>
-
-              <HashLoader color="#358cc8" size={100} />
-            </div>
-          </div>
-        ) : (
-          users.map((u) => (
-            <div key={u.id} className="Table">
-              <div className="tableNames">
-                <div className="col tableReference userName">{u.name}</div>
-                <div className="col tableReference userEmail">{u.email}</div>
-                <div className="col tableReference userDonation">
-                  {u.donation} eur
-                </div>
-                <div className="col tableReference Actions">
-                  <div className="TablePost">
-                    {u.title}
-                    <div className="postPictureCont">
-                      {u.image === null ? (
-                        <NoPhoto />
-                      ) : (
-                        <img
-                          alt={u.image}
-                          src={l.SERVER_IMAGES_URL + u.image}
-                          className="img-slider-img"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="divideRow"></div>
-            </div>
-          ))
-        )}
-      </div> */}
+        ))
+      )}
     </div>
   );
 }

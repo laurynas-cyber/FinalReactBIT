@@ -1,6 +1,8 @@
 import kids from "../../../assets/images/banner.jpg";
 import { Search } from "../../UserSignAndLogin/Forms/Search";
 import * as l from "../../../Constants/urls";
+import DonationPostBar from "./DonationPostBar";
+import DonorsPostBar from "./DonorsPostBar";
 
 function DonorsPostCard({ post, users }) {
   return (
@@ -12,23 +14,18 @@ function DonorsPostCard({ post, users }) {
       <div className="DonorsPostCard-ContentContainer">
         <div className="ContentContainer-ImageBox">
           <img src={l.SERVER_IMAGES_URL + post.image}></img>
+          <DonorsPostBar post={post} />
         </div>
         <div className="DonorsPostCard-UsersListContainer">
           <div className="UsersListContainer-SearchSection">
             {post.amount <= post.donated ? (
               <strong className="UserListMarkedFinish">
-                {" "}
                 Required {post.amount} eur
               </strong>
             ) : (
               <div> Required {post.amount} eur</div>
             )}
-            {/* <div
-              style={{
-                color: post.amount <= post.donated ? "#3498db" : null,
-                fontWeight: post.amount <= post.donated ? "1500" : null,
-              }}
-            ></div> */}
+
             <strong className="UserListMarked">
               Donted {post.donated} eur{" "}
             </strong>

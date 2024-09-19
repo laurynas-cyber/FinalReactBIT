@@ -15,6 +15,7 @@ function Donorslist() {
   const [users, setUsers] = useState(null);
   const [usersCopyList, setUsersCopyList] = useState(null);
 
+  console.log(users);
   useEffect(
     (_) => {
       doGet();
@@ -34,6 +35,21 @@ function Donorslist() {
     [serverGetResponse]
   );
 
+  const NewPostData = [];
+
+  for (let i = 0; i < users?.length; i++) {
+    let obj = {
+      id: users[i].post_id,
+      image: users[i].image,
+      title: users[i].title,
+    };
+    let found = NewPostData.some((element) => element.id === obj.id);
+
+    if (!found) {
+      NewPostData.push(obj);
+      console.log(NewPostData, "NewPostData");
+    }
+  }
   return (
     <div className="container contentDown p-0">
       <div className="BannerDonorsText">

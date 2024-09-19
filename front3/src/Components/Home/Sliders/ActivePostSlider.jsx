@@ -6,7 +6,12 @@ import SliderButtonsLeft from "./SliderButtonsLeft";
 import SliderButtonsRight from "./SliderButtonsRight";
 import DonationPostBar from "../Donors/DonationPostBar";
 
-export default function ActivePostSlider({ postData, setPosts,setLastDonatedId, lastDonatedId }) {
+export default function ActivePostSlider({
+  postData,
+  setPosts,
+  setLastDonatedId,
+  lastDonatedId,
+}) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const { setDonateModal } = useContext(ModalContext);
@@ -32,7 +37,7 @@ export default function ActivePostSlider({ postData, setPosts,setLastDonatedId, 
   }
 
   const NewPostData = [];
-  console.log(postData);
+
   for (let i = 0; i < postData.length; i += 3) {
     NewPostData.push(postData.slice(i, i + 3));
   }
@@ -47,6 +52,7 @@ export default function ActivePostSlider({ postData, setPosts,setLastDonatedId, 
           >
             {arr.map((p, i) => (
               <div
+                key={p.id}
                 className="ActivePostImageBox"
                 onClick={(_) =>
                   setDonateModal({
@@ -73,7 +79,11 @@ export default function ActivePostSlider({ postData, setPosts,setLastDonatedId, 
                   <IoIosArrowForward />
                 </div>
 
-                <DonationPostBar post={p} index={i} lastDonatedId={lastDonatedId} />
+                <DonationPostBar
+                  post={p}
+                  index={i}
+                  lastDonatedId={lastDonatedId}
+                />
               </div>
             ))}
           </div>

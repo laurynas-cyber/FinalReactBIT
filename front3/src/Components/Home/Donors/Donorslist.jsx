@@ -6,6 +6,7 @@ import { Search } from "../../UserSignAndLogin/Forms/Search";
 import DonorsText from "./DonorsText";
 import { FaHeart } from "react-icons/fa";
 import NoPhoto from "../../Common/NoPhoto";
+import DonorsPostCard from "./DonorsPostCard";
 
 function Donorslist() {
   const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(
@@ -67,6 +68,10 @@ function Donorslist() {
         setUsers={setUsers}
         sortType={"sum"}
       />
+
+      <div className="UsersPostCardList p-0 container">
+        <DonorsPostCard />
+      </div>
 
       <div className="userTable">
         <div>

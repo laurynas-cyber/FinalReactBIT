@@ -8,6 +8,7 @@ const fs = require("node:fs");
 const md5 = require("md5");
 const app = express();
 const port = 3006;
+require("dotenv").config();
 
 // const connection = mysql.createConnection({
 //   host: "localhost",
@@ -17,10 +18,10 @@ const port = 3006;
 // });
 
 const connection = mysql.createConnection({
-  host: "sql7.freesqldatabase.com",
-  user: "sql7741738",
-  password: "lqN6vGrfYl",
-  database: "sql7741738",
+  host: process.env.DATA_BASE_HOST,
+  user: process.env.DATA_BASE_USER,
+  password: process.env.DATA_BASE_PW,
+  database: process.env.DATA_BASE_USER,
 });
 
 connection.connect();

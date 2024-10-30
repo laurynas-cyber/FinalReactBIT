@@ -9,11 +9,18 @@ const md5 = require("md5");
 const app = express();
 const port = 3006;
 
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "recovery",
+// });
+
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "recovery",
+  host: "sql7.freesqldatabase.com",
+  user: "sql7741738",
+  password: "lqN6vGrfYl",
+  database: "sql7741738",
 });
 
 connection.connect();

@@ -35,7 +35,6 @@ function useRegister() {
     // return true; // laikinai
 
     if (Object.keys(errorsBag).length === 0) {
-      console.log(Object.keys(errorsBag));
       setErrors({});
       return true;
     } //tikrinam kokie yra key yra tam objekte. taip galima tikrinti ar jis tuscias ar ne.

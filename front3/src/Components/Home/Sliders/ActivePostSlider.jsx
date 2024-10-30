@@ -20,7 +20,7 @@ export default function ActivePostSlider({
     setImageIndex((index) => {
       if (index === NewPostData?.length - 1) return NewPostData?.length - 1;
       else {
-        console.log(imageIndex);
+     
         return index + 1;
       }
     });
@@ -30,7 +30,7 @@ export default function ActivePostSlider({
     setImageIndex((index) => {
       if (index === 0) return 0;
       else {
-        console.log(imageIndex);
+       
         return index - 1;
       }
     });

@@ -28,8 +28,8 @@ connection.connect();
 
 app.use(
   cors({
-    // origin: "http://localhost:3005",
-    origin: "http://localhost:3000",
+    origin: "https://finalreactbitter.onrender.com/",
+    // origin: "http://localhost:3000",
     credentials: true,
   })
 );

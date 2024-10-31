@@ -20,7 +20,6 @@ export default function ActivePostSlider({
     setImageIndex((index) => {
       if (index === NewPostData?.length - 1) return NewPostData?.length - 1;
       else {
-     
         return index + 1;
       }
     });
@@ -30,7 +29,6 @@ export default function ActivePostSlider({
     setImageIndex((index) => {
       if (index === 0) return 0;
       else {
-       
         return index - 1;
       }
     });
@@ -47,6 +45,7 @@ export default function ActivePostSlider({
       <div className="ActivePostSliderContainer">
         {NewPostData.map((arr, i) => (
           <div
+            key={i}
             className="PostSlider"
             style={{ translate: `${-100 * imageIndex}%` }}
           >

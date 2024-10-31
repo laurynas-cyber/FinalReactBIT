@@ -1,6 +1,9 @@
-export const SERVER_URL = "http://localhost:3006/";
+// export const SERVER_URL = "http://localhost:3006/";
+// export const SERVER_IMAGES_URL = "http://localhost:3006/img/";
+export const SERVER_URL = "https://finalreactbit.onrender.com/";
+export const SERVER_IMAGES_URL = "https://finalreactbit.onrender.com/img/";
 export const SIDE_URL = "http://localhost:3000/";
-export const SERVER_IMAGES_URL = "http://localhost:3006/img/";
+
 //Site URLs
 
 export const SITE_LOGIN = "/LogIn";
@@ -30,7 +33,7 @@ export const SERVER_POST = "post";
 export const SERVER_DELETE_POST = "admin/delete/post";
 export const SERVER_UPDATE_POST = "admin/update/post";
 export const SERVER_UPDATE_COMMENTPOST = "admin/update/commentpost";
-export const SERVER_UPDATE_BANNER = "admin/banner"
+export const SERVER_UPDATE_BANNER = "admin/banner";
 export const SERVER_HOME_POSTS = "home/posts";
 export const SERVER_EDIT_POST = "web/edit/post";
 

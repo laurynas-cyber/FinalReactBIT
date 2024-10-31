@@ -19,7 +19,7 @@ function Home() {
   const [posts, setPosts] = useState(null);
   const [lastDonatedId, setLastDonatedId] = useState(null);
   const [scroll, setScroll] = useState(false);
-  console.log(posts);
+
   useEffect(
     (_) => {
       doGet();

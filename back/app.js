@@ -28,8 +28,8 @@ connection.connect();
 
 app.use(
   cors({
-    // origin: "https://finalreactbitter.onrender.com/",
-    origin: "http://localhost:3000",
+    origin: "https://finalreactbitter.onrender.com/",
+    // origin: "http://localhost:3000",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -133,11 +133,13 @@ const checkSession = (req, _, next) => {
 };
 
 const checkUserIsAuthorized = (req, res, roles) => {
+  console.log(req.user);
   if (!req.user) {
     res
       .status(401)
       .json({
         message: {
+          console: req.user,
           type: "error",
           title: "Not authorized",
           text: `You must be logged in`,

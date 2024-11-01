@@ -2,10 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import useServerGet from "../../Hooks/useServerGet";
 import * as l from "../../../Constants/urls";
 import HashLoader from "react-spinners/HashLoader";
-import { Search } from "../../UserSignAndLogin/Forms/Search";
 import DonorsText from "./DonorsText";
 import { FaHeart } from "react-icons/fa";
-import NoPhoto from "../../Common/NoPhoto";
 import DonorsPostCard from "./DonorsPostCard";
 import DonorsListSearch from "./DonorsListSearch";
 

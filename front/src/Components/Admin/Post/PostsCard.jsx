@@ -3,7 +3,7 @@ import { ModalContext } from "../../Context/Modals";
 import * as l from "../../../Constants/urls";
 import { Link } from "react-router-dom";
 import DeclineDot from "./DeclineDot";
-import { FaCircle, FaRegCircle } from "react-icons/fa";
+import { FaRegCircle } from "react-icons/fa";
 import { FaRegCircleDot } from "react-icons/fa6";
 import useServerPut from "../../Hooks/useServerPut";
 

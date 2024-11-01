@@ -1,4 +1,4 @@
-import logo from "../../../assets/images/logo.png";
+import logo from "./logo.png";
 import { FaUser } from "react-icons/fa";
 import NavIcon from "./NavIcon";
 import NavRoutes from "./NavRoutes";

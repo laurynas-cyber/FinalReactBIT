@@ -20,7 +20,16 @@ function Nav() {
           {isFullSize ? <NavRoutes /> : <NavIcon />}
           <div className="col d-flex justify-content-center">
             <a className="navbar-brand " href="/">
-              <img src={logo} alt="recoveryLogo" width="150" height="auto" />
+              <img
+                src={logo}
+                alt="recoveryLogo"
+                width="150"
+                height="auto"
+                onError={(e) => {
+                  e.target.onerror = null; // prevents looping
+                  e.target.src = "../../../assets/images/logo.png"; // path to a fallback logo
+                }}
+              />
             </a>
           </div>
 

@@ -28,8 +28,8 @@ connection.connect();
 
 app.use(
   cors({
-    // origin: "https://finalreactbitter.onrender.com",
-    origin: "http://localhost:3000",
+    origin: "https://finalreactbitter.onrender.com",
+    // origin: "http://localhost:3000",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -749,7 +749,7 @@ app.post("/login", (req, res) => {
           maxAge: 1000 * 60 * 60 * 24,
           httpOnly: true,
           secure: true, // Use true in production (HTTPS)
-  sameSite: "None", // Required for cross-origin cookies
+          sameSite: "None", // Required for cross-origin cookies
         });
         res
           .json({

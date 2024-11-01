@@ -4,8 +4,8 @@
 
 //localhost and render server cross domain
 export const SIDE_URL = "http://localhost:3000/";
-export const SERVER_URL = "https://finalreactrec.onrender.com/";
-export const SERVER_IMAGES_URL = "https://finalreactrec.onrender.com/img/";
+export const SERVER_URL = "https://finalreactbit.onrender.com/";
+export const SERVER_IMAGES_URL = "https://finalreactbit.onrender.com/img/";
 
 //on render domain
 // export const SIDE_URL = "https://finalreactbitter.onrender.com/";

@@ -171,406 +171,418 @@ const checkUserIsAuthorized = (req, res, roles) => {
 app.use(checkSession);
 
 app.get("/admin/users", (req, res) => {
-  setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
-      return;
-    }
-    const sql = `
+  if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
+    return;
+  }
+  const sql = `
         SELECT *
         FROM users`;
 
-    connection.query(sql, (err, rows) => {
-      if (err) throw err;
-      res
-        .json({
-          users: rows,
-        })
-        .end();
-    });
-  }, 1500);
+  connection.query(sql, (err, rows) => {
+    if (err) throw err;
+    res
+      .json({
+        users: rows,
+      })
+      .end();
+  });
 });
 
 app.get("/home/donors", (req, res) => {
-  setTimeout((_) => {
-    const sql = `
+  const sql = `
     SELECT donors.*, posts.title, posts.image, posts.donated, posts.amount
     FROM donors
     JOIN posts ON donors.post_id = posts.id
   `;
 
-    connection.query(sql, (err, rows) => {
-      if (err) throw err;
-      res
-        .json({
-          users: rows,
-        })
-        .end();
-    });
-  }, 1000);
+  connection.query(sql, (err, rows) => {
+    if (err) throw err;
+    res
+      .json({
+        users: rows,
+      })
+      .end();
+  });
 });
 
 app.get("/admin/pending/posts", (req, res) => {
-  setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
-      return;
-    }
+  if (!checkUserIsAuthorized(req, res, ["admin", "editor"])) {
+    return;
+  }
 
-    const sql = `
+  const sql = `
        SELECT p.id, p.userID, p.title, p.description,p.comment, p.amount, p.image, p.confirmed, p.is_top, p.donated, u.name, u.email
         FROM posts AS p
         INNER JOIN users AS u
         ON p.userID = u.id
     `;
 
-    connection.query(sql, (err, rows) => {
-      if (err) throw err;
-      res
-        .json({
-          posts: rows,
-        })
-        .end();
-    });
-  }, 1500);
+  connection.query(sql, (err, rows) => {
+    if (err) throw err;
+    res
+      .json({
+        posts: rows,
+      })
+      .end();
+  });
 });
 
 app.get("/web/edit/post/:id", (req, res) => {
-  setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["admin", "user"])) {
-      return;
-    }
-    const { id } = req.params;
-    const sql = `
+  if (!checkUserIsAuthorized(req, res, ["admin", "user"])) {
+    return;
+  }
+  const { id } = req.params;
+  const sql = `
         SELECT *
         FROM posts
         WHERE id = ?
         `;
-    connection.query(sql, [id], (err, rows) => {
-      if (err) throw err;
-      if (!rows.length) {
-        res
-          .status(404)
-          .json({
-            message: {
-              type: "info",
-              title: "Post",
-              text: `Post was not found`,
-            },
-          })
-          .end();
-        return;
-      }
+  connection.query(sql, [id], (err, rows) => {
+    if (err) throw err;
+    if (!rows.length) {
       res
+        .status(404)
         .json({
-          post: rows[0],
+          message: {
+            type: "info",
+            title: "Post",
+            text: `Post was not found`,
+          },
         })
         .end();
-    });
-  }, 1500);
+      return;
+    }
+    res
+      .json({
+        post: rows[0],
+      })
+      .end();
+  });
 });
 
 app.get("/user/createdposts/:id", (req, res) => {
-  setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["user"])) {
-      return;
-    }
-    const { id } = req.params;
+  if (!checkUserIsAuthorized(req, res, ["user"])) {
+    return;
+  }
+  const { id } = req.params;
 
-    const sql = `
+  const sql = `
     SELECT *
     FROM posts AS p
     WHERE p.userID = ?
 `;
 
-    connection.query(sql, [id], (err, rows) => {
-      if (err) throw err;
-      res
-        .json({
-          posts: rows,
-        })
-        .end();
-    });
-  }, 1500);
+  connection.query(sql, [id], (err, rows) => {
+    if (err) throw err;
+    res
+      .json({
+        posts: rows,
+      })
+      .end();
+  });
 });
 
 app.get("/home/posts", (req, res) => {
-  setTimeout((_) => {
-    const sql = `
+  const sql = `
       SELECT p.*,
       (SELECT COUNT(*) FROM donors) AS donors_count
       FROM posts p
       WHERE confirmed = true
     `;
 
-    connection.query(sql, (err, rows) => {
-      if (err) throw err;
-      res
-        .json({
-          posts: rows,
-        })
-        .end();
-    });
-  }, 1500);
+  connection.query(sql, (err, rows) => {
+    if (err) throw err;
+    res
+      .json({
+        posts: rows,
+      })
+      .end();
+  });
 });
 
 //Padaryti kad deletintu kai nuotraukos nera
 app.delete("/admin/delete/post/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
-    let filename = null;
-    let sql = "SELECT image FROM posts WHERE id = ?";
-    connection.query(sql, [id], (err, results) => {
-      if (results[0].image) {
-        filename = results[0].image;
-        const sql = `
+  const { id } = req.params;
+  let filename = null;
+  let sql = "SELECT image FROM posts WHERE id = ?";
+  connection.query(sql, [id], (err, results) => {
+    if (results[0].image) {
+      filename = results[0].image;
+      const sql = `
                   DELETE
                   FROM posts
                   WHERE id = ?
                   `;
-        connection.query(sql, [id], (err, result) => {
-          if (err) throw err;
-          const deleted = result.affectedRows;
-          if (!deleted) {
-            res
-              .status(422)
-              .json({
-                message: {
-                  type: "info",
-                  title: "Post",
-                  text: `Post cannot be deleted`,
-                },
-              })
-              .end();
-            return;
-          }
-          if (filename) {
-            fs.unlinkSync("public/img/" + filename);
-          }
+      connection.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        const deleted = result.affectedRows;
+        if (!deleted) {
           res
+            .status(422)
             .json({
               message: {
-                type: "success",
+                type: "info",
                 title: "Post",
-                text: `Post has been deleted`,
+                text: `Post cannot be deleted`,
               },
             })
             .end();
-        });
-      }
-    });
-  }, 1500);
+          return;
+        }
+        if (filename) {
+          fs.unlinkSync("public/img/" + filename);
+        }
+        res
+          .json({
+            message: {
+              type: "success",
+              title: "Post",
+              text: `Post has been deleted`,
+            },
+          })
+          .end();
+      });
+    }
+  });
 });
 
 app.put("/admin/update/post/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
-    const { title, description, image, confirmed, comment, is_top } = req.body;
+  const { id } = req.params;
+  const { title, description, image, confirmed, comment, is_top } = req.body;
 
-    if (image) {
-      image.length > 40 && deleteImage(id);
-      const filename = image.length > 40 ? writeImage(image) : image;
-      const sql = `
+  if (image) {
+    image.length > 40 && deleteImage(id);
+    const filename = image.length > 40 ? writeImage(image) : image;
+    const sql = `
                     UPDATE posts
                     SET title = ?, description = ?, image = ?, confirmed = ?, is_top = ?, comment = NULL
                     WHERE id = ?
                     `;
-      connection.query(
-        sql,
-        [title, description, filename, confirmed, is_top, id, comment],
-        (err, result) => {
-          if (err) throw err;
-          const updated = result.affectedRows;
-          if (!updated) {
-            res
-              .status(404)
-              .json({
-                message: {
-                  type: "info",
-                  title: "Posts",
-                  text: `Post was not found`,
-                },
-              })
-              .end();
-            return;
-          }
+    connection.query(
+      sql,
+      [title, description, filename, confirmed, is_top, id, comment],
+      (err, result) => {
+        if (err) throw err;
+        const updated = result.affectedRows;
+        if (!updated) {
           res
+            .status(404)
             .json({
               message: {
-                type: "success",
+                type: "info",
                 title: "Posts",
-                text: `Post was updated`,
+                text: `Post was not found`,
               },
             })
             .end();
+          return;
         }
-      );
-    } else {
-      deleteImage(id);
-      const sql = `
+        res
+          .json({
+            message: {
+              type: "success",
+              title: "Posts",
+              text: `Post was updated`,
+            },
+          })
+          .end();
+      }
+    );
+  } else {
+    deleteImage(id);
+    const sql = `
                     UPDATE posts
                     SET title = ?, description = ?, image = NULL, confirmed = ?, is_top = ?, comment = NULL
                     WHERE id = ?
                     `;
-      connection.query(
-        sql,
-        [title, description, confirmed, is_top, id, comment],
-        (err, result) => {
-          if (err) throw err;
-          const updated = result.affectedRows;
-          if (!updated) {
-            res
-              .status(404)
-              .json({
-                message: {
-                  type: "info",
-                  title: "Posts",
-                  text: `Post was not found`,
-                },
-              })
-              .end();
-            return;
-          }
+    connection.query(
+      sql,
+      [title, description, confirmed, is_top, id, comment],
+      (err, result) => {
+        if (err) throw err;
+        const updated = result.affectedRows;
+        if (!updated) {
           res
+            .status(404)
             .json({
               message: {
-                type: "success",
+                type: "info",
                 title: "Posts",
-                text: `Post was updated`,
+                text: `Post was not found`,
               },
             })
             .end();
+          return;
         }
-      );
-    }
-  }, 1500);
+        res
+          .json({
+            message: {
+              type: "success",
+              title: "Posts",
+              text: `Post was updated`,
+            },
+          })
+          .end();
+      }
+    );
+  }
 });
 
 app.put("/admin/update/commentpost/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
-    const { comment } = req.body;
-    console.log(comment);
-    const sql = `
+  const { id } = req.params;
+  const { comment } = req.body;
+  console.log(comment);
+  const sql = `
                     UPDATE posts
                     SET comment = ?, confirmed = FALSE
                     WHERE id = ?
                     `;
-    connection.query(sql, [comment, id], (err, result) => {
-      if (err) throw err;
-      const updated = result.affectedRows;
-      if (!updated) {
-        res
-          .status(404)
-          .json({
-            message: {
-              type: "info",
-              title: "Posts",
-              text: `Post was not found`,
-            },
-          })
-          .end();
-        return;
-      }
+  connection.query(sql, [comment, id], (err, result) => {
+    if (err) throw err;
+    const updated = result.affectedRows;
+    if (!updated) {
       res
+        .status(404)
         .json({
           message: {
-            type: "success",
-            title: "Posts decline",
-            text: `Post was declined, Admin comment added`,
+            type: "info",
+            title: "Posts",
+            text: `Post was not found`,
           },
         })
         .end();
-    });
-  }, 1500);
+      return;
+    }
+    res
+      .json({
+        message: {
+          type: "success",
+          title: "Posts decline",
+          text: `Post was declined, Admin comment added`,
+        },
+      })
+      .end();
+  });
 });
 
 app.put("/admin/banner/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const sql = `UPDATE posts SET is_top = CASE WHEN id = ? THEN 1 ELSE 0 END`;
-    connection.query(sql, [id], (err, result) => {
-      if (err) throw err;
-      const updated = result.affectedRows;
-      if (!updated) {
-        res
-          .status(404)
-          .json({
-            message: {
-              type: "info",
-              title: "Posts",
-              text: `Post was not found`,
-            },
-          })
-          .end();
-        return;
-      }
+  const sql = `UPDATE posts SET is_top = CASE WHEN id = ? THEN 1 ELSE 0 END`;
+  connection.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    const updated = result.affectedRows;
+    if (!updated) {
       res
+        .status(404)
         .json({
           message: {
-            type: "success",
-            title: "Posts updated",
-            text: `Post updated to banner`,
+            type: "info",
+            title: "Posts",
+            text: `Post was not found`,
           },
         })
         .end();
-    });
-  }, 1500);
+      return;
+    }
+    res
+      .json({
+        message: {
+          type: "success",
+          title: "Posts updated",
+          text: `Post updated to banner`,
+        },
+      })
+      .end();
+  });
 });
 
 app.delete("/admin/delete/user/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const sql = `
+  const sql = `
         DELETE 
         FROM users 
         WHERE id = ? AND role != 'admin'
         `;
 
-    connection.query(sql, [id], (err, result) => {
-      if (err) throw err;
-      const deleted = result.affectedRows;
-      if (!deleted) {
-        res
-          .status(422)
-          .json({
-            message: {
-              type: "info",
-              title: "Users",
-              text: `User is admin and cannot be deleted`,
-            },
-          })
-          .end();
-        return;
-      }
+  connection.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    const deleted = result.affectedRows;
+    if (!deleted) {
       res
+        .status(422)
         .json({
           message: {
-            type: "success",
+            type: "info",
             title: "Users",
-            text: `User was deleted successfully`,
+            text: `User is admin and cannot be deleted`,
           },
         })
         .end();
-    });
-  }, 1500);
+      return;
+    }
+    res
+      .json({
+        message: {
+          type: "success",
+          title: "Users",
+          text: `User was deleted successfully`,
+        },
+      })
+      .end();
+  });
 });
 
 app.get("/admin/edit/user/:id", (req, res) => {
-  setTimeout((_) => {
-    if (!checkUserIsAuthorized(req, res, ["admin"])) {
-      return;
-    }
+  if (!checkUserIsAuthorized(req, res, ["admin"])) {
+    return;
+  }
 
-    const { id } = req.params;
-    const sql = `
+  const { id } = req.params;
+  const sql = `
         SELECT id, name, email, role
         FROM users
         WHERE id = ?
         `;
-    connection.query(sql, [id], (err, rows) => {
+  connection.query(sql, [id], (err, rows) => {
+    if (err) throw err;
+    if (!rows.length) {
+      res
+        .status(404)
+        .json({
+          message: {
+            type: "info",
+            title: "User",
+            text: `User was not found`,
+          },
+        })
+        .end();
+      return;
+    }
+    res
+      .json({
+        user: rows[0],
+      })
+      .end();
+  });
+});
+
+app.put("/admin/update/user/:id", (req, res) => {
+  const { id } = req.params;
+  const { name, email, role, password } = req.body;
+
+  if (!password) {
+    const sql = `
+            UPDATE users
+            SET name = ?, email = ?, role = ?
+            WHERE id = ?
+            `;
+
+    connection.query(sql, [name, email, role, id], (err, result) => {
       if (err) throw err;
-      if (!rows.length) {
+      const updated = result.affectedRows;
+      if (!updated) {
         res
           .status(404)
           .json({
@@ -585,26 +597,25 @@ app.get("/admin/edit/user/:id", (req, res) => {
       }
       res
         .json({
-          user: rows[0],
+          message: {
+            type: "success",
+            title: "User",
+            text: `User has been updated`,
+          },
         })
         .end();
     });
-  }, 1500);
-});
+  } else {
+    const sql = `
+                UPDATE users
+                SET name = ?, email = ?, role = ?, password = ?
+                WHERE id = ?
+                `;
 
-app.put("/admin/update/user/:id", (req, res) => {
-  setTimeout((_) => {
-    const { id } = req.params;
-    const { name, email, role, password } = req.body;
-
-    if (!password) {
-      const sql = `
-            UPDATE users
-            SET name = ?, email = ?, role = ?
-            WHERE id = ?
-            `;
-
-      connection.query(sql, [name, email, role, id], (err, result) => {
+    connection.query(
+      sql,
+      [name, email, role, md5(password), id],
+      (err, result) => {
         if (err) throw err;
         const updated = result.affectedRows;
         if (!updated) {
@@ -629,196 +640,155 @@ app.put("/admin/update/user/:id", (req, res) => {
             },
           })
           .end();
-      });
-    } else {
-      const sql = `
-                UPDATE users
-                SET name = ?, email = ?, role = ?, password = ?
-                WHERE id = ?
-                `;
-
-      connection.query(
-        sql,
-        [name, email, role, md5(password), id],
-        (err, result) => {
-          if (err) throw err;
-          const updated = result.affectedRows;
-          if (!updated) {
-            res
-              .status(404)
-              .json({
-                message: {
-                  type: "info",
-                  title: "User",
-                  text: `User was not found`,
-                },
-              })
-              .end();
-            return;
-          }
-          res
-            .json({
-              message: {
-                type: "success",
-                title: "User",
-                text: `User has been updated`,
-              },
-            })
-            .end();
-        }
-      );
-    }
-  }, 1500);
+      }
+    );
+  }
 });
 
 app.post("/logout", (req, res) => {
-  setTimeout((_) => {
-    const session = req.cookies["recovery-session"];
+  const session = req.cookies["recovery-session"];
 
-    const sql = `
+  const sql = `
               UPDATE users
               SET session = NULL
               WHERE session = ?
           `;
 
-    connection.query(sql, [session], (err, result) => {
-      if (err) throw err;
-      const logged = result.affectedRows;
-      if (!logged) {
-        res
-          .status(401)
-          .json({
-            message: {
-              type: "error",
-              title: "Logg out error",
-              text: `Login details invalid `,
-            },
-          })
-          .end();
-        return;
-      }
-      res.clearCookie("recovery-session");
+  connection.query(sql, [session], (err, result) => {
+    if (err) throw err;
+    const logged = result.affectedRows;
+    if (!logged) {
       res
+        .status(401)
         .json({
           message: {
-            type: "success",
-            title: `Logged out`,
-            text: `Operation was successfull`,
-          },
-        })
-        .end();
-    });
-  }, 1500);
-});
-
-app.post("/login", (req, res) => {
-  setTimeout((_) => {
-    const { email, password } = req.body;
-    const session = md5(uuidv4());
-
-    const sql = `
-            UPDATE users
-            SET session = ?
-            WHERE email = ? AND password = ?
-        `;
-
-    connection.query(sql, [session, email, md5(password)], (err, result) => {
-      if (err) throw err;
-      const logged = result.affectedRows;
-      if (!logged) {
-        res
-          .status(401)
-          .json({
-            message: {
-              type: "error",
-              title: "Login fail",
-              text: `Invalid login data`,
-            },
-          })
-          .end();
-        return;
-      }
-      const sql = `
-            SELECT id, name, email, role
-            FROM users
-            WHERE email = ? AND password = ?
-        `;
-      connection.query(sql, [email, md5(password)], (err, rows) => {
-        if (err) throw err;
-        res.cookie("recovery-session", session, {
-          maxAge: 1000 * 60 * 60 * 24,
-          httpOnly: true,
-          secure: true, // Use true in production (HTTPS)
-          sameSite: "None", // Required for cross-origin cookies
-        });
-        res
-          .json({
-            message: {
-              type: "success",
-              title: `Hello, ${rows?.[0]?.name}!`,
-              text: `Login was successfull`,
-            },
-            session,
-            user: rows?.[0],
-          })
-          .end();
-      });
-    });
-  }, 1500);
-});
-
-app.post("/register", (req, res) => {
-  setTimeout((_) => {
-    const { name, email, password } = req.body;
-
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      res
-        .status(422)
-        .json({
-          message: "There are errors in the form you are sending",
-          errorsBag: {
-            email: "Wrong email format",
+            type: "error",
+            title: "Logg out error",
+            text: `Login details invalid `,
           },
         })
         .end();
       return;
     }
+    res.clearCookie("recovery-session");
+    res
+      .json({
+        message: {
+          type: "success",
+          title: `Logged out`,
+          text: `Operation was successfull`,
+        },
+      })
+      .end();
+  });
+});
 
-    const sql = `SELECT email FROM users WHERE email = ? `;
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  const session = md5(uuidv4());
 
-    connection.query(sql, [email], (err, rows) => {
+  const sql = `
+            UPDATE users
+            SET session = ?
+            WHERE email = ? AND password = ?
+        `;
+
+  connection.query(sql, [session, email, md5(password)], (err, result) => {
+    if (err) throw err;
+    const logged = result.affectedRows;
+    if (!logged) {
+      res
+        .status(401)
+        .json({
+          message: {
+            type: "error",
+            title: "Login fail",
+            text: `Invalid login data`,
+          },
+        })
+        .end();
+      return;
+    }
+    const sql = `
+            SELECT id, name, email, role
+            FROM users
+            WHERE email = ? AND password = ?
+        `;
+    connection.query(sql, [email, md5(password)], (err, rows) => {
       if (err) throw err;
-      if (rows.length) {
-        res
-          .status(422)
-          .json({
-            message: "There are errors in the form you are sending",
-            errorsBag: {
-              email: "This email already exist",
-            },
-          })
-          .end();
-      } else {
-        const sql = `
+      res.cookie("recovery-session", session, {
+        maxAge: 1000 * 60 * 60 * 24,
+        httpOnly: true,
+        secure: true, // Use true in production (HTTPS)
+        sameSite: "None", // Required for cross-origin cookies
+      });
+      res
+        .json({
+          message: {
+            type: "success",
+            title: `Hello, ${rows?.[0]?.name}!`,
+            text: `Login was successfull`,
+          },
+          session,
+          user: rows?.[0],
+        })
+        .end();
+    });
+  });
+});
+
+app.post("/register", (req, res) => {
+  // setTimeout((_) => {
+  const { name, email, password } = req.body;
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    res
+      .status(422)
+      .json({
+        message: "There are errors in the form you are sending",
+        errorsBag: {
+          email: "Wrong email format",
+        },
+      })
+      .end();
+    return;
+  }
+
+  const sql = `SELECT email FROM users WHERE email = ? `;
+
+  connection.query(sql, [email], (err, rows) => {
+    if (err) throw err;
+    if (rows.length) {
+      res
+        .status(422)
+        .json({
+          message: "There are errors in the form you are sending",
+          errorsBag: {
+            email: "This email already exist",
+          },
+        })
+        .end();
+    } else {
+      const sql = `
             INSERT INTO users (name, email, password)
             VALUES ( ?, ?, ? )
             `;
-        connection.query(sql, [name, email, md5(password)], (err) => {
-          if (err) throw err;
-          res
-            .status(201)
-            .json({
-              message: {
-                type: "success",
-                title: "Hello!",
-                text: `We are happy thay you joined, ${name}`,
-              },
-            })
-            .end();
-        });
-      }
-    });
-  }, 1500);
+      connection.query(sql, [name, email, md5(password)], (err) => {
+        if (err) throw err;
+        res
+          .status(201)
+          .json({
+            message: {
+              type: "success",
+              title: "Hello!",
+              text: `We are happy thay you joined, ${name}`,
+            },
+          })
+          .end();
+      });
+    }
+  });
+  // }, 1500);
 });
 
 // app.post("/donate", (req, res) => {
@@ -845,113 +815,109 @@ app.post("/register", (req, res) => {
 // });
 
 app.post("/donate", (req, res) => {
-  setTimeout((_) => {
-    const { name, email, donation, post_id } = req.body;
+  const { name, email, donation, post_id } = req.body;
 
-    // SQL for inserting into donors
-    const insertDonorSql = `
+  // SQL for inserting into donors
+  const insertDonorSql = `
       INSERT INTO donors(name, email, donation, post_id)
       VALUES (?, ?, ?, ?)
     `;
 
-    // SQL for updating the donated amount in posts
-    const updatePostSql = `
+  // SQL for updating the donated amount in posts
+  const updatePostSql = `
       UPDATE posts
       SET donated = donated + ?
       WHERE id = ?
     `;
 
-    // Begin transaction
-    connection.beginTransaction((err) => {
-      if (err) {
-        res.status(500).json({ error: "Transaction error" }).end();
-        throw err;
-      }
+  // Begin transaction
+  connection.beginTransaction((err) => {
+    if (err) {
+      res.status(500).json({ error: "Transaction error" }).end();
+      throw err;
+    }
 
-      // First, insert into donors
-      connection.query(
-        insertDonorSql,
-        [name, email, donation, post_id],
-        (err) => {
+    // First, insert into donors
+    connection.query(
+      insertDonorSql,
+      [name, email, donation, post_id],
+      (err) => {
+        if (err) {
+          return connection.rollback(() => {
+            res
+              .status(500)
+              .json({ error: "Error inserting into donors" })
+              .end();
+            throw err;
+          });
+        }
+
+        // After successful insert, update the posts table
+        connection.query(updatePostSql, [donation, post_id], (err) => {
           if (err) {
             return connection.rollback(() => {
               res
                 .status(500)
-                .json({ error: "Error inserting into donors" })
+                .json({ error: "Error updating posts table" })
                 .end();
               throw err;
             });
           }
 
-          // After successful insert, update the posts table
-          connection.query(updatePostSql, [donation, post_id], (err) => {
+          // Commit transaction if both queries succeed
+          connection.commit((err) => {
             if (err) {
               return connection.rollback(() => {
                 res
                   .status(500)
-                  .json({ error: "Error updating posts table" })
+                  .json({ error: "Transaction commit error" })
                   .end();
                 throw err;
               });
             }
 
-            // Commit transaction if both queries succeed
-            connection.commit((err) => {
-              if (err) {
-                return connection.rollback(() => {
-                  res
-                    .status(500)
-                    .json({ error: "Transaction commit error" })
-                    .end();
-                  throw err;
-                });
-              }
-
-              // Send success response
-              res
-                .status(201)
-                .json({
-                  message: {
-                    type: "success",
-                    title: "Successful donation",
-                    text: `Thank you for your kindness`,
-                  },
-                })
-                .end();
-            });
+            // Send success response
+            res
+              .status(201)
+              .json({
+                message: {
+                  type: "success",
+                  title: "Successful donation",
+                  text: `Thank you for your kindness`,
+                },
+              })
+              .end();
           });
-        }
-      );
-    });
-  }, 1500);
+        });
+      }
+    );
+  });
 });
 
 app.post("/post", (req, res) => {
-  setTimeout((_) => {
-    const { title, description, amount, image, userID } = req.body;
-    const filename = writeImage(image);
-    const sql = `
+  const { title, description, amount, image, userID } = req.body;
+  const filename = writeImage(image);
+  const sql = `
             INSERT INTO posts (title, description, amount, image, userID)
             VALUES ( ?, ?, ?, ?, ? )
             `;
-    connection.query(
-      sql,
-      [title, description, amount, filename, userID],
-      (err) => {
-        if (err) throw err;
-        res
-          .status(201)
-          .json({
-            message: {
-              type: "success",
-              title: "Successful post",
-              text: `Your post is created, waiting for confirmation`,
-            },
-          })
-          .end();
-      }
-    );
-  }, 1500);
+  connection.query(
+    sql,
+    [title, description, amount, filename, userID],
+    (err) => {
+      if (err) throw err;
+      res
+        .status(201)
+        .json({
+          message: {
+            type: "success",
+            title: "Successful post",
+            text: `Your post is created, waiting for confirmation`,
+          },
+        })
+        .end();
+    }
+  );
 });
 
 app.listen(port, (_) => {
